@@ -68,7 +68,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .strip,.lead{margin:0;position:relative;overflow:hidden;border-radius:calc(var(--r-xl) - 10px);background:#cfc4b0}
 .strip :is(img,video),.lead img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .strip:nth-child(1){margin:9vh 0 0} .strip:nth-child(2){margin:0 0 12vh} .strip:nth-child(4){margin:15vh 0 3vh}
-.strip:nth-child(1) img{object-position:50% 30%} .strip:nth-child(2) img{object-position:38% 62%}
+.strip:nth-child(1) img{object-position:50% 30%} .strip:nth-child(2) img{object-position:100% 22%;transform:scale(1.45);transform-origin:88% 22%}
 .lead img{object-position:50% 38%}
 .lead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,54,48,0) 45%,rgba(24,54,48,.55));pointer-events:none}
 .pills{position:absolute;left:42px;top:40px;z-index:2;display:flex;gap:8px}
@@ -261,7 +261,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
   <section class="hero" aria-labelledby="hero-h">
     <div class="stage">
       <figure class="strip"><img src="assets/img/geo-bride-700.webp" alt="A bride in a white gown seated in a vintage car" width="700" height="933"></figure>
-      <figure class="strip"><img src="assets/img/geo-poster-700.webp" alt="An editorial portrait poster in warm brown, a woman in a cream suit" width="700" height="875"></figure>
+      <figure class="strip"><img src="assets/img/geo-vision-600.webp" alt="Poster: a face seen through torn paper, Your Vision, Our Creativity" width="600" height="903"></figure>
       <figure class="lead" id="lead">
         <img src="assets/img/geo-frame.webp" alt="A smiling woman framing the camera with her fingers" width="1024" height="1126" fetchpriority="high">
         <div class="pills" aria-hidden="true"><span>PHOTO</span><span>FILM</span><span>LIVE</span></div>

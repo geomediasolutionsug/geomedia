@@ -99,15 +99,36 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .link{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;padding-bottom:3px;border-bottom:1px solid var(--gold);white-space:nowrap}
 
 /* services: pictures that fade into the page, one line each */
-.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 28px}
-.svc{display:flex;flex-direction:column;text-align:left}
-.svc .media{position:relative;aspect-ratio:4/3;border-radius:22px 22px 0 0;overflow:hidden;background:var(--panel);
-  -webkit-mask-image:linear-gradient(180deg,#000 38%,rgba(0,0,0,.4) 66%,transparent 92%);mask-image:linear-gradient(180deg,#000 38%,rgba(0,0,0,.4) 66%,transparent 92%)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,22px)}
+/* services: small, tall, tactile cards on one soft board, in the manner of the mood board's soft UI */
+.svc-board{max-width:1040px;margin:0 auto;padding:clamp(14px,2vw,26px);border-radius:var(--r-xl);background:var(--panel);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 40px 80px -50px rgba(24,54,48,.45);transition:background-color .5s}
+.svc{--sf:#FBF8F2;--sf2:#F1EBDF;--tx:var(--green);--tx2:rgba(24,54,48,.66);--pill-bg:var(--green);--pill-tx:#F5EFE4;
+  position:relative;display:flex;flex-direction:column;text-align:left;aspect-ratio:3/4.3;padding:12px 12px 16px;border-radius:26px;overflow:hidden;color:var(--tx);
+  background:linear-gradient(165deg,var(--sf),var(--sf2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 1px 2px rgba(24,54,48,.06),0 18px 34px -20px rgba(24,54,48,.38);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.svc .media{position:relative;flex:none;aspect-ratio:16/11;border-radius:18px;overflow:hidden;background:rgba(0,0,0,.06)}
 .svc .media :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
-.svc .body{margin-top:-30px;position:relative;display:grid;gap:8px;padding:0 4px}
-.svc h3{margin:0;font:400 clamp(24px,2.2vw,30px)/1.05 var(--serif);letter-spacing:-.02em;transition:color .3s}
-.svc p{margin:0;color:var(--ink-70);font-size:14px;max-width:34ch}
-@media (hover:hover){ .svc:hover .media :is(img,video){transform:scale(1.05)} .svc:hover h3{font-style:italic} }
+.svc .body{display:flex;flex-direction:column;gap:8px;flex:1;padding:16px 6px 0}
+.svc h3{margin:0;font:400 clamp(21px,1.8vw,25px)/1.05 var(--serif);letter-spacing:-.02em}
+.svc p{margin:0;color:var(--tx2);font-size:13px;line-height:1.5}
+.svc .pill{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:99px;background:var(--pill-bg);color:var(--pill-tx);font:500 12.5px var(--sans);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 14px -8px rgba(0,0,0,.45)}
+.svc .pill svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;transition:transform .3s var(--ease)}
+/* surfaces: soft white, orange glow, green silk, peach */
+.svc.s-orange{--sf:#F7C98A;--sf2:#EC9921;--tx:#2A1C0C;--tx2:rgba(42,28,12,.7);--pill-bg:#FFFFFF;--pill-tx:var(--green)}
+.svc.s-green{--sf:#1F5A48;--sf2:#0E3A2E;--tx:#F3EDE2;--tx2:rgba(243,237,226,.72);--pill-bg:#F5EFE4;--pill-tx:var(--green)}
+.svc.s-peach{--sf:#FBE6D0;--sf2:#F2C49C;--tx:var(--green);--tx2:rgba(24,54,48,.7)}
+.svc.s-orange::after,.svc.s-green::after{content:"";position:absolute;inset:auto -30% -30% -10%;height:70%;pointer-events:none;border-radius:50%;
+  background:radial-gradient(60% 50% at 60% 40%,rgba(255,255,255,.28),transparent 70%);transform:rotate(-12deg)}
+.svc.s-green::after{background:radial-gradient(55% 40% at 60% 45%,rgba(120,230,190,.28),transparent 70%)}
+:root.room-dark .svc:not(.s-orange):not(.s-green):not(.s-peach){--sf:#24493F;--sf2:#1B3C33;--tx:#EFE7D8;--tx2:rgba(239,231,216,.7);--pill-bg:#F5EFE4;--pill-tx:var(--green)}
+:root.room-dark .svc-board{box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -50px rgba(0,0,0,.6)}
+@media (hover:hover){
+  .svc:hover{transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 30px 50px -26px rgba(24,54,48,.5)}
+  .svc:hover .media :is(img,video){transform:scale(1.05)} .svc:hover .pill svg{transform:translateX(3px)}
+}
 
 /* work: a bento of the proof */
 .work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(180px,17vw,250px);gap:14px;grid-template-areas:"a a b c" "a a b d" "e e f f"}
@@ -203,7 +224,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
   .strip,.strip:nth-child(1),.strip:nth-child(2),.strip:nth-child(4){grid-row:2;margin:0}
   .hero h1{left:24px;right:24px;bottom:auto;top:calc(8px + (100vw - 2*var(--pad) - 16px) * 1.25 - 1.45em);font-size:clamp(44px,13.5vw,92px)}
   .hero .book{position:relative;grid-column:1/-1;justify-self:start;right:auto;top:auto;margin:6px 4px 4px}
-  .svc-grid{grid-template-columns:1fr 1fr;gap:40px 16px}
+  .svc-grid{grid-template-columns:1fr 1fr;gap:14px}
   .work-grid{grid-template-columns:1fr 1fr;grid-auto-rows:190px;grid-template-areas:"a a" "a a" "b c" "d d" "e e" "f f"}
   .quotes{grid-template-columns:1fr}
   .sec-head{flex-direction:column;align-items:flex-start;gap:16px}
@@ -211,7 +232,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
 }
 @media (max-width:560px){
   .lights .lbl{display:none} .nav{gap:12px;padding-left:14px} .logo .name{display:none} .right .pillbtn{padding:0 14px}
-  .svc-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr 1fr;gap:10px} .svc{aspect-ratio:auto;min-height:300px;padding:8px 8px 12px;border-radius:20px} .svc .body{padding:12px 4px 0} .svc p{font-size:12px} .svc .pill{height:30px;padding:0 12px;font-size:11.5px}
   .pills span{padding:7px 10px;font-size:9.5px}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} html{scroll-behavior:auto} .rise{opacity:1;transform:none} }
@@ -248,7 +269,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
   <section class="sec" id="services" aria-labelledby="svc-h">
     <div class="wrap">
       <div class="sec-head rise"><div><p class="mono">What we do</p><h2 id="svc-h">What people <em>actually</em> buy</h2></div></div>
-      <div class="svc-grid" id="svcGrid"></div>
+      <div class="svc-board rise"><div class="svc-grid" id="svcGrid"></div></div>
     </div>
   </section>
 
@@ -335,8 +356,9 @@ const ITEMS = [
 const svcGrid = document.getElementById('svcGrid');
 SERVICES.forEach((s, n) => {
   const it = ITEMS.find(i => i.s === s.key);
-  const b = document.createElement('button'); b.type = 'button'; b.className = 'svc rise'; b.style.setProperty('--d', (n % 3) * 70 + 'ms');
-  b.innerHTML = `<div class="media">${media(it)}</div><div class="body"><h3>${s.name}</h3><p>${s.lede}</p></div>`;
+  const surf = ['', 's-orange', 's-green', 's-green', '', 's-peach'][n];   // a checker of soft white, orange, green silk and peach
+  const b = document.createElement('button'); b.type = 'button'; b.className = `svc ${surf}`;
+  b.innerHTML = `<div class="media">${media(it)}</div><div class="body"><h3>${s.name}</h3><p>${s.lede}</p><span class="pill">See the work<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>`;
   b.onclick = () => openViewer(ITEMS.indexOf(it));
   svcGrid.append(b);
 });

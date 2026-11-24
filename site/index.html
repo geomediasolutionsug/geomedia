@@ -13,7 +13,7 @@
 <meta property="og:image" content="share.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..400&family=Montserrat:wght@400..600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&family=Outfit:wght@300..700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/geo-frame.webp">
 <style>
 /* ---------- tokens: the palette card (deep green, warm cream, soft gold) and the logo's orange, used once ---------- */
@@ -21,7 +21,7 @@
   --green:#183630; --green-2:#21463E; --cream:#E3DAC9; --paper:#EFE9DE; --gold:#E5C690; --orange:#EC9921;
   --bg:var(--paper); --panel:var(--cream); --ink:var(--green); --ink-70:rgba(24,54,48,.72); --ink-45:rgba(24,54,48,.45); --line:rgba(24,54,48,.14);
   --pill:#FFFFFF; --btn:var(--green); --btn-ink:var(--paper);
-  --serif:"Fraunces", Georgia, serif; --sans:"Montserrat", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
+  --serif:"Plus Jakarta Sans", system-ui, sans-serif; --sans:"Outfit", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
   --ease:cubic-bezier(.22,1,.36,1); --pad:clamp(16px, 2.2vw, 32px); --r-xl:clamp(22px, 2.6vw, 38px);
   color-scheme:light;
 }
@@ -236,6 +236,14 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
   .pills span{padding:7px 10px;font-size:9.5px}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} html{scroll-behavior:auto} .rise{opacity:1;transform:none} }
+/* type in the manner of the reference agency: a bold geometric display (Gilroy-like) over a round, friendly text face (Lufga-like) */
+.hero h1,.sec-head h2,.close h2,.svc h3,.tile b,.quote blockquote,.viewer h3,.note h3{font-weight:700!important;letter-spacing:-.035em!important;font-variation-settings:normal!important}
+.hero h1{font-weight:800!important;letter-spacing:-.045em!important;line-height:.95!important}
+.hero h1{font-size:clamp(46px,7vw,108px)!important;white-space:nowrap}
+@media (max-width:900px){ .hero h1{font-size:min(10.6vw,72px)!important} }
+.note .num{font-weight:800!important;font-style:normal!important;font-variation-settings:normal!important}
+.quote blockquote{font-weight:600!important;letter-spacing:-.02em!important}
+.sec-head h2 em,.hero h1 em,.close h2 em{font-weight:700}
 </style>
 </head>
 <body>

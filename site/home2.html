@@ -10,7 +10,7 @@
 <script>/* the theme follows the Lights switch and is remembered across pages */try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&family=Outfit:wght@300..700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
 <!-- Structure adapted from the MotionSites "curved gallery" pattern; all content, colours and pictures are Geo Media's
      (the photographs are licensed stand-ins until the team's own work replaces them, see credits.html). -->
@@ -24,7 +24,7 @@
   --glass-shadow:0 12px 32px -10px rgba(19,55,44,.28),0 2px 6px rgba(19,55,44,.06);
   --glass-blur:blur(22px) saturate(170%);
   --spring:cubic-bezier(.22,1,.36,1);
-  --sans:"Montserrat", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
+  --sans:"Outfit", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
 }
 @media (max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px){ :root{ --u:1px; --w:1px; } }
 *{box-sizing:border-box}
@@ -379,6 +379,9 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
   .svc-card .media{aspect-ratio:16/10} .svc-card .body{margin-top:-24px}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+/* type in the manner of the reference agency: bold geometric display over a round text face */
+.statement,.sec-head h2,.svc-intro h2,.end-sec h2,.svc-card h3,.work-tile .cap b,.ptitle,.band h2,#list h2{font-family:"Plus Jakarta Sans", system-ui, sans-serif;font-weight:700;letter-spacing:-.035em}
+.statement .swap{font-weight:600}
 </style>
 </head>
 <body>
@@ -720,8 +723,8 @@ const paintNames = () => SERVICES.forEach(s => {
   const fs = 220, pad = 70;   // room round the letters for the glow
   const paint = (style, blur) => {
     const c = document.createElement('canvas'), g = c.getContext('2d');
-    g.font = `500 ${fs}px "Montserrat", Arial, sans-serif`; c.width = Math.ceil(g.measureText(word).width) + 2*pad; c.height = Math.round(fs * 1.05) + 2*pad;
-    g.font = `500 ${fs}px "Montserrat", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = style;
+    g.font = `500 ${fs}px "Outfit", Arial, sans-serif`; c.width = Math.ceil(g.measureText(word).width) + 2*pad; c.height = Math.round(fs * 1.05) + 2*pad;
+    g.font = `500 ${fs}px "Outfit", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = style;
     if (blur){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = blur; g.fillText(word, pad, c.height/2 + fs*.04); g.shadowBlur = blur/3; }
     g.fillText(word, pad, c.height/2 + fs*.04);
     const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = maxAniso;
@@ -739,7 +742,7 @@ const paintNames = () => SERVICES.forEach(s => {
   glowName.position.y = m.position.y; scene.add(glowName);
   darkShown = -1;
 });
-document.fonts.load('500 220px "Montserrat"').catch(() => {}).finally(paintNames);   // wait for the face, then paint
+document.fonts.load('500 220px "Outfit"').catch(() => {}).finally(paintNames);   // wait for the face, then paint
 
 // 3. a deep green skirting round the outer wall, and one orange line under the frames
 const skirt = new THREE.Mesh(new THREE.CylinderGeometry(R - .02, R - .02, .24, 160, 1, true), new THREE.MeshBasicMaterial({ color:0x13372C, side:THREE.BackSide }));
@@ -851,11 +854,11 @@ function panelTex(s, n, glow = false){
   g.fillStyle = glow ? '#FFF0D2' : '#13372C';
   if (glow){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = 30; }
   g.font = '400 34px "DM Mono"'; g.globalAlpha = .75; g.fillText(`${String(n+1).padStart(2,'0')} / ${String(SERVICES.length).padStart(2,'0')}`, 40, 70); g.globalAlpha = 1;
-  g.font = '500 112px "Montserrat"';
+  g.font = '500 112px "Outfit"';
   const words = s.name.toUpperCase().split(' '); let line = '', y = 200;
   for (const w of words){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 940 && line){ g.fillText(line, 36, y); y += 112; line = w; } else line = t; }
   g.fillText(line, 36, y);
-  g.font = '400 38px "Montserrat"'; g.globalAlpha = .8;
+  g.font = '400 38px "Outfit"'; g.globalAlpha = .8;
   const lw = s.lede.split(' '); line = ''; y += 90;
   for (const w of lw){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 900 && line){ g.fillText(line, 40, y); y += 52; line = w; } else line = t; }
   g.fillText(line, 40, y);
@@ -867,8 +870,8 @@ function panelTex(s, n, glow = false){
 function labelTex(it){
   const c = document.createElement('canvas'); c.width = 640; c.height = 260; const g = c.getContext('2d');
   g.fillStyle = '#ffffff';   // tinted by the material: green with the lights on, pale with them off
-  g.font = '500 56px "Montserrat"'; g.fillText(it.svc, 30, 82);
-  g.font = 'italic 400 50px "Montserrat"'; g.fillText(it.title, 30, 150);
+  g.font = '500 56px "Outfit"'; g.fillText(it.svc, 30, 82);
+  g.font = 'italic 400 50px "Outfit"'; g.fillText(it.title, 30, 150);
   g.globalAlpha = .7; g.font = '400 30px "DM Mono"'; g.fillText(it.place.toUpperCase(), 30, 215);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
 }

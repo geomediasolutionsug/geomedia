@@ -91,6 +91,64 @@ img,video{display:block;max-width:100%}
 .t-photo{padding:0;min-height:250px} .t-photo img,.t-photo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .t-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(24,62,49,.55))}
 .t-photo span{position:absolute;left:22px;bottom:18px;z-index:1;font-weight:600;font-size:15px;color:#fff}
+/* shared section heading */
+.shead{max-width:1180px;margin:0 auto 36px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.shead .k{margin:0 0 12px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--peach1)}
+.shead h2{margin:0;font-weight:600;font-size:clamp(32px,3.6vw,52px);line-height:1.05;letter-spacing:-.02em}
+
+/* ---------- about: a warm tan room ---------- */
+.about{padding:96px max(20px,6vw);background:linear-gradient(180deg,#F1E2CB,#E6CFAE);color:#3B2416}
+.about .in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,6vw,90px);align-items:center}
+.stack{position:relative;height:clamp(380px,42vw,540px)}
+.stack figure{position:absolute;margin:0;overflow:hidden;border-radius:28px;box-shadow:0 30px 50px -26px rgba(59,36,22,.55)}
+.stack figure img{width:100%;height:100%;object-fit:cover}
+.stack figure:nth-child(1){left:0;top:0;width:62%;height:82%;transform:rotate(-4deg)}
+.stack figure:nth-child(2){right:0;bottom:0;width:52%;height:62%;transform:rotate(5deg);border:8px solid #F3E6D2}
+.stack .seal{position:absolute;left:52%;top:6%;z-index:2;width:110px;height:110px;border-radius:50%;display:grid;place-items:center;text-align:center;padding:14px;
+  background:linear-gradient(160deg,var(--g1),var(--g3));color:var(--cream);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1.35;box-shadow:0 16px 30px -14px rgba(0,0,0,.55)}
+.about .k{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#9A6646}
+.about h2{margin:0;font-weight:600;font-size:clamp(34px,3.8vw,56px);line-height:1.04;letter-spacing:-.02em;color:#2E1C11}
+.about p{margin:20px 0 0;max-width:46ch;font-size:16px;line-height:1.75;color:rgba(59,36,22,.78)}
+.vals{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 34px}
+.vals span{padding:10px 16px;border-radius:99px;background:rgba(255,255,255,.55);border:1px solid rgba(154,102,70,.25);font-size:13px;font-weight:600;color:#5B3424}
+.btn--dark{color:var(--cream);background:linear-gradient(180deg,#2F6E5A,var(--g3));box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 22px -10px rgba(24,62,49,.7)}
+
+/* ---------- featured: portrait cards, left to right ---------- */
+.featured{padding:96px 0 90px;background:radial-gradient(90% 120% at 50% 0%,var(--g2),var(--g4) 70%)}
+.featured .shead{padding:0 max(20px,6vw);max-width:none}
+.navbtns{display:flex;gap:10px}
+.navbtns button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(243,226,198,.3);background:rgba(255,255,255,.06);color:var(--cream);display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s}
+.navbtns button:hover{background:rgba(255,255,255,.14)} .navbtns button:active{transform:scale(.94)}
+.navbtns svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+.reel{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(20px,6vw);padding:6px max(20px,6vw) 24px;scrollbar-width:none;overscroll-behavior-x:contain}
+.reel::-webkit-scrollbar{display:none}
+.pcard{position:relative;flex:0 0 clamp(220px,21vw,300px);aspect-ratio:3/4.4;border-radius:28px;overflow:hidden;scroll-snap-align:start;isolation:isolate;color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 26px 44px -24px rgba(0,0,0,.65);transition:transform .45s var(--ease)}
+.pcard :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
+.pcard::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(24,62,49,0) 45%,rgba(24,62,49,.88))}
+.pcard .tag{position:absolute;left:14px;top:14px;padding:7px 12px;border-radius:99px;background:rgba(243,226,198,.92);color:#3B2416;font-size:11px;font-weight:600;letter-spacing:.06em}
+.pcard .cap{position:absolute;left:18px;right:18px;bottom:18px}
+.pcard b{display:block;font-weight:600;font-size:18px;line-height:1.2}
+.pcard span.pl{display:block;margin-top:4px;font-size:12.5px;color:rgba(243,226,198,.8)}
+@media (hover:hover){ .pcard:hover{transform:translateY(-6px)} .pcard:hover :is(img,video){transform:scale(1.06)} }
+
+/* ---------- voices ---------- */
+.voices{padding:90px max(20px,6vw);background:var(--g4)}
+.qgrid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.q{margin:0;padding:30px 28px;border-radius:28px;display:flex;flex-direction:column;gap:26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 40px -24px rgba(0,0,0,.6)}
+.q:nth-child(1){background:linear-gradient(160deg,#8C5A3E,#6E412B)} .q:nth-child(2){background:linear-gradient(160deg,#2F6E5A,#1F5444)} .q:nth-child(3){background:linear-gradient(160deg,#B07A55,#8E5B3D)}
+.q blockquote{margin:0;font-size:18px;line-height:1.55;font-weight:500;color:var(--cream)}
+.q blockquote::before{content:"\201C";display:block;font-size:56px;line-height:.6;color:var(--peach1);margin-bottom:10px}
+.q figcaption{margin-top:auto;padding-top:16px;border-top:1px solid rgba(243,226,198,.2);font-size:12.5px;color:rgba(243,226,198,.75)}
+
+/* ---------- close ---------- */
+.cta{padding:20px max(20px,6vw) 90px;background:var(--g4)}
+.cta .in{max-width:1180px;margin:0 auto;position:relative;overflow:hidden;border-radius:34px;padding:clamp(48px,7vw,90px) clamp(24px,6vw,80px);display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;
+  background:linear-gradient(135deg,#ECD4B4,#D7B48C);color:#3B2416;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 30px 60px -30px rgba(0,0,0,.6)}
+.cta .in::after{content:"";position:absolute;right:-6%;top:-40%;width:42%;height:180%;background:linear-gradient(160deg,var(--b1),var(--b2));transform:rotate(14deg);opacity:.9}
+.cta h2{position:relative;z-index:1;margin:0;max-width:18ch;font-weight:600;font-size:clamp(30px,3.4vw,48px);line-height:1.08;letter-spacing:-.02em}
+.cta .btn{position:relative;z-index:1}
+
 .foot{padding:38px 20px 46px;text-align:center;background:var(--g4);font-size:13px;color:rgba(243,226,198,.7)}
 .foot nav{display:flex;justify-content:center;gap:20px;margin-top:10px;flex-wrap:wrap} .foot a:hover{color:var(--cream)}
 
@@ -105,12 +163,17 @@ img,video{display:block;max-width:100%}
   .collage{height:420px}
   .panel{grid-template-columns:1fr 1fr} .feat:nth-child(3)::before{display:none}
   .grid{grid-template-columns:1fr 1fr}
+  .about .in{grid-template-columns:1fr} .qgrid{grid-template-columns:1fr}
+  .shead{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:620px){
   .links .hl{display:none} .logo .name{display:none} .nav{gap:12px}
   .collage{height:340px}
   .panel{grid-template-columns:1fr} .feat + .feat::before{left:18%;right:18%;top:0;bottom:auto;width:auto;height:1px;background:linear-gradient(90deg,transparent,rgba(243,226,198,.22),transparent)}
   .grid{grid-template-columns:1fr}
+  .stack{height:360px} .stack .seal{width:92px;height:92px;font-size:10px}
+  .pcard{flex-basis:72vw}
+  .cta .in::after{display:none}
 }
 @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
 </style>
@@ -169,11 +232,69 @@ img,video{display:block;max-width:100%}
       <a class="tile t-tan" href="studio.html#services"><span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M5 12h14M5 16h9"/></svg></span><h3>Web &amp; graphic design</h3><p>Consistency looks expensive. One look across page, poster and film.</p></a>
     </div>
   </section>
+
+  <section class="about" aria-labelledby="about-h">
+    <div class="in">
+      <div class="stack">
+        <figure><img src="assets/img/geo-poster-700.webp" alt="An editorial portrait poster in warm brown" loading="lazy" width="700" height="875"></figure>
+        <figure><img src="assets/img/geo-bride-700.webp" alt="A bride in a vintage car" loading="lazy" width="700" height="933"></figure>
+        <div class="seal">One crew<br>Kampala</div>
+      </div>
+      <div>
+        <p class="k">About Geo Media</p>
+        <h2 id="about-h">One crew. Every frame.</h2>
+        <p>Most good organisations are badly photographed. We plan, shoot, stream and design under one roof, so nothing gets lost between suppliers and every piece looks like it came from the same idea.</p>
+        <div class="vals"><span>Planned first</span><span>Consent always</span><span>Backup kit, always</span><span>Delivered that week</span></div>
+        <a class="btn btn--big btn--dark" href="studio.html">Meet the studio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured" aria-labelledby="feat-h">
+    <div class="shead">
+      <div><p class="k">Featured work</p><h2 id="feat-h">Proof, not promises</h2></div>
+      <div class="navbtns"><button type="button" id="reelPrev" aria-label="Scroll back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button type="button" id="reelNext" aria-label="Scroll on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+    <div class="reel" id="reel" tabindex="0" aria-label="Featured projects, scroll sideways">
+      <a class="pcard" href="studio.html#work" aria-label="Portrait session, Photography"><video src="assets/video/v-photographer.mp4" poster="assets/img/photo-v-photographer-960.webp" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="tag">Photography</span><span class="cap"><b>Portrait session</b><span class="pl">Studio</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Interview set-up, Filmmaking"><video src="assets/video/v-filming.mp4" poster="assets/img/photo-v-filming-960.webp" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="tag">Filmmaking</span><span class="cap"><b>Interview set-up</b><span class="pl">Studio</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Cultural day on stage, Filmmaking"><img src="assets/img/photo-f182219186-960.webp" alt="" loading="lazy" decoding="async"><span class="tag">Filmmaking</span><span class="cap"><b>Cultural day on stage</b><span class="pl">Kampala</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Books reach the classroom, Content"><img src="assets/img/photo-f38608680-960.webp" alt="" loading="lazy" decoding="async"><span class="tag">Content</span><span class="cap"><b>Books reach the classroom</b><span class="pl">Field programme</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Studio stream desk, Livestreaming"><video src="assets/video/v-studio.mp4" poster="assets/img/photo-v-studio-960.webp" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="tag">Livestreaming</span><span class="cap"><b>Studio stream desk</b><span class="pl">Studio</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Stories from the islands, Content"><img src="assets/img/photo-f107307775-960.webp" alt="" loading="lazy" decoding="async"><span class="tag">Content</span><span class="cap"><b>Stories from the islands</b><span class="pl">Lake Victoria</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Conference, live, Livestreaming"><img src="assets/img/photo-f147886481-960.webp" alt="" loading="lazy" decoding="async"><span class="tag">Livestreaming</span><span class="cap"><b>Conference, live</b><span class="pl">Kampala</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="Shapes to layouts, Graphic design"><video src="assets/video/v-shapes.mp4" poster="assets/img/photo-v-shapes-960.webp" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="tag">Graphic design</span><span class="cap"><b>Shapes to layouts</b><span class="pl">Design desk</span></span></a>
+      <a class="pcard" href="studio.html#work" aria-label="From sketch to site, Website design"><img src="assets/img/photo-f64505987-960.webp" alt="" loading="lazy" decoding="async"><span class="tag">Website design</span><span class="cap"><b>From sketch to site</b><span class="pl">Design desk</span></span></a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS: placeholders. Replace with real clients' words, used with their permission. -->
+  <section class="voices" aria-labelledby="v-h">
+    <div class="shead"><div><p class="k">Testimonials</p><h2 id="v-h">Don&rsquo;t take our word for it</h2></div></div>
+    <div class="qgrid">
+      <figure class="q"><blockquote>The stream ran for two days without a single drop.</blockquote><figcaption>Client name &middot; Livestream</figcaption></figure>
+      <figure class="q"><blockquote>They listened to our people first and filmed second.</blockquote><figcaption>Client name &middot; Filmmaking</figcaption></figure>
+      <figure class="q"><blockquote>Every piece looked like it belonged to the same campaign.</blockquote><figcaption>Client name &middot; Content</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-h">
+    <div class="in"><h2 id="cta-h">The best ideas turn up in the first conversation</h2><a class="btn btn--big btn--dark" href="studio.html#start">Book a shoot</a></div>
+  </section>
 </main>
 
 <footer class="foot">
   <div>Geo Media Solutions &middot; Kampala</div>
   <nav aria-label="Footer"><a href="studio.html#start">Contact</a><a href="studio.html#on-air">On air</a><a href="credits.html">Credits</a></nav>
 </footer>
+<script>
+/* the reel's arrows move one card at a time */
+(() => {
+  const reel = document.getElementById('reel');
+  const step = () => (reel.querySelector('.pcard')?.getBoundingClientRect().width || 280) + 20;
+  document.getElementById('reelPrev').onclick = () => reel.scrollBy({ left: -step(), behavior: 'smooth' });
+  document.getElementById('reelNext').onclick = () => reel.scrollBy({ left: step(), behavior: 'smooth' });
+})();
+</script>
 </body>
 </html>

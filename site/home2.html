@@ -131,7 +131,7 @@ body:not(.covered) .gui{transition:opacity .3s}
 .eyebrow::before{content:"";width:max(18px,calc(30*var(--u)));height:1.5px;background:var(--orange)}
 .statement{margin:0;font-weight:500;font-size:max(34px,calc(74*var(--u)));line-height:1.02;letter-spacing:-.035em;isolation:isolate}
 .statement .m{padding-bottom:.1em;margin-bottom:-.1em}
-.swap{position:relative;display:inline-block;font-style:italic;font-weight:400;letter-spacing:-.02em;white-space:nowrap}
+.swap{position:relative;display:inline-block;font-style:normal;font-weight:400;letter-spacing:-.02em;white-space:nowrap}
 .swap::after{content:"";position:absolute;left:-.06em;right:-.06em;bottom:.1em;height:.24em;border-radius:3px;background:var(--orange);opacity:.5;z-index:-1}
 .hero-sub{margin:calc(20*var(--u)) 0 0;max-width:46ch;font-size:max(14px,calc(15.5*var(--u)));line-height:1.55;color:var(--ink-60)}
 .hero-copy .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(26*var(--u))}
@@ -175,7 +175,7 @@ body:not(.covered) .gui{transition:opacity .3s}
 .details{padding-bottom:calc(40*var(--w))}
 .svc{font:400 max(11px,calc(10.5*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 calc(10*var(--w))}
 .ptitle{margin:0;font-weight:500;font-size:max(24px,calc(36*var(--w)));line-height:1.02;letter-spacing:-.025em;text-transform:uppercase}
-.place{font-style:italic;font-size:max(15px,calc(19*var(--w)));margin-top:calc(6*var(--w))}
+.place{font-style:normal;font-size:max(15px,calc(19*var(--w)));margin-top:calc(6*var(--w))}
 .desc{font-size:max(14px,calc(15*var(--w)));line-height:1.55;color:var(--ink-60);max-width:calc(560*var(--w));margin:calc(18*var(--w)) 0 0}
 .note{font:400 max(11px,calc(10*var(--w))) var(--mono);color:var(--ink-60);margin-top:calc(24*var(--w))}
 .group{margin-top:calc(21*var(--w))}
@@ -203,7 +203,7 @@ body:not(.covered) .gui{transition:opacity .3s}
 .card .img{aspect-ratio:3/4;background:var(--band) center/cover no-repeat;box-shadow:0 0 0 calc(7*var(--w)) var(--band);transition:transform .35s cubic-bezier(.2,.7,.2,1);margin:calc(7*var(--w))}
 .card:hover .img{transform:translateY(calc(-4*var(--w)))}
 .card .t{display:block;font-weight:500;font-size:max(13px,calc(14*var(--w)));margin-top:calc(16*var(--w))}
-.card .a{display:block;font-style:italic;font-size:max(13px,calc(13.5*var(--w)));color:var(--ink-60)}
+.card .a{display:block;font-style:normal;font-size:max(13px,calc(13.5*var(--w)));color:var(--ink-60)}
 .card .p{display:block;font:400 max(11px,calc(11*var(--w))) var(--mono);color:var(--accent);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
 #list{padding:calc(110*var(--w)) calc(48*var(--w)) calc(80*var(--w))}
 #list .cards{row-gap:calc(46*var(--w))}
@@ -382,6 +382,8 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 /* type in the manner of the reference agency: bold geometric display over a round text face */
 .statement,.sec-head h2,.svc-intro h2,.end-sec h2,.svc-card h3,.work-tile .cap b,.ptitle,.band h2,#list h2{font-family:"Plus Jakarta Sans", system-ui, sans-serif;font-weight:700;letter-spacing:-.035em}
 .statement .swap{font-weight:600}
+/* no italics anywhere: every word stands upright */
+em,i,cite,blockquote,.swap,.num,[class*="swap"]{font-style:normal!important}
 </style>
 </head>
 <body>
@@ -871,7 +873,7 @@ function labelTex(it){
   const c = document.createElement('canvas'); c.width = 640; c.height = 260; const g = c.getContext('2d');
   g.fillStyle = '#ffffff';   // tinted by the material: green with the lights on, pale with them off
   g.font = '500 56px "Outfit"'; g.fillText(it.svc, 30, 82);
-  g.font = 'italic 400 50px "Outfit"'; g.fillText(it.title, 30, 150);
+  g.font = '400 50px "Outfit"'; g.fillText(it.title, 30, 150);
   g.globalAlpha = .7; g.font = '400 30px "DM Mono"'; g.fillText(it.place.toUpperCase(), 30, 215);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
 }

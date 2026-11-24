@@ -1,0 +1,52 @@
+# Deploys the static site in ./site to the cPanel host over FTPS (FTP with TLS, port 21).
+# Runs on every push to main, or by hand from the Actions tab ("Run workflow").
+#
+# Repository secrets it needs (Settings > Secrets and variables > Actions):
+#   FTP_SERVER    the cPanel server name, e.g. p3plzcpnl505325.prod.phx3.secureserver.net
+#                 (use this name, not ftp.yourdomain.com: the TLS certificate is issued to it)
+#   FTP_USERNAME  the full FTP login, e.g. geomedia@geopix256.com
+#   FTP_PASSWORD  that FTP account's password
+#
+# The FTP account's Directory in cPanel must be the site's document root, so "./" below is
+# the folder the website is served from.
+
+name: Deploy site (FTPS)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Upload changed files over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./site/
+          server-dir: ./
+          # only files that changed since the last deploy are sent (it keeps
+          # .ftp-deploy-sync-state.json on the server to know)
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            shots/**
+            assets/image and video/**

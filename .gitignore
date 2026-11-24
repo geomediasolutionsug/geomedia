@@ -1,0 +1,12 @@
+# original, full-size client footage (the site uses the small copies in site/assets/video)
+site/assets/image and video/
+# screenshots from local checks
+site/shots/
+# local tooling
+.claude/
+node_modules/
+.DS_Store
+Thumbs.db
+# local build-check cache (holds a test browser profile)
+site/.taste-skill/
+.taste-skill/

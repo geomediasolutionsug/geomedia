@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Geo Media Solutions: video, livestream and design studio in Kampala</title>
+<meta name="description" content="Walk a curved gallery of Geo Media's photography, filmmaking, content, livestream, web and graphic design work, then build a project brief.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F4F3EE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400..600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<!-- Structure adapted from the MotionSites "curved gallery" pattern; all content, colours and pictures are Geo Media's
+     (the photographs are licensed stand-ins until the team's own work replaces them, see credits.html). -->
+<style>
+:root{
+  --wall:#F4F3EE; --ink:#13372C; --ink-60:rgba(19,55,44,.66); --ink-35:rgba(19,55,44,.35); --ink-15:rgba(19,55,44,.15); --orange:#EC9921; --ink-2:#1F4D3F;
+  --accent:#2C6A54; --chip-on:#FBE6C4; --drawer:#EAEDE6; --page:#F7F6F2; --band:#ECEEE7;
+  --u:min(calc(100vw / 1440), calc(100vh / 900)); --w:calc(100vw / 1440);
+  --sans:"Work Sans", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
+}
+@media (max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px){ :root{ --u:1px; --w:1px; } }
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--wall);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+button{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono)}
+.m{display:block;overflow:hidden}
+.m>span{display:block}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;height:calc(58*var(--u));min-height:48px;display:flex;align-items:center;padding:0 calc(27*var(--u));z-index:30;transition:background .3s,box-shadow .3s}
+.nav.solid{background:var(--page);box-shadow:0 1px 0 var(--ink-15)}
+.logo{font-weight:500;font-size:max(15px,calc(20*var(--u)));letter-spacing:-.01em;margin-right:calc(36*var(--u))}
+.links{display:flex;gap:calc(22*var(--u))}
+.links a{font-size:max(12px,calc(13.5*var(--u)));opacity:.85;min-height:24px;display:flex;align-items:center}
+.links a:hover{opacity:1}
+.right{margin-left:auto;display:flex;align-items:center;gap:calc(14*var(--u))}
+.cta{font-family:var(--mono);font-size:max(11px,calc(10.5*var(--u)));letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);border-radius:99px;padding:0 calc(14*var(--u));height:max(28px,calc(30*var(--u)));display:flex;align-items:center;transition:background .25s,color .25s}
+.cta:hover{background:var(--ink);color:var(--wall)}
+.lights{display:flex;align-items:center;gap:calc(9*var(--u));font:400 max(11px,calc(10.5*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;height:max(28px,calc(30*var(--u)));padding:0 2px}
+.lights .track{width:32px;height:18px;border-radius:99px;border:1.5px solid currentColor;position:relative;transition:background .3s,border-color .3s}
+.lights .knob{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s}
+.lights[aria-checked="true"] .track{background:var(--orange);border-color:var(--orange)}
+.lights[aria-checked="true"] .knob{transform:translateX(14px);background:#fff}
+.logo .lm-dark{display:none}
+/* lights off: the room goes dark, so the words over it turn light (the page layers keep their own colours) */
+body.room-dark .gui, body.room-dark .nav:not(.solid){--ink:#F4F3EE;--wall:#0E1311;--ink-60:rgba(244,243,238,.66);--ink-35:rgba(244,243,238,.35);--ink-15:rgba(244,243,238,.15);color:var(--ink)}
+.gui, .nav{transition:color .5s}
+body.room-dark .nav:not(.solid) .logo .lm-light{display:none}
+body.room-dark .nav:not(.solid) .logo .lm-dark{display:block}
+.icon-btn{position:relative;width:max(28px,calc(30*var(--u)));height:max(28px,calc(30*var(--u)));display:grid;place-items:center}
+.icon-btn svg{width:max(18px,calc(19*var(--u)));height:auto;fill:none;stroke:currentColor;stroke-width:1.6}
+.badge{position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;border-radius:99px;background:var(--orange);color:var(--ink);font:500 10px/16px var(--mono);text-align:center;padding:0 4px;display:none}
+.badge.on{display:block}
+
+/* gallery */
+#gallery{position:fixed;inset:0;touch-action:none;cursor:grab}
+#gallery.drag{cursor:grabbing} #gallery.over{cursor:pointer}
+#gallery canvas{display:block;width:100%;height:100%}
+#veil{position:absolute;inset:0;background:var(--wall);pointer-events:none}
+.gui{position:fixed;inset:0;z-index:20;pointer-events:none;transition:opacity .3s,visibility 0s .3s}
+.gui>*{pointer-events:auto}
+body.covered .gui{opacity:0;visibility:hidden}
+body:not(.covered) .gui{transition:opacity .3s}
+.arrows{position:absolute;left:calc(27*var(--u));top:calc(262*var(--u));display:flex;flex-direction:column;gap:calc(10*var(--u))}
+.arrow{width:max(40px,calc(50*var(--u)));height:max(40px,calc(50*var(--u)));border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;transition:background .25s,color .25s}
+.arrow:hover{background:var(--ink);color:var(--wall)}
+.arrow svg{width:max(16px,calc(20*var(--u)));stroke:currentColor;fill:none;stroke-width:1.6}
+.hint{position:absolute;right:calc(27*var(--u));bottom:calc(229*var(--u));text-align:right;font:400 max(11px,calc(10*var(--u)))/1.65 var(--mono);letter-spacing:.12em;text-transform:uppercase;pointer-events:none}
+.toggle{position:absolute;right:calc(29*var(--u));bottom:calc(174*var(--u));display:flex;gap:calc(2*var(--u));padding:calc(2*var(--u));border:1px solid var(--ink-35);border-radius:99px}
+.toggle button{font:400 max(11px,calc(9.5*var(--u))) var(--mono);letter-spacing:.12em;height:max(24px,calc(22*var(--u)));padding:0 calc(14*var(--u));border-radius:99px}
+.toggle button.on{background:var(--ink);color:var(--wall)}
+.caption{position:absolute;left:calc(25*var(--u));bottom:calc(30*var(--u));pointer-events:none}
+.caption a{pointer-events:auto}
+.kicker{font:400 max(11px,calc(11.5*var(--u))) var(--mono);letter-spacing:.14em;margin:0 0 calc(10*var(--u)) calc(3*var(--u));text-transform:uppercase;width:max-content}
+.kicker{display:flex;align-items:center}.kicker::before{content:"";flex:none;width:.62em;height:.62em;margin-right:.7em;background:var(--orange)}
+.logo{display:flex;align-items:center;gap:.5em}.logo img{width:1.35em;height:1.35em;display:block}
+.headrow{position:relative}
+h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-spacing:-.035em;white-space:nowrap;text-transform:uppercase;transform:scaleX(.86);transform-origin:0 100%}
+.enter{position:absolute;left:calc(860*var(--u));bottom:0;font:400 max(11px,calc(11*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:calc(2*var(--u));margin-bottom:calc(9*var(--u));min-height:24px;display:flex;align-items:flex-end;white-space:nowrap}
+.pill{position:fixed;left:0;top:0;z-index:25;background:var(--ink);color:#fff;font:400 max(11px,calc(10*var(--u))) var(--mono);letter-spacing:.14em;padding:calc(7*var(--u)) calc(13*var(--u));border-radius:99px;opacity:0;transition:opacity .12s;pointer-events:none;transform:translate(-50%,-50%);white-space:nowrap}
+.pill.on{opacity:1}
+
+/* project page */
+#page,#list{position:fixed;inset:0;background:var(--page);overflow-y:auto;display:none;opacity:0;transition:opacity .3s}
+#page{z-index:15} #list{z-index:14}
+#page.show,#list.show{display:block}
+#page.in,#list.in{opacity:1}
+.wrap{padding-top:calc(96*var(--w));display:grid;grid-template-columns:calc(712*var(--w)) calc(638*var(--w))}
+.left{position:sticky;top:calc(96*var(--w));align-self:start;padding-left:calc(184*var(--w));width:calc(544*var(--w))}
+.shot{width:calc(360*var(--w));aspect-ratio:3/4.08;box-shadow:0 0 0 calc(10*var(--w)) #ECEEE7,0 calc(2*var(--w)) calc(10*var(--w)) calc(10*var(--w)) rgba(19,55,44,.06);background:#ddd center/cover no-repeat;visibility:hidden}
+.shot.on{visibility:visible}
+.meta{width:calc(360*var(--w));margin-top:calc(34*var(--w));display:flex;justify-content:space-between;font:400 max(11px,calc(11*var(--w))) var(--mono);color:var(--ink-60)}
+.details,.meta,.band{opacity:0;transition:opacity .15s}
+.reveal .details,.reveal .meta,.reveal .band{opacity:1}
+.details{padding-bottom:calc(40*var(--w))}
+.svc{font:400 max(11px,calc(10.5*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 calc(10*var(--w))}
+.ptitle{margin:0;font-weight:500;font-size:max(28px,calc(46*var(--w)));line-height:1.02;letter-spacing:-.025em;text-transform:uppercase}
+.place{font-style:italic;font-size:max(15px,calc(19*var(--w)));margin-top:calc(6*var(--w))}
+.desc{font-size:max(14px,calc(15*var(--w)));line-height:1.55;color:var(--ink-60);max-width:calc(560*var(--w));margin:calc(18*var(--w)) 0 0}
+.note{font:400 max(11px,calc(10*var(--w))) var(--mono);color:var(--ink-60);margin-top:calc(24*var(--w))}
+.group{margin-top:calc(21*var(--w))}
+.glabel{font:400 max(11px,calc(10*var(--w))) var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:calc(10*var(--w))}
+.glabel span{color:var(--ink-60);text-transform:none;letter-spacing:0}
+.chips{display:flex;flex-wrap:wrap;gap:calc(13*var(--w))}
+.chip{font:400 max(11px,calc(10.5*var(--w))) var(--mono);height:max(32px,calc(32*var(--w)));padding:0 calc(14*var(--w));border:1px solid var(--ink-35);border-radius:2px}
+.chip[aria-pressed="true"]{background:var(--chip-on);border-color:var(--orange)}
+.buy{display:flex;gap:calc(26*var(--w));margin-top:calc(42*var(--w))}
+.qty{display:flex;align-items:center;justify-content:space-between;width:calc(120*var(--w));min-width:110px;height:max(44px,calc(50*var(--w)));border:1px solid var(--ink-35);padding:0 calc(10*var(--w));font:400 max(12px,calc(13*var(--w))) var(--mono)}
+.qty button{width:max(28px,calc(24*var(--w)));height:max(28px,calc(24*var(--w)))}
+.add{flex:1;background:var(--ink);color:#fff;font-weight:500;font-size:max(14px,calc(16*var(--w)));letter-spacing:.12em;text-transform:uppercase;height:max(44px,calc(50*var(--w)));transition:background .2s}
+.add:hover{background:var(--ink-2)}
+.acc{margin-top:calc(36*var(--w));border-top:1px solid var(--ink-35)}
+.acc-row{border-bottom:1px solid var(--ink-35)}
+.acc-row>button{width:100%;display:flex;justify-content:space-between;align-items:center;min-height:max(40px,calc(40*var(--w)));font-size:max(14px,calc(15*var(--w)))}
+.acc-row>button span{font-family:var(--mono);transition:transform .3s}
+.acc-row.open>button span{transform:rotate(45deg)}
+.acc-body{height:0;overflow:hidden;transition:height .3s}
+.acc-body p{margin:0 0 calc(16*var(--w));font-size:max(14px,calc(14*var(--w)));line-height:1.55;color:var(--ink-60);max-width:calc(560*var(--w))}
+.band{margin-top:calc(70*var(--w));background:var(--band);padding:calc(36*var(--w)) 0 calc(80*var(--w)) calc(48*var(--w))}
+.band h2,#list h2{margin:0 0 calc(28*var(--w)) 0;font-weight:500;font-size:max(26px,calc(38*var(--w)));letter-spacing:-.02em;text-transform:uppercase}
+.cards{display:flex;gap:calc(87*var(--w));flex-wrap:wrap}
+.card{width:calc(168*var(--w));min-width:140px;text-align:left}
+.card .img{aspect-ratio:3/4;background:#ddd center/cover no-repeat;box-shadow:0 0 0 calc(7*var(--w)) #ECEEE7;transition:transform .35s cubic-bezier(.2,.7,.2,1);margin:calc(7*var(--w))}
+.card:hover .img{transform:translateY(calc(-4*var(--w)))}
+.card .t{display:block;font-weight:500;font-size:max(13px,calc(14*var(--w)));margin-top:calc(16*var(--w))}
+.card .a{display:block;font-style:italic;font-size:max(13px,calc(13.5*var(--w)));color:var(--ink-60)}
+.card .p{display:block;font:400 max(11px,calc(11*var(--w))) var(--mono);color:var(--accent);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+#list{padding:calc(110*var(--w)) calc(48*var(--w)) calc(80*var(--w))}
+#list .cards{row-gap:calc(46*var(--w))}
+
+/* drawer */
+.drawer{position:fixed;top:0;right:0;height:100%;width:calc(387*var(--w));min-width:320px;z-index:40;background:var(--drawer);padding:calc(28*var(--w)) calc(28*var(--w)) calc(28*var(--w)) calc(32*var(--w));display:flex;flex-direction:column;transform:translateX(101%);transition:transform .45s cubic-bezier(.1,.85,.2,1);box-shadow:-10px 0 40px rgba(0,0,0,.06)}
+.drawer.open{transform:none}
+.drawer header{display:flex;justify-content:space-between;align-items:center}
+.drawer h2{margin:0;font-weight:500;font-size:max(20px,calc(26*var(--w)));text-transform:uppercase;letter-spacing:-.01em}
+.items{flex:1;overflow-y:auto;margin-top:calc(24*var(--w))}
+.empty{font:400 12px var(--mono);text-align:center;margin-top:calc(120*var(--w));letter-spacing:.1em}
+.item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--ink-15);animation:rise .4s both}
+@keyframes rise{from{opacity:0;transform:translateY(calc(6*var(--w)))}}
+.item .th{width:calc(66*var(--w));min-width:56px;aspect-ratio:3/4;background:#ddd center/cover}
+.item .tt{font-weight:500;font-size:max(13px,calc(14*var(--w)))}
+.item .ss{font:400 11px var(--mono);color:var(--ink-60);margin-top:4px;line-height:1.5}
+.item .row{display:flex;align-items:center;gap:10px;margin-top:8px;font:400 12px var(--mono)}
+.item .row button{min-width:24px;min-height:24px}
+.drawer footer{border-top:1px solid var(--ink-35);padding-top:16px}
+.drawer footer p{margin:0 0 14px;font:400 11px/1.5 var(--mono);color:var(--ink-60)}
+.send{display:flex;align-items:center;justify-content:center;width:100%;background:var(--ink);color:#fff;font-weight:500;font-size:max(15px,calc(17*var(--w)));letter-spacing:.1em;text-transform:uppercase;height:max(48px,calc(50*var(--w)))}
+.send[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.flyer{position:fixed;left:0;top:0;z-index:50;background:center/cover no-repeat;transform-origin:0 0;pointer-events:none}
+
+/* small screens */
+@media (max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px){
+  .nav{height:52px;padding:0 16px} .logo{font-size:17px}
+  .links,.cta{display:none}
+  .lights .lbl{display:none}
+  .hint{top:62px;left:16px;right:16px;bottom:auto;text-align:left}
+  .caption{left:14px;bottom:100px}
+  h1{font-size:min(23.5vw,19vh);white-space:normal;line-height:.84}
+  .enter{position:static;margin-top:12px;display:inline-flex}
+  .arrows{top:auto;left:16px;bottom:24px;flex-direction:row}
+  .arrow{width:44px;height:44px}
+  .toggle{right:16px;bottom:30px}
+  .toggle button{height:26px}
+  .wrap{display:block;max-width:680px;margin:0 auto;padding:64px 20px 0}
+  .left{position:static;padding:0;width:auto;margin-bottom:40px}
+  .shot{width:100%;max-width:420px;box-shadow:0 0 0 8px #ECEEE7}
+  .meta{width:100%;max-width:420px}
+  .chips{gap:8px} .chip{height:36px;font-size:11px}
+  .band{padding:30px 0 60px max(20px,calc((100vw - 640px)/2))}
+  .band .cards{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-right:20px}
+  .band .card{flex:0 0 150px;scroll-snap-align:start}
+  #list{padding:80px 16px 60px} #list .cards{display:grid;grid-template-columns:1fr 1fr;gap:24px 16px}
+  #list .card{width:auto;min-width:0}
+  .drawer{width:min(88vw,380px);min-width:0;padding:22px 20px}
+}
+@media (orientation:landscape) and (max-height:500px){
+  h1{font-size:min(13vw,26vh);white-space:nowrap} .caption{bottom:18px} .hint{display:none}
+  .arrows{left:auto;right:16px;bottom:18px} .toggle{top:60px;bottom:auto}
+}
+/* service sections: the page the walk hands over to */
+#content{position:fixed;inset:0;z-index:13;background:var(--page);overflow-y:auto;transform:translateY(100%);transition:transform .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
+#content.up{transform:none;visibility:visible}
+body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),visibility 0s .7s}
+.svc-sec{min-height:100vh;padding:calc(120*var(--w)) calc(80*var(--w)) calc(80*var(--w));display:grid;grid-template-columns:5fr 7fr;gap:calc(64*var(--w));align-items:start;border-top:1px solid var(--ink-15)}
+.svc-sec:first-child{border-top:0}
+.svc-sec:nth-child(even){background:var(--band)}
+.count{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.14em;color:var(--accent);margin:0 0 calc(16*var(--w))}
+.svc-sec h2{margin:0;font-weight:500;font-size:max(40px,calc(96*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.svc-sec .lede{font-size:max(16px,calc(19*var(--w)));line-height:1.5;margin:calc(24*var(--w)) 0 0;max-width:34ch}
+.svc-sec ul{list-style:none;padding:0;margin:calc(28*var(--w)) 0 0;border-top:1px solid var(--ink-35)}
+.svc-sec li{padding:calc(12*var(--w)) 0;border-bottom:1px solid var(--ink-35);font-size:max(15px,calc(16*var(--w)))}
+.svc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(32*var(--w))}
+.btn-dark,.btn-line{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font-weight:500;font-size:max(14px,calc(15*var(--w)));letter-spacing:.04em}
+.btn-dark{background:var(--ink);color:#fff} .btn-dark:hover{background:var(--ink-2)}
+.btn-line{border:1px solid var(--ink)} .btn-line:hover{background:var(--ink);color:var(--wall)}
+.svc-photos{display:grid;grid-template-columns:1fr 1fr;gap:calc(16*var(--w))}
+.svc-photos :is(img,video){width:100%;aspect-ratio:4/5;object-fit:cover;display:block;border-radius:4px}
+.svc-photos :is(img,video):only-child{grid-column:1/-1;aspect-ratio:4/3}
+.shot{position:relative;overflow:hidden} .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.end-sec{min-height:80vh;padding:calc(140*var(--w)) calc(80*var(--w));display:flex;flex-direction:column;justify-content:center;gap:calc(28*var(--w));background:var(--ink);color:var(--wall)}
+.end-sec h2{margin:0;font-weight:500;font-size:max(40px,calc(110*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.end-sec p{margin:0;font-size:max(16px,calc(19*var(--w)));max-width:40ch;color:rgba(244,243,238,.72)}
+.end-sec .btn-dark{background:var(--orange);color:var(--ink)} .end-sec .btn-dark:hover{background:#F3B04F} .end-sec .btn-line{border-color:var(--wall)}
+.end-sec .btn-line:hover{background:var(--wall);color:var(--ink)}
+.back-up{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid currentColor;align-self:flex-start;min-height:24px}
+@media (max-width:819px), (orientation:portrait) and (max-width:1100px){
+  .svc-sec{grid-template-columns:1fr;padding:84px 20px 56px;gap:28px}
+  .end-sec{padding:84px 20px}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#" data-go="gallery"><img class="lm-light" src="assets/logo-mark.svg" alt="" width="27" height="27"><img class="lm-dark" src="assets/logo-mark-light.svg" alt="" width="27" height="27">Geo Media Solutions</a>
+  <nav class="links" aria-label="Main">
+    <a href="#" data-go="gallery">Gallery</a>
+    <a href="#" data-go="list">Projects</a>
+    <a href="#" data-go="services">Services</a>
+    <a href="studio.html#on-air">On air</a>
+    <a href="studio.html#start">Contact</a>
+  </nav>
+  <div class="right">
+    <button class="lights" id="lightsBtn" type="button" role="switch" aria-checked="true" aria-label="Gallery lights"><span class="track"><span class="knob"></span></span><span class="lbl">Lights</span></button>
+    <a class="cta" href="studio.html#start">Start a project</a>
+    <button class="icon-btn" id="briefBtn" type="button" aria-label="Open your project brief">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>
+      <span class="badge" id="badge"></span>
+    </button>
+  </div>
+</header>
+
+<main id="gallery" aria-label="3D gallery of Geo Media's work. Use the arrow keys to walk, or open the project list.">
+  <div id="veil"></div>
+</main>
+
+<div class="gui">
+  <div class="arrows">
+    <button class="arrow" id="prev" type="button" aria-label="Previous frame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="arrow" id="next" type="button" aria-label="Next frame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="hint" aria-live="polite"><span class="m"><span id="h1">Scroll to walk past every service</span></span><span class="m"><span id="h2">Click a frame to look closer</span></span></div>
+  <div class="toggle" role="group" aria-label="View">
+    <button type="button" class="on" data-go="gallery" aria-pressed="true">GALLERY</button>
+    <button type="button" data-go="list" aria-pressed="false">LIST</button>
+  </div>
+  <div class="caption">
+    <span class="m kicker"><span id="kicker">You are walking through</span></span>
+    <div class="headrow">
+      <span class="m"><span><h1>Geo Media</h1></span></span>
+      <a class="m enter" href="#" data-go="list"><span>See all projects &rarr;</span></a>
+    </div>
+  </div>
+</div>
+<div class="pill" id="pill">OPEN THE PROJECT</div>
+
+<section id="page" aria-label="Project">
+  <div class="wrap">
+    <div class="left">
+      <div class="shot" id="shot" role="img"></div>
+      <div class="meta"><span id="metaNum">1/9</span><span id="metaSvc"></span></div>
+    </div>
+    <div class="details">
+      <p class="svc" id="pSvc"></p>
+      <h2 class="ptitle" id="pTitle"></h2>
+      <div class="place" id="pPlace"></div>
+      <p class="desc" id="pDesc"></p>
+      <p class="note">Every project is quoted to the brief. We reply within one working day.</p>
+      <div class="group"><div class="glabel">Service: <span data-l="service"></span></div><div class="chips" data-g="service"></div></div>
+      <div class="group"><div class="glabel">Length: <span data-l="length"></span></div><div class="chips" data-g="length"></div></div>
+      <div class="group"><div class="glabel">Crew: <span data-l="crew"></span></div><div class="chips" data-g="crew"></div></div>
+      <div class="group"><div class="glabel">Delivery: <span data-l="delivery"></span></div><div class="chips" data-g="delivery"></div></div>
+      <div class="buy">
+        <div class="qty" aria-label="Cameras"><button type="button" id="qMinus" aria-label="One camera fewer">&minus;</button><span id="qVal">1 cam</span><button type="button" id="qPlus" aria-label="One camera more">+</button></div>
+        <button class="add" type="button" id="addBtn">Add to brief</button>
+      </div>
+      <div class="acc">
+        <div class="acc-row"><button type="button">What's included <span>+</span></button><div class="acc-body"><p>Planning call, crew and kit, shooting or streaming on the day, editing with two review rounds, and files sized for social, web and broadcast.</p></div></div>
+        <div class="acc-row"><button type="button">Turnaround <span>+</span></button><div class="acc-body"><p>Photo selects within 48 hours. Edited films within 5 to 10 working days. Livestreams are recorded and handed over the same week.</p></div></div>
+        <div class="acc-row"><button type="button">Consent and rights <span>+</span></button><div class="acc-body"><p>We collect consent from the people we film, with extra care for children and programme participants. You get full usage rights to the final edits.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="band"><h2>More work</h2><div class="cards" id="more"></div></div>
+</section>
+
+<section id="list" aria-label="All projects">
+  <h2>Our work &mdash; all projects</h2>
+  <div class="cards" id="all"></div>
+</section>
+
+<!-- the sections the walk hands over to: one per service (built from SERVICES in the script), then the close -->
+<div id="content" aria-label="Services">
+  <div id="svcList"></div>
+  <section class="end-sec" id="svc-end">
+    <p class="count">WHAT NEXT</p>
+    <h2>Start a project</h2>
+    <p>Tell us what you need, where and when. We reply within one working day with a plan and a quote.</p>
+    <div class="svc-actions"><a class="btn-dark" href="studio.html#start">Start a project</a><button type="button" class="btn-line" data-open-brief>Open your brief</button></div>
+    <button type="button" class="back-up" data-go="gallery">Back to the gallery &uarr;</button>
+  </section>
+</div>
+
+<aside class="drawer" id="drawer" aria-label="Your project brief" aria-hidden="true">
+  <header><h2>Your brief</h2><button type="button" id="closeDrawer" aria-label="Close the brief" style="font-size:24px;min-width:32px;min-height:32px">&times;</button></header>
+  <div class="items" id="items"></div>
+  <footer><p>No payment here. We read the brief and reply within one working day with a plan and a quote.</p><a class="send" id="send" href="#" aria-disabled="true">Send brief &rarr;</a></footer>
+</aside>
+
+<script type="module">
+import * as THREE from 'three';
+
+/* ---------- content: each frame is one kind of Geo Media work (stand-in photographs) ---------- */
+const IMG = id => `assets/img/photo-${id}-960.webp`;
+const VID = id => `assets/video/${id}.mp4`;
+/* a muted looping clip (the frames, the project page and the service sections share this) */
+const clip = (id, cls = '') => `<video class="${cls}" src="${VID(id)}" poster="${IMG(id)}" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>`;
+/* The walk runs through the services in this order, the frames grouped by service. */
+const SERVICES = [
+  { key:'photography', name:'Photography', lede:'Event, portrait, product and field photography, edited and delivered as one graded set.', inc:['Selects within 48 hours','The full set within a week','Files sized for print and social'] },
+  { key:'film', name:'Filmmaking', lede:'Documentaries, campaign films and event films, from the first plan to the final edit.', inc:['Script and shot list agreed before the shoot','A small crew that travels light','Two review rounds on the edit'] },
+  { key:'content', name:'Content creation', lede:'Short videos, reels and photo stories for your channels, planned as a series rather than one post at a time.', inc:['A monthly content plan','Vertical cuts for TikTok, Reels and Shorts','Captions and thumbnails included'] },
+  { key:'livestream', name:'Livestreaming', lede:'Multi-camera streams for conferences, launches, services and concerts, with graphics, sound and a recording.', inc:['Up to four cameras with live switching','Streams to YouTube, Facebook, Zoom or a private link','The recording handed over the same week'] },
+  { key:'web', name:'Website design', lede:'Websites designed and built around your photographs and films, fast on a phone and easy to update.', inc:['Design and build in one team','Pages you can edit yourself','Hosting and launch handled'] },
+  { key:'graphic', name:'Graphic design', lede:'Logos, posters, banners and campaign graphics made from the same look as your films.', inc:['Logo and brand basics','Posters, banners and T-shirts','Graphics sized for every channel'] },
+];
+const ITEMS = [
+  { id:'v-photographer', v:1, flash:2.0, s:'photography', svc:'Photography', title:'Portrait session', place:'Studio', desc:'Portraits lit and directed in the studio or on location, edited and delivered as one graded set.' },
+  { id:'v-lens', v:1, s:'photography', svc:'Photography', title:'Behind the lens', place:'Kampala', desc:'Event, product and field photography, with selects in 48 hours and the full set within a week.' },
+  { id:'v-filming', v:1, s:'film', svc:'Filmmaking', title:'Interview set-up', place:'Studio', desc:'Interviews and talking-head films, framed, lit and recorded with clean sound, then cut into a finished film.' },
+  { id:'f182219186', s:'film', svc:'Filmmaking', title:'Cultural day on stage', place:'Kampala', desc:'Stage, crowd and backstage, cut into a three-minute film and a short for social.' },
+  { id:'f38608680',  s:'content', svc:'Content creation', title:'Books reach the classroom', place:'Field programme', desc:'A photo story and a run of short videos for a schools project, shot with consent from teachers and parents.' },
+  { id:'f107307775', s:'content', svc:'Content creation', title:'Stories from the islands', place:'Lake Victoria', desc:'A month of posts from one trip: reels, interviews and photographs cut for each channel.' },
+  { id:'f147886481', s:'livestream', svc:'Livestreaming', title:'Conference, live', place:'Kampala', desc:'A two-day conference streamed with three cameras, lower-thirds and a recorded edit for everyone who missed it.' },
+  { id:'v-studio', v:1, s:'livestream', svc:'Livestreaming', title:'Studio stream desk', place:'Studio', desc:'Mixer, cameras and graphics on one desk, streaming podcasts, panels and launches to YouTube, Facebook or a private link.' },
+  { id:'f64505987',  s:'web', svc:'Website design', title:'From sketch to site', place:'Design desk', desc:'Websites sketched, designed and built around the footage we shoot.' },
+  { id:'v-shapes', v:1, s:'graphic', svc:'Graphic design', title:'Shapes to layouts', place:'Design desk', desc:'Logos, posters and campaign graphics, built from simple shapes into one look across print and screen.' },
+  { id:'v-tools', v:1, s:'graphic', svc:'Graphic design', title:'Motion graphics', place:'Design desk', desc:'Animated graphics, titles and lower-thirds for films, streams and social posts.' },
+];
+const OPTS = {
+  service:['Photography','Filmmaking','Content creation','Livestreaming','Website design','Graphic design'],
+  length:['Half day','Full day','2 to 3 days','A week or more'],
+  crew:['Solo','Small crew (2 to 3)','Full crew (4+)'],
+  delivery:['Raw files','Edited film','Photo set','Content pack','Live stream + recording','Website','Design files'],
+};
+
+/* ---------- environment ---------- */
+const SMALL_Q = '(max-width: 819px), (orientation: portrait) and (max-width: 1100px), (orientation: landscape) and (max-height: 500px)';
+const smallMq = matchMedia(SMALL_Q);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const portraitSmall = () => smallMq.matches && innerWidth < innerHeight;
+
+const R = 18, RIN = 12.2, H = 6.2, PW = 1.36, PH = 1.36 * 763 / 567, PY = 1.95;
+const STEP = 2 * Math.PI / 36;
+const D = () => portraitSmall() ? 0.14 + 1.6 * STEP : 0.14 + 0.9 * STEP;   // how far behind a frame the walker stands
+const walkPose = th => portraitSmall() ? { th, r:15.4, yaw:-0.08, y:1.90, pitch:-0.10 } : { th, r:15.6, yaw:-0.30, y:1.92, pitch:-0.12 };
+
+/* ---------- three ---------- */
+const host = document.getElementById('gallery');
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+host.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xF4F3EE);
+scene.fog = new THREE.Fog(0xF4F3EE, 10, 46);
+const camera = new THREE.PerspectiveCamera(56, 1, 0.05, 100);
+
+function vgrad(stops){ const c = document.createElement('canvas'); c.width = 4; c.height = 256; const g = c.getContext('2d'); const gr = g.createLinearGradient(0,0,0,256); stops.forEach(([o,col]) => gr.addColorStop(o,col)); g.fillStyle = gr; g.fillRect(0,0,4,256); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+function radial(inner, stops, size = 256){ const c = document.createElement('canvas'); c.width = c.height = size; const g = c.getContext('2d'); const gr = g.createRadialGradient(size/2,size/2,inner,size/2,size/2,size/2); stops.forEach(([o,col]) => gr.addColorStop(o,col)); g.fillStyle = gr; g.fillRect(0,0,size,size); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+
+const outer = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 160, 1, true), new THREE.MeshBasicMaterial({ map: vgrad([[0,'#EEEEE8'],[.2,'#F7F6F2'],[.6,'#F7F6F2'],[.86,'#F0F0EA'],[1,'#E1E4DC']]), side: THREE.BackSide }));
+outer.position.y = H/2; scene.add(outer);
+const inner = new THREE.Mesh(new THREE.CylinderGeometry(RIN, RIN, H, 120, 1, true), new THREE.MeshBasicMaterial({ map: vgrad([[0,'#F0F0EA'],[.3,'#FBFAF7'],[.8,'#F6F5F0'],[1,'#E3E6DE']]) }));
+inner.position.y = H/2; scene.add(inner);
+const floor = new THREE.Mesh(new THREE.CircleGeometry(R, 160), new THREE.MeshBasicMaterial({ map: radial(512*RIN/R, [[0,'#D7DCD2'],[.55,'#E3E6DD'],[1,'#D9DED4']], 1024) }));
+floor.rotation.x = -Math.PI/2; scene.add(floor);
+const ceil = new THREE.Mesh(new THREE.CircleGeometry(R, 160), new THREE.MeshBasicMaterial({ color:0xF7F6F2, side:THREE.BackSide }));
+ceil.rotation.x = -Math.PI/2; ceil.position.y = H; scene.add(ceil);
+
+const haloTex = radial(0, [[0,'rgba(255,255,255,.95)'],[.35,'rgba(255,255,255,.95)'],[1,'rgba(255,255,255,0)']]);
+const shadowTex = radial(0, [[0,'rgba(19,55,44,.24)'],[.25,'rgba(19,55,44,.24)'],[1,'rgba(19,55,44,0)']]);
+const frameMat = new THREE.MeshBasicMaterial({ color:0x13372C });
+const loader = new THREE.TextureLoader();
+const maxAniso = renderer.capabilities.getMaxAnisotropy();
+const printMats = [];
+let loaded = 0;
+const ready = new Promise(res => {
+  ITEMS.forEach((it, i) => {
+    const mat = new THREE.MeshBasicMaterial({ color:0xdddddd });
+    printMats[i] = mat;
+    loader.load(IMG(it.id), tex => {
+      tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = maxAniso;
+      const ia = tex.image.width / tex.image.height, a = PW / PH;   // cover-crop to the frame
+      if (ia > a) { tex.repeat.set(a/ia, 1); tex.offset.set((1 - a/ia)/2, 0); } else { tex.repeat.set(1, ia/a); tex.offset.set(0, (1 - ia/a)/2); }
+      mat.map = tex; mat.color.set(0xffffff); mat.needsUpdate = true;
+      if (it.v) playOnFrame(it, mat);
+      if (++loaded === ITEMS.length) res();
+    }, undefined, () => { if (++loaded === ITEMS.length) res(); });
+  });
+});
+
+/* the clips are cut to the frame's shape (567:763), so the video texture needs no crop */
+function playOnFrame(it, mat){
+  const v = document.createElement('video');
+  Object.assign(v, { src: VID(it.id), muted: true, loop: true, playsInline: true, preload: 'auto' });
+  v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+  v.addEventListener('playing', () => { if (mat.userData.video) return; const vt = new THREE.VideoTexture(v); vt.colorSpace = THREE.SRGBColorSpace; mat.map = vt; if (it.id === 'v-studio') projectClip(vt); mat.userData.video = v; mat.needsUpdate = true; }, { once: true });
+  v.play().catch(() => {});
+}
+
+/* picture light: brightest just under the lamp, spreading and fading down past the frame */
+const poolTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const g = c.getContext('2d');
+  g.setTransform(1, 0, 0, 2.3, 0, 0);   // an ellipse that fades to nothing before the canvas edges
+  const gr = g.createRadialGradient(128, 18, 2, 128, 30, 122);
+  gr.addColorStop(0, 'rgba(255,206,130,.7)'); gr.addColorStop(.3, 'rgba(255,214,150,.38)'); gr.addColorStop(.7, 'rgba(255,226,180,.1)'); gr.addColorStop(1, 'rgba(255,235,200,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 512/2.3);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const lampMat = new THREE.MeshBasicMaterial({ color:0x13372C });
+const lampGlowMat = new THREE.MeshBasicMaterial({ color:0xFFE7B8 });
+
+/* lights off: each picture light becomes the only light in the room, so its glow adds to what is under it */
+const glowTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const g = c.getContext('2d');
+  g.setTransform(1, 0, 0, 2.3, 0, 0);
+  const gr = g.createRadialGradient(128, 14, 2, 128, 34, 124);
+  gr.addColorStop(0, 'rgba(255,214,150,1)'); gr.addColorStop(.22, 'rgba(255,196,120,.7)'); gr.addColorStop(.55, 'rgba(240,160,80,.22)'); gr.addColorStop(1, 'rgba(230,140,60,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 512/2.3);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const floorGlowTex = radial(0, [[0,'rgba(255,200,130,.55)'],[.4,'rgba(255,190,120,.22)'],[1,'rgba(255,180,110,0)']]);
+const ROOM = { light: [], dark: [], dim: [] };   // dim: wall labels that darken with the room   // opacities that fall (light) or rise (dark) when the lights go out
+const addGlow = (mat, to) => { ROOM.dark.push({ mat, to }); return mat; };
+const addFade = (mat, to) => { ROOM.light.push({ mat, from: mat.opacity, to }); return mat; };
+const glowMatOf = () => new THREE.MeshBasicMaterial({ map:glowTex, transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending });
+
+const prints = [];
+function addGroup(angle, rad, faceOut, idx){
+  const g = new THREE.Group();
+  g.position.set(rad*Math.cos(angle), 0, rad*Math.sin(angle));
+  if (faceOut) g.lookAt(2*g.position.x, 0, 2*g.position.z); else g.lookAt(0, 0, 0);
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(2.1*PW, 1.75*PH), new THREE.MeshBasicMaterial({ map:haloTex, transparent:true, depthWrite:false }));
+  halo.position.set(0, PY+.05, .058);   /* off the wall enough that its edges stay in front of the curve */ g.add(halo); addFade(halo.material, 0);
+  const sh = new THREE.Mesh(new THREE.PlaneGeometry(1.25*PW, 1.18*PH), new THREE.MeshBasicMaterial({ map:shadowTex, transparent:true, depthWrite:false }));
+  sh.position.set(.05, PY-.06, .07); g.add(sh); addFade(sh.material, .2);
+  const pool = new THREE.Mesh(new THREE.PlaneGeometry(2.4*PW, 1.9*PH), new THREE.MeshBasicMaterial({ map:poolTex, transparent:true, depthWrite:false }));
+  pool.position.set(0, PY + PH/2 + .32 - .95*PH, .062); g.add(pool); addFade(pool.material, 0);
+  const glow = new THREE.Mesh(new THREE.PlaneGeometry(2.5*PW, 2.2*PH), addGlow(glowMatOf(), 1));
+  glow.position.set(0, PY + PH/2 + .32 - 1.1*PH, .066); g.add(glow);
+  const fglow = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.7), addGlow(new THREE.MeshBasicMaterial({ map:floorGlowTex, transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending }), .9));
+  fglow.rotation.x = -Math.PI/2; fglow.position.set(0, .02, 1.15); g.add(fglow);
+  // the picture catches the lamp too: a soft glow over its top
+  const onPic = new THREE.Mesh(new THREE.PlaneGeometry(PW, PH), addGlow(glowMatOf(), .3));
+  onPic.position.set(0, PY + .2, .079); g.add(onPic);
+  const lamp = new THREE.Mesh(new THREE.BoxGeometry(.62*PW, .055, .1), lampMat); lamp.position.set(0, PY + PH/2 + .3, .2); g.add(lamp);
+  const lampLip = new THREE.Mesh(new THREE.PlaneGeometry(.6*PW, .012), lampGlowMat); lampLip.position.set(0, PY + PH/2 + .27, .251); lampLip.rotation.x = -Math.PI/2.2; g.add(lampLip);
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(.025, .025, .2), lampMat); arm.position.set(0, PY + PH/2 + .3, .1); g.add(arm);
+  const fr = new THREE.Mesh(new THREE.BoxGeometry(PW+.07, PH+.07, .06), frameMat); fr.position.set(0, PY, .045); g.add(fr);
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(PW, PH), printMats[idx]); p.position.set(0, PY, .077); g.add(p);
+  p.userData = { idx, angle, wall: faceOut ? 'inner' : 'outer' };
+  prints.push(p);
+  g.userData.labelSlot = { idx };
+  scene.add(g);
+  return g;
+}
+/* One frame per item on the outer (right) wall, in walking order, with a wider gap where the service changes.
+   Walking forward makes the angle go down, so frame k sits at FRAME_ANG[k] <= 0. */
+const SP = 1.3 * STEP, GAP = .7 * STEP;
+const FRAME_ANG = [];
+ITEMS.forEach((it, k) => { FRAME_ANG.push(k === 0 ? 0 : FRAME_ANG[k-1] - SP - (it.s !== ITEMS[k-1].s ? GAP : 0)); });
+const groups = ITEMS.map((_, k) => addGroup(FRAME_ANG[k], 17.98, false, k));
+const firstFrameOf = key => ITEMS.findIndex(i => i.s === key);
+
+/* ---------- the walls: lettering, skirting, the orange line and a projection ---------- */
+// three.js cylinders place theta at (sin θ, cos θ); the room places angle a at (cos a, sin a)
+const arcGeo = (rad, h, a0, a1, segs = 48) => new THREE.CylinderGeometry(rad, rad, h, segs, 1, true, Math.PI/2 - a1, a1 - a0);
+
+// 2. each service's name painted large and pale across the wall above its frames
+const paintNames = () => SERVICES.forEach(s => {
+  const ks = ITEMS.map((it, k) => it.s === s.key ? k : -1).filter(k => k >= 0); if (!ks.length) return;
+  const hi = FRAME_ANG[ks[0]] + (ks[0] > 0 ? (FRAME_ANG[ks[0]-1] - FRAME_ANG[ks[0]])/2 : GAP/2 + SP/2);
+  const lo = FRAME_ANG[ks.at(-1)] - (ks.at(-1) < ITEMS.length - 1 ? (FRAME_ANG[ks.at(-1)] - FRAME_ANG[ks.at(-1)+1])/2 : GAP/2 + SP/2);
+  const word = s.name.toUpperCase();
+  const fs = 220, pad = 70;   // room round the letters for the glow
+  const paint = (style, blur) => {
+    const c = document.createElement('canvas'), g = c.getContext('2d');
+    g.font = `500 ${fs}px "Work Sans", Arial, sans-serif`; c.width = Math.ceil(g.measureText(word).width) + 2*pad; c.height = Math.round(fs * 1.05) + 2*pad;
+    g.font = `500 ${fs}px "Work Sans", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = style;
+    if (blur){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = blur; g.fillText(word, pad, c.height/2 + fs*.04); g.shadowBlur = blur/3; }
+    g.fillText(word, pad, c.height/2 + fs*.04);
+    const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = maxAniso;
+    tx.wrapS = THREE.RepeatWrapping; tx.repeat.x = -1;               // seen from inside the ring
+    return tx;
+  };
+  const tex = paint('rgba(19,55,44,.085)', 0), lit = paint('#FFF0D2', 46);
+  const c = tex.image;
+  const R2 = R - .04, arcLen = (hi - lo) * R2 * .9;
+  const h = Math.min(.8, arcLen * c.height / c.width), span = h * c.width / c.height / R2, mid = (hi + lo)/2;
+  const m = new THREE.Mesh(arcGeo(R2, h, mid - span/2, mid + span/2), new THREE.MeshBasicMaterial({ map:tex, transparent:true, depthWrite:false, side:THREE.BackSide }));
+  m.position.y = PY + PH/2 + .5 + h/2; scene.add(m);
+  // lights off: the same name, lit like a neon sign over its frames
+  const glowName = new THREE.Mesh(arcGeo(R2 - .01, h, mid - span/2, mid + span/2), addGlow(new THREE.MeshBasicMaterial({ map:lit, transparent:true, depthWrite:false, opacity:0, side:THREE.BackSide, blending:THREE.AdditiveBlending }), .95));
+  glowName.position.y = m.position.y; scene.add(glowName);
+  darkShown = -1;
+});
+document.fonts.load('500 220px "Work Sans"').catch(() => {}).finally(paintNames);   // wait for the face, then paint
+
+// 3. a deep green skirting round the outer wall, and one orange line under the frames
+const skirt = new THREE.Mesh(new THREE.CylinderGeometry(R - .02, R - .02, .24, 160, 1, true), new THREE.MeshBasicMaterial({ color:0x13372C, side:THREE.BackSide }));
+skirt.position.y = .12; scene.add(skirt);
+const rail = new THREE.Mesh(new THREE.CylinderGeometry(R - .03, R - .03, .022, 160, 1, true), new THREE.MeshBasicMaterial({ color:0xEC9921, side:THREE.BackSide }));
+rail.position.y = PY - PH/2 - .42; scene.add(rail);
+// lights off: the orange line glows
+const railGlowTex = (() => { const c = document.createElement('canvas'); c.width = 4; c.height = 128; const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 128); gr.addColorStop(0, 'rgba(236,153,33,0)'); gr.addColorStop(.5, 'rgba(255,170,60,1)'); gr.addColorStop(1, 'rgba(236,153,33,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 4, 128); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const railGlow = new THREE.Mesh(new THREE.CylinderGeometry(R - .05, R - .05, .42, 160, 1, true), addGlow(new THREE.MeshBasicMaterial({ map:railGlowTex, transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending, side:THREE.BackSide }), .85));
+railGlow.position.y = rail.position.y; scene.add(railGlow);
+
+// 4. the studio clip thrown large and faded onto the inner wall across from the first frames, soft at the edges
+const projMask = (() => { const c = document.createElement('canvas'); c.width = 128; c.height = 256; const g = c.getContext('2d');
+  g.fillStyle = '#000'; g.fillRect(0, 0, 128, 256); g.filter = 'blur(22px)'; g.fillStyle = '#fff'; g.fillRect(30, 44, 68, 168);
+  return new THREE.CanvasTexture(c); })();
+const projMat = new THREE.MeshBasicMaterial({ color:0xCFDDD5, transparent:true, opacity:0, alphaMap:projMask, depthWrite:false });
+const PROJ_H = 4.3, PROJ_W = PROJ_H * 567/763, PROJ_A = .03;
+const proj = new THREE.Mesh(arcGeo(RIN + .03, PROJ_H, PROJ_A - PROJ_W/(2*RIN), PROJ_A + PROJ_W/(2*RIN), 24), projMat);
+proj.position.y = PROJ_H/2 + .55; scene.add(proj);
+function projectClip(vt){ projMat.map = vt; projMat.opacity = .2; projMat.needsUpdate = true; }
+
+/* Photography: when the photographer's flash fires in the clip (it.flash seconds into the loop), its light
+   bursts out of the frame, crosses the corridor and bounces off the opposite (inner) wall, then fades. */
+const flashes = [];
+const flashCore = radial(0, [[0,'rgba(255,255,255,1)'],[.12,'rgba(255,252,240,.95)'],[.4,'rgba(255,232,180,.35)'],[1,'rgba(255,225,160,0)']]);
+const flashSpot = radial(0, [[0,'rgba(255,214,140,.95)'],[.3,'rgba(255,222,160,.6)'],[.65,'rgba(255,230,185,.2)'],[1,'rgba(255,235,200,0)']]);
+const flashBeam = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 64; const g = c.getContext('2d');
+  const gx = g.createLinearGradient(0,0,256,0); gx.addColorStop(0,'rgba(255,245,220,.9)'); gx.addColorStop(1,'rgba(255,225,170,.35)'); g.fillStyle = gx; g.fillRect(0,0,256,64);
+  const gy = g.createLinearGradient(0,0,0,64); gy.addColorStop(0,'rgba(0,0,0,1)'); gy.addColorStop(.5,'rgba(0,0,0,0)'); gy.addColorStop(1,'rgba(0,0,0,1)');
+  g.globalCompositeOperation = 'destination-out'; g.fillStyle = gy; g.fillRect(0,0,256,64);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const glowMat = (map, blending = THREE.NormalBlending) => new THREE.MeshBasicMaterial({ map, transparent:true, depthWrite:false, opacity:0, blending });
+ITEMS.forEach((it, k) => {
+  if (!it.flash) return;
+  const a = FRAME_ANG[k], dir = new THREE.Vector3(Math.cos(a), 0, Math.sin(a));
+  const at = (rad, y) => new THREE.Vector3(rad*dir.x, y, rad*dir.z);
+  // the burst on the frame itself (the flash going off)
+  const core = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 2.6), glowMat(flashCore, THREE.AdditiveBlending));
+  core.position.copy(at(17.8, PY + .15)); core.lookAt(0, PY + .15, 0); scene.add(core);
+  // the light travelling across the corridor
+  const beam = new THREE.Mesh(new THREE.PlaneGeometry(17.8 - RIN, 1.1), glowMat(flashBeam));
+  beam.rotation.order = 'YXZ';
+  beam.position.copy(at((17.8 + RIN)/2, PY + .1)); beam.rotation.y = -a; beam.rotation.x = Math.PI/2.3; scene.add(beam);
+  // where it lands: a warm hot spot on the opposite wall, and the spill on the floor between
+  const spot = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 3.6), glowMat(flashSpot));
+  spot.position.copy(at(RIN + .04, PY + .1)); spot.lookAt(2*spot.position.x, spot.position.y, 2*spot.position.z); scene.add(spot);
+  const floorSpill = new THREE.Mesh(new THREE.PlaneGeometry(7, 3.4), glowMat(flashSpot));
+  floorSpill.rotation.x = -Math.PI/2; floorSpill.rotation.z = -a; floorSpill.position.copy(at((17.8 + RIN)/2, .02)); scene.add(floorSpill);
+  flashes.push({ k, at: it.flash, core, beam, spot, floorSpill, prev: 0, t0: -1 });
+});
+/* ---------- the light switch: on is the daylight gallery; off, only the picture lights and the orange line glow ---------- */
+const C = h => new THREE.Color(h);
+const SURF = [
+  { mat: outer.material, on: C(0xffffff), off: C(0x1B2320) },
+  { mat: inner.material, on: C(0xffffff), off: C(0x161D1A) },
+  { mat: floor.material, on: C(0xffffff), off: C(0x121815) },
+  { mat: ceil.material,  on: C(0xF7F6F2), off: C(0x0B0F0D) },
+  { mat: rail.material,  on: C(0xEC9921), off: C(0xFFB04A) },
+  { mat: lampGlowMat,    on: C(0xFFE7B8), off: C(0xFFF6E0) },
+];
+const BG_ON = C(0xF4F3EE), BG_OFF = C(0x0B0F0D), CAP_ON = C(0x13372C), CAP_OFF = C(0xD9D4C8);
+let dark = 0, darkTo = 0, darkShown = -1;
+function updateLights(dt){
+  dark = RM ? darkTo : dark + (darkTo - dark) * (1 - Math.exp(-dt/.22));
+  if (Math.abs(dark - darkTo) < .002) dark = darkTo;
+  if (dark === darkShown) return; darkShown = dark;
+  const e = dark;
+  SURF.forEach(s => s.mat.color.copy(s.on).lerp(s.off, e));
+  scene.background.copy(BG_ON).lerp(BG_OFF, e); scene.fog.color.copy(scene.background);
+  ROOM.light.forEach(r => r.mat.opacity = r.from + (r.to - r.from) * e);
+  ROOM.dark.forEach(r => r.mat.opacity = r.to * e);
+  panels.forEach(p => p.material.color.setScalar(1 - .72*e));
+  ROOM.dim.forEach(m => m.color.copy(CAP_ON).lerp(CAP_OFF, e));
+  if (projMat.map) projMat.opacity = .2 - .1*e;   // the projection steps back so the picture lights lead
+}
+const lightsBtn = document.getElementById('lightsBtn');
+lightsBtn.addEventListener('click', () => {
+  const on = lightsBtn.getAttribute('aria-checked') !== 'true';
+  lightsBtn.setAttribute('aria-checked', on);
+  document.body.classList.toggle('room-dark', !on);
+  darkTo = on ? 0 : 1;
+});
+
+function updateFlashes(now){
+  for (const fl of flashes){
+    const v = printMats[fl.k].userData.video; if (!v) continue;
+    const ct = v.currentTime;
+    if ((fl.prev < fl.at && ct >= fl.at) || (ct < fl.prev && fl.at <= ct)) fl.t0 = now;   // crossed the flash (also across the loop)
+    fl.prev = ct;
+    const e = fl.t0 < 0 ? 1e9 : now - fl.t0;          // ms since the flash
+    const pulse = (rise, hold, fall) => e < rise ? e/rise : e < rise + hold ? 1 : Math.max(0, 1 - (e - rise - hold)/fall);
+    fl.core.material.opacity = pulse(30, 40, 260);
+    fl.beam.material.opacity = e < 40 ? 0 : .55 * pulse(60, 20, 220);              // leaves the frame just after the burst
+    fl.spot.material.opacity = e < 70 ? 0 : pulse(70, 90, 700);                    // lands on the far wall, then lingers
+    fl.floorSpill.material.opacity = e < 60 ? 0 : .5 * pulse(80, 60, 600);
+  }
+}
+
+/* On the inner (left) wall, one title panel per service, opposite its frames */
+const panels = [];
+function panelTex(s, n, glow = false){
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 640; const g = c.getContext('2d');
+  g.fillStyle = glow ? '#FFF0D2' : '#13372C';
+  if (glow){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = 30; }
+  g.font = '400 34px "DM Mono"'; g.globalAlpha = .75; g.fillText(`${String(n+1).padStart(2,'0')} / ${String(SERVICES.length).padStart(2,'0')}`, 40, 70); g.globalAlpha = 1;
+  g.font = '500 112px "Work Sans"';
+  const words = s.name.toUpperCase().split(' '); let line = '', y = 200;
+  for (const w of words){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 940 && line){ g.fillText(line, 36, y); y += 112; line = w; } else line = t; }
+  g.fillText(line, 36, y);
+  g.font = '400 38px "Work Sans"'; g.globalAlpha = .8;
+  const lw = s.lede.split(' '); line = ''; y += 90;
+  for (const w of lw){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 900 && line){ g.fillText(line, 40, y); y += 52; line = w; } else line = t; }
+  g.fillText(line, 40, y);
+  g.globalAlpha = 1; g.font = '400 30px "DM Mono"'; g.fillStyle = glow ? '#FFB04A' : '#B4700F'; g.fillText('CLICK TO READ MORE  →', 40, 600);
+  if (glow){ g.shadowBlur = 0; g.globalCompositeOperation = 'lighter'; g.drawImage(c, 0, 0); }   // twice over, so it reads from across the corridor
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
+}
+
+function labelTex(it){
+  const c = document.createElement('canvas'); c.width = 640; c.height = 260; const g = c.getContext('2d');
+  g.fillStyle = '#ffffff';   // tinted by the material: green with the lights on, pale with them off
+  g.font = '500 56px "Work Sans"'; g.fillText(it.svc, 30, 82);
+  g.font = 'italic 400 50px "Work Sans"'; g.fillText(it.title, 30, 150);
+  g.globalAlpha = .7; g.font = '400 30px "DM Mono"'; g.fillText(it.place.toUpperCase(), 30, 215);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
+}
+const fontsReady = document.fonts.ready.then(() => {
+  const texes = ITEMS.map(labelTex);
+  groups.forEach(g => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(.92, .92*260/640), new THREE.MeshBasicMaterial({ map:texes[g.userData.labelSlot.idx], transparent:true, color:0x13372C })); ROOM.dim.push(m.material);
+    m.position.set(-PW/2 + .46, PY - PH/2 - .42, .08); g.add(m);
+  });
+  darkShown = -1;   // tint the new captions for the room as it is now
+  SERVICES.forEach((s, n) => {
+    const ks = ITEMS.map((it, k) => it.s === s.key ? k : -1).filter(k => k >= 0);
+    const mid = (FRAME_ANG[ks[0]] + FRAME_ANG[ks[ks.length-1]]) / 2 - .9 * STEP;   // a little ahead, so it is read while walking up
+    const g = new THREE.Group();
+    g.position.set(12.22*Math.cos(mid), 0, 12.22*Math.sin(mid)); g.lookAt(2*g.position.x, 0, 2*g.position.z);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.19), new THREE.MeshBasicMaterial({ map:panelTex(s, n), transparent:true }));
+    m.position.set(0, PY + .1, .03); m.userData = { service:s.key };
+    g.add(m); scene.add(g); panels.push(m);
+    const gm = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.19), addGlow(new THREE.MeshBasicMaterial({ map:panelTex(s, n, true), transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending }), .95));
+    gm.position.set(0, PY + .1, .032); g.add(gm);
+  });
+});
+
+/* ---------- camera model ---------- */
+let mode = 'walk', target = D(), cur = walkPose(target), glide = null, focused = null, lastIdx = 0;
+const tmpT = new THREE.Vector3(), tmpN = new THREE.Vector3();
+function applyPose(p){
+  tmpT.set(Math.sin(p.th), 0, -Math.cos(p.th)); tmpN.set(Math.cos(p.th), 0, Math.sin(p.th));
+  camera.position.set(p.r*Math.cos(p.th), p.y, p.r*Math.sin(p.th));
+  const dx = Math.cos(p.yaw)*tmpT.x + Math.sin(p.yaw)*tmpN.x, dz = Math.cos(p.yaw)*tmpT.z + Math.sin(p.yaw)*tmpN.z;
+  camera.lookAt(camera.position.x + dx, p.y + p.pitch, camera.position.z + dz);
+}
+const quart = t => 1 - (1-t)**4, quad = t => 1 - (1-t)**2, cubic = t => 1 - (1-t)**3, expo = t => t >= 1 ? 1 : 1 - 2**(-10*t);
+function startGlide(to, dur, after, all){
+  if (RM) dur = 0;
+  glide = { from:{...cur}, to, t0:performance.now(), dur, after, ease: all ? { th:all, yaw:all, r:all, y:all, pitch:all } : { th:quart, yaw:quad, r:cubic, y:cubic, pitch:cubic } };
+  mode = 'gliding';
+}
+function focusPose(m){
+  const sp = portraitSmall(), out = m.userData.wall === 'outer'; let a = m.userData.angle;
+  while (a - cur.th > Math.PI) a -= 2*Math.PI; while (a - cur.th < -Math.PI) a += 2*Math.PI;
+  const dr = sp ? 5.2 : 4.26;
+  return { th:a, r: out ? R - dr : RIN + dr, yaw: out ? Math.PI/2 : -Math.PI/2, y: PY - (sp ? 1.05 : .52), pitch:0 };
+}
+const hint1 = document.getElementById('h1'), hint2 = document.getElementById('h2');
+function setHint(f){ hint1.textContent = f ? 'Scroll sideways for the next frame' : 'Scroll to walk past every service'; hint2.textContent = f ? 'Scroll down for this service' : 'Click a frame to look closer'; }
+
+/* ---------- the walk is finite: past the last frame it hands over to the service sections ---------- */
+const START = () => FRAME_ANG[0] + D(), END = () => FRAME_ANG[ITEMS.length - 1] + D();
+const content = document.getElementById('content');
+let reading = false, lockUntil = 0;
+function clampWalk(){
+  if (target > START() + .06) target = START() + .06;
+  if (target < END() - .3){ target = END() - .3; enterContent(null); }
+}
+function enterContent(id){
+  if (reading || performance.now() < lockUntil) return;
+  reading = true; lockUntil = performance.now() + 900;
+  focused = null; setHint(false); pill.classList.remove('on');
+  const el = id ? document.getElementById(id) : null;
+  content.scrollTop = el ? el.offsetTop : 0;
+  content.classList.add('up'); document.body.classList.add('reading', 'covered'); nav.classList.add('solid'); setToggle(null);
+}
+function leaveContent(atFrame){
+  if (!reading) return;
+  reading = false; lockUntil = performance.now() + 900;
+  content.classList.remove('up'); document.body.classList.remove('reading', 'covered'); nav.classList.remove('solid'); setToggle('gallery');
+  glide = null;
+  if (atFrame != null){ target = FRAME_ANG[atFrame] + D(); cur = walkPose(target); mode = 'walk'; focusOn(prints[atFrame]); }
+  else { target = END(); cur = walkPose(target); mode = 'walk'; }
+}
+content.addEventListener('wheel', e => {
+  if (performance.now() < lockUntil){ e.preventDefault(); return; }
+  if (content.scrollTop <= 0 && e.deltaY < 0){ e.preventDefault(); leaveContent(); }
+}, { passive:false });
+let touchY = null;
+content.addEventListener('touchstart', e => { touchY = content.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive:true });
+content.addEventListener('touchmove', e => { if (touchY != null && e.touches[0].clientY - touchY > 70) { touchY = null; leaveContent(); } }, { passive:true });
+const kicker = document.getElementById('kicker'); let kickerKey = '';
+function nearestFrame(){ let best = 0, bd = 1e9; FRAME_ANG.forEach((a, k) => { const d = Math.abs(a + D() - cur.th); if (d < bd){ bd = d; best = k; } }); return best; }
+function updateKicker(){
+  const s = ITEMS[focused ? focused.userData.idx : nearestFrame()].s, n = SERVICES.findIndex(x => x.key === s);
+  const txt = `Now: ${SERVICES[n].name} · ${n + 1} of ${SERVICES.length}`;
+  if (txt !== kickerKey){ kickerKey = txt; kicker.textContent = txt; }
+}
+function focusOn(m){ focused = m; lastIdx = m.userData.idx; setHint(true); startGlide(focusPose(m), 950, 'focus'); }
+/* With a frame open, sideways input moves to the neighbouring frame and stays close; past the last frame it
+   hands over to the sections below, before the first it steps back into the walk. */
+let sideLock = 0;
+function focusStep(dir){
+  if (!focused || performance.now() < sideLock) return;
+  const k = focused.userData.idx + dir;
+  if (k < 0){ stepBack(); return; }
+  if (k >= ITEMS.length){ enterContent(null); return; }
+  sideLock = performance.now() + (RM ? 150 : 560);
+  focused = prints[k]; lastIdx = k; startGlide(focusPose(focused), RM ? 0 : 720, 'focus');
+}
+function stepBack(){
+  if (!focused) return;
+  focused = null; setHint(false); pill.classList.remove('on');
+  target = cur.th + D(); startGlide(walkPose(target), 950, 'walk');
+}
+
+function resize(){
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w/h; camera.fov = w >= h ? 56 : 70; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+let last = performance.now();
+function tick(now){
+  const dt = Math.min(.1, (now - last)/1000); last = now;
+  if (glide){
+    const t = glide.dur ? Math.min(1, (now - glide.t0)/glide.dur) : 1, e = glide.ease;
+    for (const k of ['th','r','yaw','y','pitch']) cur[k] = glide.from[k] + (glide.to[k] - glide.from[k]) * e[k](t);
+    if (t >= 1){ mode = glide.after; glide = null; if (mode === 'walk') target = cur.th; }
+  } else if (mode === 'walk'){
+    const k = RM ? 1 : 1 - Math.exp(-dt/.36);
+    cur = { ...walkPose(cur.th + (target - cur.th)*k) };
+  }
+  applyPose(cur);
+  if (started) updateKicker();
+  if (focused && portraitSmall() && mode === 'focus' && !document.body.classList.contains('covered')){ pill.style.left = innerWidth/2 + 'px'; pill.style.top = innerHeight*.55 + 'px'; pill.classList.add('on'); }
+  updateLights(dt);
+  updateFlashes(now);
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+/* ---------- input ---------- */
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pill = document.getElementById('pill');
+function hit(x, y){ ndc.set(x/innerWidth*2 - 1, -(y/innerHeight)*2 + 1); ray.setFromCamera(ndc, camera); const h = ray.intersectObjects([...prints, ...panels], false)[0]; return h ? h.object : null; }
+const svcOf = m => ITEMS[m.userData.idx].s;
+let down = null;
+host.addEventListener('pointerdown', e => { down = { x:e.clientX, y:e.clientY, t:target, drag:false }; host.setPointerCapture(e.pointerId); });
+host.addEventListener('pointermove', e => {
+  if (down){
+    const dx = e.clientX - down.x, dy = e.clientY - down.y;
+    if (!down.drag && Math.hypot(dx, dy) > 6){
+      down.drag = true; host.classList.add('drag');
+      if (focused){ const key = svcOf(focused); down = null; host.classList.remove('drag');
+        if (Math.abs(dx) > Math.abs(dy)) focusStep(dx < 0 ? 1 : -1); else if (dy < 0) enterContent('svc-' + key); else stepBack();
+        return; }
+    }
+    if (down.drag && (mode === 'walk' || mode === 'gliding' && !focused)){ const rate = smallMq.matches ? .0042 : .0022; target = down.t + (Math.abs(dx) > Math.abs(dy) ? dx : dy) * rate; if (mode === 'gliding' && glide?.after === 'walk') { glide = null; mode = 'walk'; } clampWalk(); }
+    return;
+  }
+  const m = hit(e.clientX, e.clientY);
+  host.classList.toggle('over', !!m);
+  const show = !!m && m === focused && mode === 'focus';
+  pill.classList.toggle('on', show);
+  if (show){ pill.style.left = e.clientX + 'px'; pill.style.top = e.clientY + 'px'; }
+});
+host.addEventListener('pointerup', e => {
+  if (!down) return; const wasDrag = down.drag; down = null; host.classList.remove('drag');
+  if (wasDrag) return;
+  const m = hit(e.clientX, e.clientY);
+  if (m && m.userData.service){ enterContent('svc-' + m.userData.service); return; }
+  if (m){ if (m === focused && mode === 'focus') openProject(m.userData.idx, rectOf(m)); else focusOn(m); }
+  else stepBack();
+});
+host.addEventListener('pointerleave', () => pill.classList.remove('on'));
+let wheelX = 0, wheelXT = 0;
+host.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (performance.now() < lockUntil) return;
+  const d = e.deltaMode === 1 ? e.deltaY*33 : e.deltaY;
+  if (focused){   // a clicked frame: sideways (trackpad, tilt wheel or Shift + wheel) for its neighbours, down for its service
+    let dx = e.deltaMode === 1 ? e.deltaX*33 : e.deltaX;
+    if (e.shiftKey && !dx) dx = d;
+    if (Math.abs(dx) > Math.abs(d)){ wheelX += dx; clearTimeout(wheelXT); wheelXT = setTimeout(() => wheelX = 0, 180); if (Math.abs(wheelX) > 30){ focusStep(wheelX > 0 ? 1 : -1); wheelX = 0; } return; }
+    if (d > 2 && performance.now() > sideLock) enterContent('svc-' + svcOf(focused));
+    else if (d < -2 && performance.now() > sideLock) stepBack();
+    return;
+  }
+  target += -d * .0016;
+  if (mode === 'gliding' && glide?.after === 'walk'){ glide = null; mode = 'walk'; }
+  clampWalk();
+}, { passive:false });
+function snap(dir){
+  if (focused){ focusStep(dir); return; }
+  let k = 0, bd = 1e9;   // the frame nearest where the walk is heading, then one along
+  FRAME_ANG.forEach((a, i) => { const d = Math.abs(a + D() - target); if (d < bd){ bd = d; k = i; } });
+  k += dir;
+  if (k >= ITEMS.length){ enterContent(null); return; }
+  target = FRAME_ANG[Math.max(0, k)] + D();
+}
+document.getElementById('next').onclick = () => snap(1);
+document.getElementById('prev').onclick = () => snap(-1);
+addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ if (drawer.classList.contains('open')) toggleDrawer(false); else if (focused) stepBack(); return; }
+  if (document.body.classList.contains('covered') || /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName)) return;
+  if (focused){
+    if (e.key === 'ArrowRight'){ e.preventDefault(); focusStep(1); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); focusStep(-1); }
+    if (e.key === 'ArrowDown' || e.key === 'PageDown'){ e.preventDefault(); enterContent('svc-' + svcOf(focused)); }
+    if (e.key === 'ArrowUp'){ e.preventDefault(); stepBack(); }
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); snap(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); snap(-1); }
+});
+
+function rectOf(m){
+  const pts = [[-1,-1],[1,-1],[1,1],[-1,1]].map(([sx,sy]) => m.localToWorld(new THREE.Vector3(sx*PW/2, sy*PH/2, 0)).project(camera));
+  const xs = pts.map(p => (p.x + 1)/2*innerWidth), ys = pts.map(p => (1 - p.y)/2*innerHeight);
+  return { left:Math.min(...xs), top:Math.min(...ys), width:Math.max(...xs) - Math.min(...xs), height:Math.max(...ys) - Math.min(...ys) };
+}
+
+/* ---------- views ---------- */
+const page = document.getElementById('page'), list = document.getElementById('list'), nav = document.querySelector('.nav');
+const toggleBtns = document.querySelectorAll('.toggle button');
+function setToggle(v){ toggleBtns.forEach(b => { const on = b.dataset.go === v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+function showLayer(el){ el.classList.add('show'); requestAnimationFrame(() => el.classList.add('in')); document.body.classList.add('covered'); nav.classList.add('solid'); pill.classList.remove('on'); }
+function hideLayer(el){ el.classList.remove('in'); setTimeout(() => { if (!el.classList.contains('in')) el.classList.remove('show'); }, RM ? 0 : 300); }
+
+function openList(){ hideLayer(page); showLayer(list); setToggle('list'); }
+function backToRoom(){
+  if (reading){ hideLayer(page); hideLayer(list); leaveContent(); return; }
+  const wasOpen = document.body.classList.contains('covered');
+  hideLayer(page); hideLayer(list); document.body.classList.remove('covered'); nav.classList.remove('solid'); setToggle('gallery');
+  if (!wasOpen) return;
+  let best = null, bd = 1e9;   // the outer-wall copy of the last project nearest the camera
+  prints.forEach(p => { if (p.userData.wall !== 'outer' || p.userData.idx !== lastIdx) return; let d = Math.abs(((p.userData.angle - cur.th) % (2*Math.PI) + 3*Math.PI) % (2*Math.PI) - Math.PI); if (d < bd){ bd = d; best = p; } });
+  if (best) focusOn(best);
+}
+document.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  const go = a.dataset.go;
+  if (go === 'list') openList();
+  else if (go === 'services'){ hideLayer(page); hideLayer(list); enterContent(null); }
+  else backToRoom();
+}));
+
+/* ---------- service sections ---------- */
+const DELIVERY = { 'Photography':'Photo set', 'Filmmaking':'Edited film', 'Content creation':'Content pack', 'Livestreaming':'Live stream + recording', 'Website design':'Website', 'Graphic design':'Design files' };
+const deliveryFor = name => DELIVERY[name] || 'Edited film';
+const svcList = document.getElementById('svcList');
+SERVICES.forEach((s, n) => {
+  const its = ITEMS.filter(i => i.s === s.key);
+  const sec = document.createElement('section');
+  sec.className = 'svc-sec'; sec.id = 'svc-' + s.key; sec.setAttribute('aria-labelledby', 'svc-h-' + s.key);
+  sec.innerHTML = `<div>
+      <p class="count">${String(n + 1).padStart(2, '0')} / ${String(SERVICES.length).padStart(2, '0')}</p>
+      <h2 id="svc-h-${s.key}">${s.name}</h2>
+      <p class="lede">${s.lede}</p>
+      <ul>${s.inc.map(x => `<li>${x}</li>`).join('')}</ul>
+      <div class="svc-actions"><button type="button" class="btn-dark" data-add="${s.key}">Add to brief</button><button type="button" class="btn-line" data-see="${s.key}">See it in the gallery</button></div>
+    </div>
+    <div class="svc-photos">${its.map(i => i.v ? clip(i.id) : `<img src="${IMG(i.id)}" alt="${i.title}, ${i.place}" loading="lazy" decoding="async">`).join('')}</div>`;
+  svcList.append(sec);
+});
+svcList.addEventListener('click', e => {
+  const add = e.target.closest('[data-add]'), see = e.target.closest('[data-see]');
+  if (add){ const s = SERVICES.find(x => x.key === add.dataset.add); addLine({ idx:firstFrameOf(s.key), service:s.name, length:'Full day', crew:'Small crew (2 to 3)', delivery:deliveryFor(s.name), cams:1 }); }
+  if (see) leaveContent(firstFrameOf(see.dataset.see));
+});
+document.querySelectorAll('[data-open-brief]').forEach(b => b.onclick = () => toggleDrawer(true));
+
+function card(i){
+  const it = ITEMS[i], b = document.createElement('button');
+  b.type = 'button'; b.className = 'card';
+  b.innerHTML = `<div class="img" style="background-image:url(${IMG(it.id)})"></div><span class="t">${it.title}</span><span class="a">${it.place}</span><span class="p">${it.svc}</span>`;
+  b.onclick = () => { const r = b.querySelector('.img').getBoundingClientRect(); hideLayer(list); openProject(i, r); };
+  return b;
+}
+ITEMS.forEach((_, i) => document.getElementById('all').append(card(i)));
+
+const sel = {}; let cams = 1, curIdx = 0;
+const shot = document.getElementById('shot');
+for (const [g, opts] of Object.entries(OPTS)){
+  const box = document.querySelector(`[data-g="${g}"]`);
+  opts.forEach(o => { const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.textContent = o; c.setAttribute('aria-pressed', 'false'); c.onclick = () => pick(g, o); box.append(c); });
+}
+function pick(g, o){ sel[g] = o; document.querySelectorAll(`[data-g="${g}"] .chip`).forEach(c => c.setAttribute('aria-pressed', c.textContent === o)); document.querySelector(`[data-l="${g}"]`).textContent = o; }
+document.getElementById('qMinus').onclick = () => { cams = Math.max(1, cams - 1); document.getElementById('qVal').textContent = cams + ' cam'; };
+document.getElementById('qPlus').onclick = () => { cams = Math.min(9, cams + 1); document.getElementById('qVal').textContent = cams + ' cam'; };
+document.querySelectorAll('.acc-row > button').forEach(b => b.onclick = () => {
+  const row = b.parentElement, body = row.querySelector('.acc-body'), open = !row.classList.contains('open');
+  row.classList.toggle('open', open); body.style.height = open ? body.scrollHeight + 'px' : '0px';
+});
+
+function openProject(i, from){
+  const it = ITEMS[i]; curIdx = i; lastIdx = i;
+  document.getElementById('pSvc').textContent = it.svc;
+  document.getElementById('pTitle').textContent = it.title;
+  document.getElementById('pPlace').textContent = it.place;
+  document.getElementById('pDesc').textContent = it.desc;
+  document.getElementById('metaNum').textContent = `${i + 1}/${ITEMS.length}`;
+  document.getElementById('metaSvc').textContent = `${it.svc} · ${it.place}`;
+  shot.style.backgroundImage = `url(${IMG(it.id)})`; shot.setAttribute('aria-label', it.title);
+  shot.innerHTML = it.v ? clip(it.id) : '';
+  pick('service', OPTS.service.find(s => s === it.svc) || 'Filmmaking');
+  pick('length', 'Full day'); pick('crew', 'Small crew (2 to 3)');
+  pick('delivery', deliveryFor(it.svc));
+  const more = document.getElementById('more'); more.innerHTML = '';
+  for (let k = 0; k < 4; k++) more.append(card((i + k) % ITEMS.length));
+  page.classList.remove('reveal'); shot.classList.remove('on'); page.scrollTo({ top:0, behavior: RM ? 'auto' : 'smooth' });
+  showLayer(page); setToggle(null);
+  requestAnimationFrame(() => {
+    const to = shot.getBoundingClientRect();
+    if (RM || !from){ shot.classList.add('on'); page.classList.add('reveal'); return; }
+    const f = document.createElement('div'); f.className = 'flyer'; f.style.backgroundImage = `url(${IMG(it.id)})`;
+    f.style.width = to.width + 'px'; f.style.height = to.height + 'px'; document.body.append(f);
+    const sx = from.width/to.width, sy = from.height/to.height;
+    f.animate([{ transform:`translate(${from.left}px,${from.top}px) scale(${sx},${sy})` }, { transform:`translate(${to.left}px,${to.top}px) scale(1,1)` }], { duration:300, easing:'cubic-bezier(.25,.75,.25,1)', fill:'forwards' })
+      .finished.then(() => { shot.classList.add('on'); f.remove(); });
+    setTimeout(() => page.classList.add('reveal'), 1000);
+  });
+}
+
+/* ---------- brief drawer ---------- */
+const drawer = document.getElementById('drawer'), itemsBox = document.getElementById('items'), badge = document.getElementById('badge'), send = document.getElementById('send');
+const brief = [];
+function toggleDrawer(open){ drawer.classList.toggle('open', open); drawer.setAttribute('aria-hidden', !open); if (open) document.getElementById('closeDrawer').focus(); }
+document.getElementById('briefBtn').onclick = () => toggleDrawer(true);
+document.getElementById('closeDrawer').onclick = () => toggleDrawer(false);
+function renderBrief(){
+  itemsBox.innerHTML = brief.length ? '' : '<p class="empty">YOUR BRIEF IS EMPTY</p>';
+  brief.forEach((b, n) => {
+    const d = document.createElement('div'); d.className = 'item';
+    d.innerHTML = `<div class="th" style="background-image:url(${IMG(ITEMS[b.idx].id)})"></div><div><div class="tt">${b.service}</div><div class="ss">${b.length} · ${b.crew}<br>${b.delivery} · like “${ITEMS[b.idx].title}”</div><div class="row"><button type="button" aria-label="One camera fewer">&minus;</button>${b.cams} cam<button type="button" aria-label="One camera more">+</button><button type="button" aria-label="Remove from brief" style="margin-left:auto">Remove</button></div></div>`;
+    const [m, p, r] = d.querySelectorAll('.row button');
+    m.onclick = () => { b.cams = Math.max(1, b.cams - 1); renderBrief(); };
+    p.onclick = () => { b.cams = Math.min(9, b.cams + 1); renderBrief(); };
+    r.onclick = () => { brief.splice(n, 1); renderBrief(); };
+    itemsBox.append(d);
+  });
+  badge.textContent = brief.length; badge.classList.toggle('on', brief.length > 0);
+  send.setAttribute('aria-disabled', brief.length ? 'false' : 'true');
+  const body = brief.map(b => `- ${b.service}: ${b.length}, ${b.crew}, ${b.delivery}, ${b.cams} camera(s), like "${ITEMS[b.idx].title}"`).join('\n');
+  send.href = 'mailto:hello@geomedia.example?subject=' + encodeURIComponent('Project brief') + '&body=' + encodeURIComponent('Hello Geo Media,\n\nHere is our brief:\n' + body + '\n\nDates and place:\nName:\n');
+}
+function addLine(line){
+  const same = brief.find(b => b.idx === line.idx && b.service === line.service && b.length === line.length && b.crew === line.crew && b.delivery === line.delivery);
+  toggleDrawer(true);
+  setTimeout(() => { if (same) same.cams = Math.min(9, same.cams + line.cams); else brief.push(line); renderBrief(); }, RM ? 0 : 750);
+}
+document.getElementById('addBtn').onclick = () => addLine({ idx:curIdx, service:sel.service, length:sel.length, crew:sel.crew, delivery:sel.delivery, cams });
+renderBrief();
+
+/* ---------- entrance ---------- */
+let started = false;
+function intro(){
+  if (started) return; started = true;
+  const veil = document.getElementById('veil');
+  veil.animate([{ opacity:1 }, { opacity:0 }], { duration: RM ? 0 : 900, easing:'ease-out', fill:'forwards' });
+  const end = walkPose(target);
+  cur = { ...end, th:end.th + .16, r:end.r - .35 };
+  startGlide(end, 1400, 'walk', expo);
+  const lines = [...document.querySelectorAll('.gui .m > span')], navKids = [...document.querySelectorAll('.nav > *, .links > *, .right > *')];
+  lines.forEach((el, i) => el.animate([{ transform:'translateY(105%)' }, { transform:'none' }], { duration: RM ? 0 : 1000, delay: RM ? 0 : 250 + i*60, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' }));
+  navKids.forEach((el, i) => el.animate([{ opacity:0 }, { opacity:1 }], { duration: RM ? 0 : 1000, delay: RM ? 0 : 250 + (lines.length + i)*60, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' }));
+}
+Promise.all([ready, fontsReady]).then(intro);
+setTimeout(intro, 4000);
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Geo Media Solutions: services, work and enquiries</title>
-<meta name="description" content="Films, photographs, livestreams and design for NGOs, development agencies and brands across East Africa, from one crew in Kampala.">
+<meta name="description" content="Most good organisations are badly photographed. Films, photographs, livestreams and design for NGOs and brands across East Africa, from one crew in Kampala.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Geo Media Solutions: video and livestream studio in Kampala">
 <meta property="og:description" content="Films, photographs, livestreams and design for NGOs and brands across East Africa.">
@@ -39,6 +39,9 @@
   --display-tracking-xl: -0.035em;
 }
 /* lights off = the dark theme (the kit takes every colour from these) */
+/* a quieter type scale than the kit's default */
+:root { --t-h1: clamp(32px, 2.2vw + 20px, 54px); --t-h2: clamp(24px, 1.1vw + 19px, 36px); }
+.hero--photo h1 { font-size: clamp(34px, 3vw + 18px, 60px); }
 :root.room-dark {
   --p-bg: #0f1613; --p-surface: #151e1a; --p-ink: #ece8df; --p-muted: #a9b8b0;
   --p-accent: #8cc5aa; --p-accent-ink: #0e1311; --p-action: #ec9921; --p-action-ink: #13372c;
@@ -120,11 +123,11 @@ body{transition:background-color .5s,color .5s}
     </picture>
     <div class="wrap"><div class="hero-text">
       <div class="hero__text">
-        <h1 id="hero-h">Video and livestreams in Kampala</h1>
-        <p class="hero__lead">Films, photographs and livestreams for NGOs and brands across East Africa, with the design around them.</p>
+        <h1 id="hero-h">Make your work look as good as it is</h1>
+        <p class="hero__lead">Most good organisations are badly photographed. We fix that with films, photographs, livestreams and design for NGOs and brands across East Africa.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="#start">Start a project<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
-          <a class="btn btn--secondary" href="#work">See the work</a>
+          <a class="btn btn--secondary" href="#work">See the proof</a>
         </div>
       </div>
     </div></div>
@@ -136,8 +139,8 @@ body{transition:background-color .5s,color .5s}
     <div class="wrap grid grid--top">
       <div class="span-6">
         <div class="section-head">
-          <h2 id="on-air-h">Latest shoots and livestream dates</h2>
-          <p>What we filmed and streamed lately, where, and when the next livestream slots open.</p>
+          <h2 id="on-air-h">What we did last, and when we are free next</h2>
+          <p>There are only so many good camera crews in Kampala on a Saturday. The dates below go first.</p>
         </div>
         <ul class="rows">
           <li><span class="rows__name">Conference livestream<small>Two days, three cameras, streamed to YouTube and Facebook</small></span><span class="rows__value" data-assumed>Kampala, Nov 2026</span></li>
@@ -154,15 +157,15 @@ body{transition:background-color .5s,color .5s}
   <!-- SERVICES (peek-list): each row has its own photograph; all six are stand-ins -->
   <section class="section ground-surface" id="services" style="--hm: 2" aria-labelledby="services-h">
     <div class="wrap">
-      <div class="section-head"><h2 id="services-h">Services for NGOs and brands</h2><p>One crew plans, shoots, streams and designs, so you brief one team from the first call to delivery.</p></div>
+      <div class="section-head"><h2 id="services-h">Six ways to be taken seriously</h2><p>One crew plans, shoots, streams and designs. Fewer handovers mean fewer things lost in them, and one number to call when it matters.</p></div>
       <div class="grid grid--top fill" data-peek>
         <ul class="rows span-6">
-          <li data-peek-to="photo" tabindex="0"><span class="rows__name">Photography</span><p>Event, portrait, product and field photography, edited and delivered as one graded set.</p></li>
-          <li data-peek-to="film" tabindex="0"><span class="rows__name">Filmmaking</span><p>Documentaries, campaign films and event films, from the first plan to the final edit.</p></li>
-          <li data-peek-to="content" tabindex="0"><span class="rows__name">Content creation</span><p>Reels, short videos and photo stories for your channels, planned as a series.</p></li>
-          <li data-peek-to="live" tabindex="0"><span class="rows__name">Livestreaming</span><p>Multi-camera streams for conferences, launches and services, with graphics and recording.</p></li>
-          <li data-peek-to="web" tabindex="0"><span class="rows__name">Website design</span><p>Websites designed and built around your photographs and films.</p></li>
-          <li data-peek-to="graphic" tabindex="0"><span class="rows__name">Graphic design</span><p>Logos, posters, banners and campaign graphics in the same look as your films.</p></li>
+          <li data-peek-to="photo" tabindex="0"><span class="rows__name">Photography</span><p>The only part of the event that outlives the catering. We make it look worth attending.</p></li>
+          <li data-peek-to="film" tabindex="0"><span class="rows__name">Filmmaking</span><p>A report gets skimmed; a three-minute film gets forwarded. We make the one people forward.</p></li>
+          <li data-peek-to="content" tabindex="0"><span class="rows__name">Content creation</span><p>Posting once is a whisper. Posting every week is a reputation. We plan the series.</p></li>
+          <li data-peek-to="live" tabindex="0"><span class="rows__name">Livestreaming</span><p>An audience forgives a slow speaker, never a frozen screen. We bring the backup for the backup.</p></li>
+          <li data-peek-to="web" tabindex="0"><span class="rows__name">Website design</span><p>The shop window people visit at midnight. Fast, and looking like you mean it.</p></li>
+          <li data-peek-to="graphic" tabindex="0"><span class="rows__name">Graphic design</span><p>Consistency looks expensive. One look across poster, page and film makes a small team feel big.</p></li>
         </ul>
         <div class="frame frame--photo frame--fill span-6 start-7">
           <img class="frame__img" data-peek-for="photo" loading="lazy" src="assets/img/photo-f63286416.webp" srcset="assets/img/photo-f63286416-500.webp 500w, assets/img/photo-f63286416-960.webp 960w, assets/img/photo-f63286416.webp 1280w" sizes="(max-width: 639px) 300vw, (max-width: 1023px) 100vw, 50vw" width="1280" height="853" alt="A photographer shoots a line of women in matching dresses at an evening celebration" decoding="async" data-source="stand-in" data-subject="event photography">
@@ -179,21 +182,21 @@ body{transition:background-color .5s,color .5s}
   <!-- WORK: three kinds of work, one photograph each (stand-ins) -->
   <section class="section ground-surface" id="work" style="--hm: 2" aria-labelledby="work-h">
     <div class="wrap">
-      <div class="section-head"><h2 id="work-h">Recent work across East Africa</h2><p>Events in the city, shoots on location, and the print and design that carry a campaign.</p></div>
+      <div class="section-head"><h2 id="work-h">Proof from across East Africa</h2><p>Events in the city, stories on location, and the print that carries a campaign home.</p></div>
       <div class="grid">
         <a class="card card--row card--open span-4" href="#start">
-          <h3>Films a cultural day</h3>
-          <p>Stage, crowd and backstage, cut into a three-minute film and a photo set.</p>
+          <h3>A cultural day, filmed</h3>
+          <p>Three minutes for the people who were there, and a short for those who wish they had been.</p>
           <div class="panel"><img class="frame__img" src="assets/img/photo-f182219186.webp" srcset="assets/img/photo-f182219186-500.webp 500w, assets/img/photo-f182219186-960.webp 960w, assets/img/photo-f182219186.webp 1280w" sizes="(max-width: 1023px) 100vw, 33vw" width="1280" height="848" alt="Children in orange bark-cloth dresses perform on an outdoor stage" loading="lazy" decoding="async" data-source="stand-in" data-subject="cultural day performance"></div>
         </a>
         <a class="card card--row card--open span-4" href="#start">
-          <h3>Films field stories on Lake Victoria</h3>
-          <p>Crew, kit and power travel by boat for field stories on Lake Victoria.</p>
+          <h3>Field stories on Lake Victoria</h3>
+          <p>Crew, kit and power go by boat. The hard-to-reach stories are the ones donors remember.</p>
           <div class="panel"><img class="frame__img" src="assets/img/photo-f107307775.webp" srcset="assets/img/photo-f107307775-500.webp 500w, assets/img/photo-f107307775-960.webp 960w, assets/img/photo-f107307775.webp 1280w" sizes="(max-width: 1023px) 100vw, 33vw" width="1280" height="853" alt="Fishing boats pulled up on a sandy shore of Lake Victoria under grey cloud" loading="lazy" decoding="async" data-source="stand-in" data-subject="Lake Victoria location"></div>
         </a>
         <a class="card card--row card--open span-4" href="#start">
-          <h3>Prints campaign shirts and banners</h3>
-          <p>T-shirts, banners and posters printed from the same files as the film.</p>
+          <h3>Campaign shirts and banners</h3>
+          <p>Printed from the same files as the film, so the campaign looks like one idea, not six suppliers.</p>
           <div class="panel"><img class="frame__img" src="assets/img/photo-f115251071.webp" srcset="assets/img/photo-f115251071-500.webp 500w, assets/img/photo-f115251071-960.webp 960w, assets/img/photo-f115251071.webp 1280w" sizes="(max-width: 1023px) 100vw, 33vw" width="1280" height="962" alt="A printer lifts a screen off a yellow T-shirt beside a heat press" loading="lazy" decoding="async" data-source="stand-in" data-subject="campaign print production"></div>
         </a>
       </div>
@@ -205,12 +208,12 @@ body{transition:background-color .5s,color .5s}
     <div class="wrap grid grid--top">
       <div class="span-6 stack-4">
         <div class="section-head">
-          <h2 id="start-h">Project enquiry form</h2>
-          <p>Tell us what you need in five fields. We reply within one working day, by email or on WhatsApp if you prefer.</p>
+          <h2 id="start-h">Five fields. No sales call unless you want one</h2>
+          <p>Tell us what you need. We reply within one working day, by email or on WhatsApp if you prefer.</p>
         </div>
         <ul class="rows">
-          <li><span class="rows__name">1. You send the brief<small>What, where, when, and who will watch it</small></span></li>
-          <li><span class="rows__name">2. We send a plan and a quote<small>Crew, days on location, delivery dates</small></span></li>
+          <li><span class="rows__name">1. You send the brief<small>What, where, when, and who you need to convince</small></span></li>
+          <li><span class="rows__name">2. We send a plan and a quote<small>Crew, days on location, delivery dates, and no surprises</small></span></li>
           <li><span class="rows__name">3. We shoot, stream and deliver<small>Edits in two review rounds, files in every size you need</small></span></li>
         </ul>
         <!-- Stand-in: a technician repairing camera kit. Replace with the team prepping its own kit. -->
@@ -251,8 +254,8 @@ body{transition:background-color .5s,color .5s}
   <div class="wrap">
     <div class="closing__cta close--type">
       <div class="section-head">
-        <h2 id="close-h">Tell us about your next shoot</h2>
-        <p>Five fields, and a reply within one working day.</p>
+        <h2 id="close-h">The best idea usually turns up in the first call</h2>
+        <p>It is free and it takes twenty minutes. Five fields, and a reply within one working day.</p>
       </div>
       <a class="btn btn--primary btn--xl btn--wide" href="#start">Start a project<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
     </div>
@@ -260,7 +263,7 @@ body{transition:background-color .5s,color .5s}
       <div class="grid">
         <div class="span-4 stack-4">
           <a class="nav__logo" href="#top">Geo Media Solutions</a>
-          <p class="footer__lede">Film, livestreams and design from Kampala.</p>
+          <p class="footer__lede">Film, livestreams and design from Kampala. One crew, fewer handovers.</p>
         </div>
         <div class="span-2 footer__col"><h3>On air</h3><ul><li><a href="#on-air">Latest shoots</a></li><li><a href="#on-air">Livestream dates</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Services</h3><ul><li><a href="#services">Photography</a></li><li><a href="#services">Filmmaking</a></li><li><a href="#services">Content creation</a></li><li><a href="#services">Livestreaming</a></li><li><a href="#services">Website design</a></li><li><a href="#services">Graphic design</a></li></ul></div>

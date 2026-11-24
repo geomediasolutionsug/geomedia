@@ -7,6 +7,7 @@
 <meta name="description" content="Walk a curved gallery of Geo Media's photography, filmmaking, content, livestream, web and graphic design work, then build a project brief.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F4F3EE">
+<script>/* the theme follows the Lights switch and is remembered across pages */try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400..600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -64,11 +65,17 @@ a{color:inherit;text-decoration:none}
 .lights[aria-checked="true"] .knob{transform:translateX(14px);background:#fff}
 .logo .lm-dark{display:none}
 /* lights off: the room goes dark, so the words over it turn light (the page layers keep their own colours) */
-body.room-dark .gui, body.room-dark .nav:not(.solid){--glass-bg:rgba(16,26,22,.42);--glass-line:rgba(255,255,255,.14);--glass-hi:rgba(255,255,255,.16);--glass-shadow:0 14px 36px -12px rgba(0,0,0,.6);--ink:#F4F3EE;--wall:#0E1311;--ink-60:rgba(244,243,238,.66);--ink-35:rgba(244,243,238,.35);--ink-15:rgba(244,243,238,.15);color:var(--ink)}
+/* lights off = the dark theme, for the whole page: every colour comes from these tokens */
+:root.room-dark{--wall:#0E1311;--page:#0F1613;--band:#151E1A;--drawer:#17221D;--ink:#ECE8DF;--ink-2:#FFFFFF;--ink-60:rgba(236,232,223,.66);--ink-35:rgba(236,232,223,.3);--ink-15:rgba(236,232,223,.13);--accent:#8CC5AA;--chip-on:rgba(236,153,33,.22);
+  --glass-bg:rgba(16,26,22,.46);--glass-line:rgba(255,255,255,.14);--glass-hi:rgba(255,255,255,.16);--glass-shadow:0 14px 36px -12px rgba(0,0,0,.6);color-scheme:dark}
+:root.room-dark .nav.solid{--glass-bg:rgba(15,22,19,.84)}
+:root.room-dark .svc-card .num{color:#ECE8DF;background:rgba(15,22,19,.42);border-color:rgba(255,255,255,.18)}
+:root.room-dark .gbtn--warm{color:#13372C}
+#content,#page,#list,.drawer,.quote,.svc-card{transition:background-color .5s,color .5s,border-color .5s}
 .gui, .nav{transition:color .5s}
-body.room-dark .nav:not(.solid) .logo .lm-light{display:none}
-body.room-dark .cta:hover{background:#fff}
-body.room-dark .nav:not(.solid) .logo .lm-dark{display:block}
+:root.room-dark .logo .lm-light{display:none}
+:root.room-dark .cta:hover{background:#fff}
+:root.room-dark .logo .lm-dark{display:block}
 .icon-btn{position:relative;width:max(28px,calc(30*var(--u)));height:max(28px,calc(30*var(--u)));display:grid;place-items:center}
 .icon-btn svg{width:max(18px,calc(19*var(--u)));height:auto;fill:none;stroke:currentColor;stroke-width:1.6}
 .badge{position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;border-radius:99px;background:var(--orange);color:var(--ink);font:500 10px/16px var(--mono);text-align:center;padding:0 4px;display:none}
@@ -110,7 +117,7 @@ body:not(.covered) .gui{transition:opacity .3s}
 @media (prefers-reduced-motion:reduce){ .gbtn:hover{transform:none} }
 h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-spacing:-.035em;white-space:nowrap;text-transform:uppercase;transform:scaleX(.86);transform-origin:0 100%}
 .enter{position:absolute;left:calc(860*var(--u));bottom:0;font:400 max(11px,calc(11*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:calc(2*var(--u));margin-bottom:calc(9*var(--u));min-height:24px;display:flex;align-items:flex-end;white-space:nowrap}
-.pill{position:fixed;left:0;top:0;z-index:25;background:var(--ink);color:#fff;font:400 max(11px,calc(10*var(--u))) var(--mono);letter-spacing:.14em;padding:calc(7*var(--u)) calc(13*var(--u));border-radius:99px;opacity:0;transition:opacity .12s;pointer-events:none;transform:translate(-50%,-50%);white-space:nowrap}
+.pill{position:fixed;left:0;top:0;z-index:25;background:var(--ink);color:var(--wall);font:400 max(11px,calc(10*var(--u))) var(--mono);letter-spacing:.14em;padding:calc(7*var(--u)) calc(13*var(--u));border-radius:99px;opacity:0;transition:opacity .12s;pointer-events:none;transform:translate(-50%,-50%);white-space:nowrap}
 .pill.on{opacity:1}
 
 /* project page */
@@ -120,7 +127,7 @@ h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-
 #page.in,#list.in{opacity:1}
 .wrap{padding-top:calc(96*var(--w));display:grid;grid-template-columns:calc(712*var(--w)) calc(638*var(--w))}
 .left{position:sticky;top:calc(96*var(--w));align-self:start;padding-left:calc(184*var(--w));width:calc(544*var(--w))}
-.shot{width:calc(360*var(--w));aspect-ratio:3/4.08;box-shadow:0 0 0 calc(10*var(--w)) #ECEEE7,0 calc(2*var(--w)) calc(10*var(--w)) calc(10*var(--w)) rgba(19,55,44,.06);background:#ddd center/cover no-repeat;visibility:hidden}
+.shot{width:calc(360*var(--w));aspect-ratio:3/4.08;box-shadow:0 0 0 calc(10*var(--w)) var(--band),0 calc(2*var(--w)) calc(10*var(--w)) calc(10*var(--w)) rgba(19,55,44,.06);background:var(--band) center/cover no-repeat;visibility:hidden}
 .shot.on{visibility:visible}
 .meta{width:calc(360*var(--w));margin-top:calc(34*var(--w));display:flex;justify-content:space-between;font:400 max(11px,calc(11*var(--w))) var(--mono);color:var(--ink-60)}
 .details,.meta,.band{opacity:0;transition:opacity .15s}
@@ -140,7 +147,7 @@ h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-
 .buy{display:flex;gap:calc(26*var(--w));margin-top:calc(42*var(--w))}
 .qty{display:flex;align-items:center;justify-content:space-between;width:calc(120*var(--w));min-width:110px;height:max(44px,calc(50*var(--w)));border:1px solid var(--ink-35);padding:0 calc(10*var(--w));font:400 max(12px,calc(13*var(--w))) var(--mono)}
 .qty button{width:max(28px,calc(24*var(--w)));height:max(28px,calc(24*var(--w)))}
-.add{flex:1;background:var(--ink);color:#fff;font-weight:500;font-size:max(14px,calc(16*var(--w)));letter-spacing:.12em;text-transform:uppercase;height:max(44px,calc(50*var(--w)));transition:background .2s}
+.add{flex:1;background:var(--ink);color:var(--page);font-weight:500;font-size:max(14px,calc(16*var(--w)));letter-spacing:.12em;text-transform:uppercase;height:max(44px,calc(50*var(--w)));transition:background .2s}
 .add:hover{background:var(--ink-2)}
 .acc{margin-top:calc(36*var(--w));border-top:1px solid var(--ink-35)}
 .acc-row{border-bottom:1px solid var(--ink-35)}
@@ -153,7 +160,7 @@ h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-
 .band h2,#list h2{margin:0 0 calc(28*var(--w)) 0;font-weight:500;font-size:max(26px,calc(38*var(--w)));letter-spacing:-.02em;text-transform:uppercase}
 .cards{display:flex;gap:calc(87*var(--w));flex-wrap:wrap}
 .card{width:calc(168*var(--w));min-width:140px;text-align:left}
-.card .img{aspect-ratio:3/4;background:#ddd center/cover no-repeat;box-shadow:0 0 0 calc(7*var(--w)) #ECEEE7;transition:transform .35s cubic-bezier(.2,.7,.2,1);margin:calc(7*var(--w))}
+.card .img{aspect-ratio:3/4;background:var(--band) center/cover no-repeat;box-shadow:0 0 0 calc(7*var(--w)) var(--band);transition:transform .35s cubic-bezier(.2,.7,.2,1);margin:calc(7*var(--w))}
 .card:hover .img{transform:translateY(calc(-4*var(--w)))}
 .card .t{display:block;font-weight:500;font-size:max(13px,calc(14*var(--w)));margin-top:calc(16*var(--w))}
 .card .a{display:block;font-style:italic;font-size:max(13px,calc(13.5*var(--w)));color:var(--ink-60)}
@@ -170,14 +177,14 @@ h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-
 .empty{font:400 12px var(--mono);text-align:center;margin-top:calc(120*var(--w));letter-spacing:.1em}
 .item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--ink-15);animation:rise .4s both}
 @keyframes rise{from{opacity:0;transform:translateY(calc(6*var(--w)))}}
-.item .th{width:calc(66*var(--w));min-width:56px;aspect-ratio:3/4;background:#ddd center/cover}
+.item .th{width:calc(66*var(--w));min-width:56px;aspect-ratio:3/4;background:var(--band) center/cover}
 .item .tt{font-weight:500;font-size:max(13px,calc(14*var(--w)))}
 .item .ss{font:400 11px var(--mono);color:var(--ink-60);margin-top:4px;line-height:1.5}
 .item .row{display:flex;align-items:center;gap:10px;margin-top:8px;font:400 12px var(--mono)}
 .item .row button{min-width:24px;min-height:24px}
 .drawer footer{border-top:1px solid var(--ink-35);padding-top:16px}
 .drawer footer p{margin:0 0 14px;font:400 11px/1.5 var(--mono);color:var(--ink-60)}
-.send{display:flex;align-items:center;justify-content:center;width:100%;background:var(--ink);color:#fff;font-weight:500;font-size:max(15px,calc(17*var(--w)));letter-spacing:.1em;text-transform:uppercase;height:max(48px,calc(50*var(--w)))}
+.send{display:flex;align-items:center;justify-content:center;width:100%;background:var(--ink);color:var(--page);font-weight:500;font-size:max(15px,calc(17*var(--w)));letter-spacing:.1em;text-transform:uppercase;height:max(48px,calc(50*var(--w)))}
 .send[aria-disabled="true"]{opacity:.4;pointer-events:none}
 .flyer{position:fixed;left:0;top:0;z-index:50;background:center/cover no-repeat;transform-origin:0 0;pointer-events:none}
 
@@ -197,7 +204,7 @@ h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-
   .toggle button{height:26px}
   .wrap{display:block;max-width:680px;margin:0 auto;padding:64px 20px 0}
   .left{position:static;padding:0;width:auto;margin-bottom:40px}
-  .shot{width:100%;max-width:420px;box-shadow:0 0 0 8px #ECEEE7}
+  .shot{width:100%;max-width:420px;box-shadow:0 0 0 8px var(--band)}
   .meta{width:100%;max-width:420px}
   .chips{gap:8px} .chip{height:36px;font-size:11px}
   .band{padding:30px 0 60px max(20px,calc((100vw - 640px)/2))}
@@ -223,7 +230,7 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 .svc-intro header p strong{color:var(--ink);font-weight:500}
 .svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--w))}
 .svc-card{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:var(--band);border:1px solid var(--ink-15);color:inherit;text-decoration:none;transition:transform .45s var(--spring),box-shadow .45s var(--spring),border-color .3s}
-.svc-card .media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#dfe3da}
+.svc-card .media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--band)}
 .svc-card .media :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--spring)}
 .svc-card .num{position:absolute;left:14px;top:14px;font:400 11px var(--mono);letter-spacing:.14em;padding:6px 11px;border-radius:99px;color:#13372C;
   background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.1)),rgba(255,255,255,.45);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.7)}
@@ -245,7 +252,7 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 .count{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.14em;color:var(--accent);margin:0 0 calc(16*var(--w))}
 .svc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(32*var(--w))}
 .btn-dark,.btn-line{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font-weight:500;font-size:max(14px,calc(15*var(--w)));letter-spacing:.04em}
-.btn-dark{background:var(--ink);color:#fff} .btn-dark:hover{background:var(--ink-2)}
+.btn-dark{background:var(--ink);color:var(--page)} .btn-dark:hover{background:var(--ink-2)}
 .btn-line{border:1px solid var(--ink)} .btn-line:hover{background:var(--ink);color:var(--wall)}
 .shot{position:relative;overflow:hidden} .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* featured work: a bento of six projects */
@@ -254,7 +261,7 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 .sec-head h2{margin:0;font-weight:500;font-size:max(40px,calc(96*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
 .sec-head p{margin:0;max-width:36ch;font-size:max(15px,calc(17*var(--w)));line-height:1.5;color:var(--ink-60)}
 .work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:calc(250*var(--w));gap:calc(16*var(--w));grid-template-areas:"a a b c" "a a b d" "e e f f"}
-.work-tile{position:relative;overflow:hidden;border-radius:20px;background:#dfe3da;text-align:left;color:#fff;isolation:isolate;transition:transform .45s var(--spring),box-shadow .45s var(--spring)}
+.work-tile{position:relative;overflow:hidden;border-radius:20px;background:var(--band);text-align:left;color:#fff;isolation:isolate;transition:transform .45s var(--spring),box-shadow .45s var(--spring)}
 .work-tile:nth-child(1){grid-area:a} .work-tile:nth-child(2){grid-area:b} .work-tile:nth-child(3){grid-area:c}
 .work-tile:nth-child(4){grid-area:d} .work-tile:nth-child(5){grid-area:e} .work-tile:nth-child(6){grid-area:f}
 .work-tile :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--spring)}
@@ -303,11 +310,11 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
   background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 60%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow)}
 .page-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none}
 #page:not(.show) .page-close{display:none}
-.end-sec{min-height:80vh;padding:calc(140*var(--w)) calc(80*var(--w));display:flex;flex-direction:column;justify-content:center;gap:calc(28*var(--w));background:var(--ink);color:var(--wall)}
+.end-sec{min-height:80vh;padding:calc(140*var(--w)) calc(80*var(--w));display:flex;flex-direction:column;justify-content:center;gap:calc(28*var(--w));background:#13372C;color:#F4F3EE}
 .end-sec h2{margin:0;font-weight:500;font-size:max(40px,calc(110*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
 .end-sec p{margin:0;font-size:max(16px,calc(19*var(--w)));max-width:40ch;color:rgba(244,243,238,.72)}
 .end-sec .btn-dark{background:var(--orange);color:var(--ink)} .end-sec .btn-dark:hover{background:#F3B04F} .end-sec .btn-line{border-color:var(--wall)}
-.end-sec .btn-line:hover{background:var(--wall);color:var(--ink)}
+.end-sec .btn-line:hover{background:#F4F3EE;color:#13372C}
 .back-up{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid currentColor;align-self:flex-start;min-height:24px}
 @media (max-width:819px), (orientation:portrait) and (max-width:1100px){
   .end-sec{padding:84px 20px}
@@ -342,7 +349,7 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
     <a href="studio.html#start">Contact</a>
   </nav>
   <div class="right">
-    <button class="lights" id="lightsBtn" type="button" role="switch" aria-checked="true" aria-label="Gallery lights"><span class="track"><span class="knob"></span></span><span class="lbl">Lights</span></button>
+    <button class="lights" id="lightsBtn" type="button" role="switch" aria-checked="true" aria-label="Lights: light or dark theme"><span class="track"><span class="knob"></span></span><span class="lbl">Lights</span></button>
     <a class="cta fold" href="studio.html#start">Start a project</a>
     <button class="icon-btn" id="briefBtn" type="button" aria-label="Open your project brief">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>
@@ -747,7 +754,8 @@ const SURF = [
   { mat: lampGlowMat,    on: C(0xFFE7B8), off: C(0xFFF6E0) },
 ];
 const BG_ON = C(0xF4F3EE), BG_OFF = C(0x0B0F0D), CAP_ON = C(0x13372C), CAP_OFF = C(0xD9D4C8);
-let dark = 0, darkTo = 0, darkShown = -1;
+const startDark = document.documentElement.classList.contains('room-dark');
+let dark = startDark ? 1 : 0, darkTo = dark, darkShown = -1;
 function updateLights(dt){
   dark = RM ? darkTo : dark + (darkTo - dark) * (1 - Math.exp(-dt/.22));
   if (Math.abs(dark - darkTo) < .002) dark = darkTo;
@@ -762,10 +770,13 @@ function updateLights(dt){
   if (projMat.map) projMat.opacity = .2 - .1*e;   // the projection steps back so the picture lights lead
 }
 const lightsBtn = document.getElementById('lightsBtn');
+lightsBtn.setAttribute('aria-checked', !startDark);
 lightsBtn.addEventListener('click', () => {
   const on = lightsBtn.getAttribute('aria-checked') !== 'true';
   lightsBtn.setAttribute('aria-checked', on);
-  document.body.classList.toggle('room-dark', !on);
+  document.documentElement.classList.toggle('room-dark', !on);
+  document.querySelector('meta[name="theme-color"]').content = on ? '#F4F3EE' : '#0E1311';
+  try { localStorage.setItem('gm-theme', on ? 'light' : 'dark'); } catch (e) {}
   darkTo = on ? 0 : 1;
 });
 

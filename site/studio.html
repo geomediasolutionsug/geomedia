@@ -12,6 +12,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#f4f3ee">
+<script>/* the theme follows the Lights switch and is remembered across pages */try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
 <!-- <link rel="canonical" href="https://[the client's domain]/"> : add once the domain is known -->
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
@@ -37,6 +38,21 @@
   --display-tracking: -0.025em;
   --display-tracking-xl: -0.035em;
 }
+/* lights off = the dark theme (the kit takes every colour from these) */
+:root.room-dark {
+  --p-bg: #0f1613; --p-surface: #151e1a; --p-ink: #ece8df; --p-muted: #a9b8b0;
+  --p-accent: #8cc5aa; --p-accent-ink: #0e1311; --p-action: #ec9921; --p-action-ink: #13372c;
+  --p-inv-bg: #13372c; --p-inv-surface: #1c463a; color-scheme: dark;
+}
+.lights{display:inline-flex;align-items:center;gap:9px;font:400 11px var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:none;border:0;cursor:pointer;min-height:40px;padding:0 4px}
+.lights .track{width:32px;height:18px;border-radius:99px;border:1.5px solid currentColor;position:relative;transition:background .3s,border-color .3s}
+.lights .knob{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s}
+.lights[aria-checked="true"] .track{background:#ec9921;border-color:#ec9921}
+.lights[aria-checked="true"] .knob{transform:translateX(14px);background:#fff}
+.nav__logo .lm-dark{display:none}
+:root.room-dark .nav__logo .lm-light{display:none}
+:root.room-dark .nav__logo .lm-dark{display:block}
+body{transition:background-color .5s,color .5s}
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script src="assets/backgrounds/backgrounds.js"></script>
@@ -77,7 +93,7 @@
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Skip to content</a>
-    <a class="nav__logo" href="#top" style="display:inline-flex;align-items:center;gap:.5em;white-space:nowrap"><img src="assets/logo-mark.svg" alt="" width="26" height="26">Geo Media Solutions</a>
+    <a class="nav__logo" href="#top" style="display:inline-flex;align-items:center;gap:.5em;white-space:nowrap"><img class="lm-light" src="assets/logo-mark.svg" alt="" width="26" height="26"><img class="lm-dark" src="assets/logo-mark-light.svg" alt="" width="26" height="26">Geo Media Solutions</a>
     <nav class="nav__links" aria-label="Main">
       <div class="nav__item"><a class="nav__link" href="index.html">Gallery</a></div>
       <div class="nav__item"><a class="nav__link" href="#on-air">On air</a></div>
@@ -86,6 +102,7 @@
       <div class="nav__item"><a class="nav__link" href="#contact">Contact</a></div>
     </nav>
     <div class="nav__actions">
+      <button class="lights" id="lightsBtn" type="button" role="switch" aria-checked="true" aria-label="Lights: light or dark theme"><span class="track"><span class="knob"></span></span><span>Lights</span></button>
       <a class="btn btn--primary" href="#start">Start a project</a>
     </div>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
@@ -266,5 +283,19 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
+<script>
+/* the Lights switch: light or dark theme, shared with the gallery page */
+(() => {
+  const b = document.getElementById('lightsBtn'), root = document.documentElement;
+  b.setAttribute('aria-checked', !root.classList.contains('room-dark'));
+  b.addEventListener('click', () => {
+    const on = b.getAttribute('aria-checked') !== 'true';
+    b.setAttribute('aria-checked', on);
+    root.classList.toggle('room-dark', !on);
+    document.querySelector('meta[name="theme-color"]').content = on ? '#f4f3ee' : '#0e1311';
+    try { localStorage.setItem('gm-theme', on ? 'light' : 'dark'); } catch (e) {}
+  });
+})();
+</script>
 </body>
 </html>

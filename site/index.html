@@ -120,6 +120,47 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .tile:nth-child(1) b{font-size:clamp(24px,2.8vw,40px)}
 @media (hover:hover){ .tile:hover :is(img,video){transform:scale(1.05)} }
 
+/* how it works: five pinned notes on a ruled board, joined by a moving dashed route */
+.process{position:relative;overflow:hidden}
+.process::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;
+  background-image:linear-gradient(var(--ink) 1px,transparent 1px);background-size:100% 32px;background-position:0 4px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(90deg,transparent,#000 28%,#000 72%,transparent)}
+:root.room-dark .process::before{opacity:.09}
+.board{position:relative;max-width:1000px;height:var(--board-h,1130px);margin:0 auto}
+.notes{margin:0;padding:0;list-style:none}
+.route{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+.route path{fill:none;stroke:var(--route);stroke-width:2;stroke-dasharray:8 6;stroke-linecap:round;vector-effect:non-scaling-stroke;animation:route 3s linear infinite}
+@keyframes route{to{stroke-dashoffset:-140}}
+:root{--route:rgba(24,54,48,.3)} :root.room-dark{--route:rgba(227,218,201,.28)}
+.note{position:absolute;z-index:1;width:280px;transform:rotate(var(--rot,0deg)) scale(var(--s,1));transition:transform .3s ease-out}
+.note:nth-of-type(1){left:15%;top:0;--rot:8deg}
+.note:nth-of-type(2){right:15%;top:120px;--rot:-8deg}
+.note:nth-of-type(3){left:15%;top:450px;--rot:8deg}
+.note:nth-of-type(4){right:10%;top:570px;--rot:-8deg}
+.note:nth-of-type(5){left:15%;top:850px;--rot:8deg}
+@media (hover:hover){ .note:hover{--s:1.05;z-index:3} }
+.note .card{padding:8px;border-radius:25px;background:var(--note);border:1px solid var(--line);box-shadow:0 10px 20px -6px rgba(24,54,48,.16)}
+:root{--note:#FBF8F2} :root.room-dark{--note:#1B3A33}
+:root.room-dark .note .card{box-shadow:none}
+.note .pin{display:block;width:32px;height:32px;margin:6px auto 24px;color:var(--acc-ink)}
+.note .panel{border-radius:15px;padding:15px;background:var(--acc-bg);border:1px solid var(--acc-line)}
+.note .num{display:block;margin:0 0 20px;font:300 italic 40px/1 var(--serif);color:var(--acc-ink);font-variation-settings:"opsz" 144}
+.note h3{margin:0 0 10px;font:400 24px/1.05 var(--serif);letter-spacing:-.02em}
+.note p{margin:0;font-size:14px;line-height:20px;letter-spacing:-.005em;color:var(--ink-70)}
+/* three accents from the palette card: gold, green and the logo's orange, all pale */
+.note.gold{--acc-bg:#F6ECD6;--acc-line:#EEDDB8;--acc-ink:#A87A26}
+.note.sage{--acc-bg:#E4ECE6;--acc-line:#D2DFD6;--acc-ink:#2F6B57}
+.note.clay{--acc-bg:#F8E7D8;--acc-line:#F0D6BF;--acc-ink:#B96A22}
+:root.room-dark .note.gold{--acc-bg:rgba(229,198,144,.1);--acc-line:rgba(229,198,144,.22);--acc-ink:#E5C690}
+:root.room-dark .note.sage{--acc-bg:rgba(140,197,170,.1);--acc-line:rgba(140,197,170,.22);--acc-ink:#9FCDB5}
+:root.room-dark .note.clay{--acc-bg:rgba(236,153,33,.1);--acc-line:rgba(236,153,33,.24);--acc-ink:#F0B060}
+@media (max-width:900px){
+  .board{height:auto} .notes{display:flex;flex-direction:column;gap:32px}
+  .route{display:none}
+  .note{position:static;width:100%;transform:none}
+}
+@media (prefers-reduced-motion:reduce){ .route path{animation:none} }
+
 /* voices */
 .quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .quote{margin:0;display:flex;flex-direction:column;gap:28px;padding:30px;border-radius:24px;background:var(--panel);transition:background-color .5s}
@@ -215,6 +256,22 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
     <div class="wrap">
       <div class="sec-head rise"><div><p class="mono">Selected work</p><h2 id="work-h">Proof, not <em>promises</em></h2></div><a class="link" href="studio.html#work">See the studio &rarr;</a></div>
       <div class="work-grid" id="workGrid"></div>
+    </div>
+  </section>
+
+  <section class="sec process" id="process" aria-labelledby="proc-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rise"><div><p class="mono">How it works</p><h2 id="proc-h">From first call to <em>final cut</em></h2></div></div>
+      <div class="board" style="--board-h:1130px">
+        <svg class="route" viewBox="0 0 1000 1130" preserveAspectRatio="none" aria-hidden="true"><path d="M 290 150 C 500 150, 550 270, 710 270 C 850 270, 500 350, 290 450 C 290 600, 550 720, 750 720 C 950 720, 500 800, 290 850"/></svg>
+        <ol class="notes">
+        <li class="note gold"><article class="card rise" style="--d:0ms"><svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3a1 1 0 0 1 .117 1.993L16 5v4.764l1.894 3.789c.054.108.088.22.1.331L18 14v2a1 1 0 0 1-.883.993L17 17h-4v4a1 1 0 0 1-1.993.117L11 21v-4H7a1 1 0 0 1-.993-.883L6 16v-2c0-.117.02-.23.06-.34l.046-.107L8 9.762V5a1 1 0 0 1-.117-1.993L8 3h8Z"/></svg><div class="panel"><span class="num">01</span><h3>Tell us the feeling</h3><p>Five lines: what it is, where, when, and how people should feel afterwards.</p></div></article></li>
+        <li class="note sage"><article class="card rise" style="--d:60ms"><svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3a1 1 0 0 1 .117 1.993L16 5v4.764l1.894 3.789c.054.108.088.22.1.331L18 14v2a1 1 0 0 1-.883.993L17 17h-4v4a1 1 0 0 1-1.993.117L11 21v-4H7a1 1 0 0 1-.993-.883L6 16v-2c0-.117.02-.23.06-.34l.046-.107L8 9.762V5a1 1 0 0 1-.117-1.993L8 3h8Z"/></svg><div class="panel"><span class="num">02</span><h3>We plan the shot</h3><p>A call, a plan and a quote within one working day, so nothing is left to chance.</p></div></article></li>
+        <li class="note clay"><article class="card rise" style="--d:120ms"><svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3a1 1 0 0 1 .117 1.993L16 5v4.764l1.894 3.789c.054.108.088.22.1.331L18 14v2a1 1 0 0 1-.883.993L17 17h-4v4a1 1 0 0 1-1.993.117L11 21v-4H7a1 1 0 0 1-.993-.883L6 16v-2c0-.117.02-.23.06-.34l.046-.107L8 9.762V5a1 1 0 0 1-.117-1.993L8 3h8Z"/></svg><div class="panel"><span class="num">03</span><h3>We arrive ready</h3><p>Crew, kit and the backup kit, early. Your audience only ever sees the calm.</p></div></article></li>
+        <li class="note gold"><article class="card rise" style="--d:180ms"><svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3a1 1 0 0 1 .117 1.993L16 5v4.764l1.894 3.789c.054.108.088.22.1.331L18 14v2a1 1 0 0 1-.883.993L17 17h-4v4a1 1 0 0 1-1.993.117L11 21v-4H7a1 1 0 0 1-.993-.883L6 16v-2c0-.117.02-.23.06-.34l.046-.107L8 9.762V5a1 1 0 0 1-.117-1.993L8 3h8Z"/></svg><div class="panel"><span class="num">04</span><h3>You shape the cut</h3><p>Photo selects in 48 hours and two review rounds on every film, while it matters.</p></div></article></li>
+        <li class="note sage"><article class="card rise" style="--d:240ms"><svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3a1 1 0 0 1 .117 1.993L16 5v4.764l1.894 3.789c.054.108.088.22.1.331L18 14v2a1 1 0 0 1-.883.993L17 17h-4v4a1 1 0 0 1-1.993.117L11 21v-4H7a1 1 0 0 1-.993-.883L6 16v-2c0-.117.02-.23.06-.34l.046-.107L8 9.762V5a1 1 0 0 1-.117-1.993L8 3h8Z"/></svg><div class="panel"><span class="num">05</span><h3>It goes everywhere</h3><p>Files sized for social, web, print and broadcast, and the stream recording that week.</p></div></article></li>
+        </ol>
+      </div>
     </div>
   </section>
 

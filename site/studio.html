@@ -11,14 +11,14 @@
 <meta property="og:image" content="share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#f4f3ee">
+<meta name="theme-color" content="#efe9de">
 <script>/* the theme follows the Lights switch and is remembered across pages */try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
 <!-- <link rel="canonical" href="https://[the client's domain]/"> : add once the domain is known -->
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..400&family=Montserrat:wght@400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/ui/cards.css">
 <link rel="stylesheet" href="assets/motion/motion.css">
@@ -28,14 +28,15 @@
 <style>
 :root {
   /* the logo's two colours: deep green #13372C carries the text and dark grounds, orange #EC9921 the actions */
-  --p-bg: #f4f3ee; --p-surface: #e8ebe4; --p-ink: #13372c; --p-muted: #4e6a60;
-  --p-accent: #1f5c48; --p-accent-ink: #ffffff; --p-action: #ec9921; --p-action-ink: #13372c;
-  --p-inv-bg: #13372c; --p-inv-surface: #1c463a; --p-inv-ink: #f4f3ee; --p-inv-muted: #a9bdb5;
-  --p-inv-accent: #ec9921; --p-inv-accent-ink: #13372c; --p-inv-action: #ec9921; --p-inv-action-ink: #13372c;
-  --font-display: "Montserrat", system-ui, sans-serif;
+  /* the palette card: deep green, warm cream, soft gold (the logo orange stays in the logo) */
+  --p-bg: #efe9de; --p-surface: #e3dac9; --p-ink: #183630; --p-muted: #4d5f58;
+  --p-accent: #183630; --p-accent-ink: #efe9de; --p-action: #183630; --p-action-ink: #efe9de;
+  --p-inv-bg: #183630; --p-inv-surface: #21463e; --p-inv-ink: #e3dac9; --p-inv-muted: #b5b8a8;
+  --p-inv-accent: #e5c690; --p-inv-accent-ink: #183630; --p-inv-action: #e3dac9; --p-inv-action-ink: #183630;
+  --font-display: "Fraunces", Georgia, serif;
+  --display-weight: 300;
   --font-text: "Montserrat", system-ui, sans-serif;
-  --display-weight: 400;
-  --display-tracking: -0.025em;
+    --display-tracking: -0.025em;
   --display-tracking-xl: -0.035em;
 }
 /* lights off = the dark theme (the kit takes every colour from these) */
@@ -43,15 +44,15 @@
 :root { --t-h1: clamp(32px, 2.2vw + 20px, 54px); --t-h2: clamp(24px, 1.1vw + 19px, 36px); }
 .hero--photo h1 { font-size: clamp(34px, 3vw + 18px, 60px); }
 :root.room-dark {
-  --p-bg: #0f1613; --p-surface: #151e1a; --p-ink: #ece8df; --p-muted: #a9b8b0;
-  --p-accent: #8cc5aa; --p-accent-ink: #0e1311; --p-action: #ec9921; --p-action-ink: #13372c;
-  --p-inv-bg: #13372c; --p-inv-surface: #1c463a; color-scheme: dark;
+  --p-bg: #12291f; --p-surface: #183630; --p-ink: #e3dac9; --p-muted: #b5b8a8;
+  --p-accent: #e5c690; --p-accent-ink: #183630; --p-action: #e3dac9; --p-action-ink: #183630;
+  --p-inv-bg: #183630; --p-inv-surface: #21463e; color-scheme: dark;
 }
 .lights{display:inline-flex;align-items:center;gap:9px;font:400 11px var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:none;border:0;cursor:pointer;min-height:40px;padding:0 4px}
 .lights .track{width:32px;height:18px;border-radius:99px;border:1.5px solid currentColor;position:relative;transition:background .3s,border-color .3s}
 .lights .knob{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s}
-.lights[aria-checked="true"] .track{background:#ec9921;border-color:#ec9921}
-.lights[aria-checked="true"] .knob{transform:translateX(14px);background:#fff}
+.lights[aria-checked="true"] .track{background:var(--ink);border-color:var(--ink)}
+.lights[aria-checked="true"] .knob{transform:translateX(14px);background:var(--bg)}
 .nav__logo .lm-dark{display:none}
 :root.room-dark .nav__logo .lm-light{display:none}
 :root.room-dark .nav__logo .lm-dark{display:block}
@@ -98,7 +99,7 @@ body{transition:background-color .5s,color .5s}
     <a class="skip-link" href="#top">Skip to content</a>
     <a class="nav__logo" href="#top" style="display:inline-flex;align-items:center;gap:.5em;white-space:nowrap"><img class="lm-light" src="assets/logo-mark.svg" alt="" width="26" height="26"><img class="lm-dark" src="assets/logo-mark-light.svg" alt="" width="26" height="26">Geo Media Solutions</a>
     <nav class="nav__links" aria-label="Main">
-      <div class="nav__item"><a class="nav__link" href="index.html">Gallery</a></div>
+      <div class="nav__item"><a class="nav__link" href="index.html">Home</a></div>
       <div class="nav__item"><a class="nav__link" href="#on-air">On air</a></div>
       <div class="nav__item"><a class="nav__link" href="#services">Services</a></div>
       <div class="nav__item"><a class="nav__link" href="#work">Work</a></div>
@@ -267,7 +268,7 @@ body{transition:background-color .5s,color .5s}
         </div>
         <div class="span-2 footer__col"><h3>On air</h3><ul><li><a href="#on-air">Latest shoots</a></li><li><a href="#on-air">Livestream dates</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Services</h3><ul><li><a href="#services">Photography</a></li><li><a href="#services">Filmmaking</a></li><li><a href="#services">Content creation</a></li><li><a href="#services">Livestreaming</a></li><li><a href="#services">Website design</a></li><li><a href="#services">Graphic design</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Work</h3><ul><li><a href="index.html">Gallery</a></li><li><a href="#work">Events</a></li><li><a href="#work">Location shoots</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Work</h3><ul><li><a href="index.html">Home</a></li><li><a href="#work">Events</a></li><li><a href="#work">Location shoots</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Contact</h3><ul><li><a href="#start">Project form</a></li><li>Kampala, Uganda</li></ul></div>
       </div>
       <div class="footer__legal">

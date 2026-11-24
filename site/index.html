@@ -10,7 +10,7 @@
 <script>/* the theme follows the Lights switch and is remembered across pages */try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400..600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
 <!-- Structure adapted from the MotionSites "curved gallery" pattern; all content, colours and pictures are Geo Media's
      (the photographs are licensed stand-ins until the team's own work replaces them, see credits.html). -->
@@ -24,7 +24,7 @@
   --glass-shadow:0 12px 32px -10px rgba(19,55,44,.28),0 2px 6px rgba(19,55,44,.06);
   --glass-blur:blur(22px) saturate(170%);
   --spring:cubic-bezier(.22,1,.36,1);
-  --sans:"Work Sans", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
+  --sans:"Montserrat", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
 }
 @media (max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px){ :root{ --u:1px; --w:1px; } }
 *{box-sizing:border-box}
@@ -228,27 +228,30 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 .svc-intro h2{margin:0;font-weight:500;font-size:max(34px,calc(80*var(--w)));line-height:.88;letter-spacing:-.045em;text-transform:uppercase}
 .svc-intro header p{margin:0;font-size:max(15px,calc(16.5*var(--w)));line-height:1.5;max-width:38ch;color:var(--ink-60)}
 .svc-intro header p strong{color:var(--ink);font-weight:500}
-.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--w))}
-.svc-card{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:var(--band);border:1px solid var(--ink-15);color:inherit;text-decoration:none;transition:transform .45s var(--spring),box-shadow .45s var(--spring),border-color .3s}
-.svc-card .media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--band)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(56*var(--w)) calc(32*var(--w))}
+.svc-card{position:relative;display:flex;flex-direction:column;color:inherit;text-decoration:none}
+.svc-card .media{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:18px 18px 0 0;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,rgba(0,0,0,.4) 66%,transparent 90%);mask-image:linear-gradient(180deg,#000 0%,#000 38%,rgba(0,0,0,.4) 66%,transparent 90%)}
 .svc-card .media :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--spring)}
 .svc-card .num{position:absolute;left:14px;top:14px;font:400 11px var(--mono);letter-spacing:.14em;padding:6px 11px;border-radius:99px;color:#13372C;
   background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.1)),rgba(255,255,255,.45);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.7)}
-.svc-card .body{display:grid;gap:calc(8*var(--w));padding:calc(22*var(--w)) calc(24*var(--w)) calc(24*var(--w))}
+.svc-card .body{position:relative;display:grid;gap:calc(8*var(--w));margin-top:calc(-34*var(--w));padding:0 calc(6*var(--w)) calc(6*var(--w))}
 .svc-card h3{margin:0;font-weight:500;font-size:max(19px,calc(22*var(--w)));letter-spacing:-.02em;line-height:1.05}
 .svc-card p{margin:0;font-size:max(13.5px,calc(14.5*var(--w)));line-height:1.5;color:var(--ink-60);max-width:36ch}
 .svc-card .go{display:inline-flex;align-items:center;gap:8px;margin-top:calc(8*var(--w));font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
 .svc-card .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .35s var(--spring)}
 .svc-card .go::before{content:"";width:7px;height:7px;background:var(--orange)}
 @media (hover:hover){
-  .svc-card:hover{transform:translateY(-4px);border-color:var(--ink-35);box-shadow:0 24px 48px -24px rgba(19,55,44,.35)}
-  .svc-card:hover .media :is(img,video){transform:scale(1.045)}
+  .svc-card:hover .media :is(img,video){transform:scale(1.05)}
+  .svc-card:hover h3{color:var(--accent)}
   .svc-card:hover .go svg{transform:translateX(4px)}
 }
-.svc-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.svc-card.hl{animation:pick 2.4s var(--spring)}
-@keyframes pick{0%,60%{box-shadow:0 0 0 3px var(--orange),0 24px 48px -24px rgba(236,153,33,.55);border-color:var(--orange)}100%{box-shadow:0 0 0 0 rgba(236,153,33,0)}}
-@media (prefers-reduced-motion:reduce){ .svc-card,.svc-card .media :is(img,video){transition:none} .svc-card:hover{transform:none} }
+.svc-card:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:18px}
+.svc-card h3{transition:color .3s}
+.svc-card.hl .media{animation:pick 2.4s var(--spring)}
+.svc-card.hl h3{color:var(--orange)}
+@keyframes pick{0%,60%{box-shadow:inset 0 0 0 3px var(--orange)}100%{box-shadow:inset 0 0 0 0 rgba(236,153,33,0)}}
+@media (prefers-reduced-motion:reduce){ .svc-card,.svc-card .media :is(img,video){transition:none} }
 .count{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.14em;color:var(--accent);margin:0 0 calc(16*var(--w))}
 .svc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(32*var(--w))}
 .btn-dark,.btn-line{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font-weight:500;font-size:max(14px,calc(15*var(--w)));letter-spacing:.04em}
@@ -331,8 +334,8 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
   .foot-brand{grid-column:1/-1}
   .svc-intro h2{font-size:min(10.5vw,44px)}
   .svc-intro header{grid-template-columns:1fr;gap:16px;margin-bottom:28px}
-  .svc-grid{grid-template-columns:1fr;gap:14px}
-  .svc-card .media{aspect-ratio:16/10}
+  .svc-grid{grid-template-columns:1fr;gap:36px}
+  .svc-card .media{aspect-ratio:16/10} .svc-card .body{margin-top:-24px}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
 </style>
@@ -671,8 +674,8 @@ const paintNames = () => SERVICES.forEach(s => {
   const fs = 220, pad = 70;   // room round the letters for the glow
   const paint = (style, blur) => {
     const c = document.createElement('canvas'), g = c.getContext('2d');
-    g.font = `500 ${fs}px "Work Sans", Arial, sans-serif`; c.width = Math.ceil(g.measureText(word).width) + 2*pad; c.height = Math.round(fs * 1.05) + 2*pad;
-    g.font = `500 ${fs}px "Work Sans", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = style;
+    g.font = `500 ${fs}px "Montserrat", Arial, sans-serif`; c.width = Math.ceil(g.measureText(word).width) + 2*pad; c.height = Math.round(fs * 1.05) + 2*pad;
+    g.font = `500 ${fs}px "Montserrat", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = style;
     if (blur){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = blur; g.fillText(word, pad, c.height/2 + fs*.04); g.shadowBlur = blur/3; }
     g.fillText(word, pad, c.height/2 + fs*.04);
     const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = maxAniso;
@@ -690,7 +693,7 @@ const paintNames = () => SERVICES.forEach(s => {
   glowName.position.y = m.position.y; scene.add(glowName);
   darkShown = -1;
 });
-document.fonts.load('500 220px "Work Sans"').catch(() => {}).finally(paintNames);   // wait for the face, then paint
+document.fonts.load('500 220px "Montserrat"').catch(() => {}).finally(paintNames);   // wait for the face, then paint
 
 // 3. a deep green skirting round the outer wall, and one orange line under the frames
 const skirt = new THREE.Mesh(new THREE.CylinderGeometry(R - .02, R - .02, .24, 160, 1, true), new THREE.MeshBasicMaterial({ color:0x13372C, side:THREE.BackSide }));
@@ -802,11 +805,11 @@ function panelTex(s, n, glow = false){
   g.fillStyle = glow ? '#FFF0D2' : '#13372C';
   if (glow){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = 30; }
   g.font = '400 34px "DM Mono"'; g.globalAlpha = .75; g.fillText(`${String(n+1).padStart(2,'0')} / ${String(SERVICES.length).padStart(2,'0')}`, 40, 70); g.globalAlpha = 1;
-  g.font = '500 112px "Work Sans"';
+  g.font = '500 112px "Montserrat"';
   const words = s.name.toUpperCase().split(' '); let line = '', y = 200;
   for (const w of words){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 940 && line){ g.fillText(line, 36, y); y += 112; line = w; } else line = t; }
   g.fillText(line, 36, y);
-  g.font = '400 38px "Work Sans"'; g.globalAlpha = .8;
+  g.font = '400 38px "Montserrat"'; g.globalAlpha = .8;
   const lw = s.lede.split(' '); line = ''; y += 90;
   for (const w of lw){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 900 && line){ g.fillText(line, 40, y); y += 52; line = w; } else line = t; }
   g.fillText(line, 40, y);
@@ -818,8 +821,8 @@ function panelTex(s, n, glow = false){
 function labelTex(it){
   const c = document.createElement('canvas'); c.width = 640; c.height = 260; const g = c.getContext('2d');
   g.fillStyle = '#ffffff';   // tinted by the material: green with the lights on, pale with them off
-  g.font = '500 56px "Work Sans"'; g.fillText(it.svc, 30, 82);
-  g.font = 'italic 400 50px "Work Sans"'; g.fillText(it.title, 30, 150);
+  g.font = '500 56px "Montserrat"'; g.fillText(it.svc, 30, 82);
+  g.font = 'italic 400 50px "Montserrat"'; g.fillText(it.title, 30, 150);
   g.globalAlpha = .7; g.font = '400 30px "DM Mono"'; g.fillText(it.place.toUpperCase(), 30, 215);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
 }

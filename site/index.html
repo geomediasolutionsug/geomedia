@@ -256,6 +256,61 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 .svc-photos :is(img,video){width:100%;aspect-ratio:4/5;object-fit:cover;display:block;border-radius:4px}
 .svc-photos :is(img,video):only-child{grid-column:1/-1;aspect-ratio:4/3}
 .shot{position:relative;overflow:hidden} .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* featured work: a bento of six projects */
+.work-sec,.quotes-sec{padding:calc(120*var(--w)) calc(80*var(--w))}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:calc(40*var(--w));margin-bottom:calc(44*var(--w))}
+.sec-head h2{margin:0;font-weight:500;font-size:max(40px,calc(96*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.sec-head p{margin:0;max-width:36ch;font-size:max(15px,calc(17*var(--w)));line-height:1.5;color:var(--ink-60)}
+.work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:calc(250*var(--w));gap:calc(16*var(--w));grid-template-areas:"a a b c" "a a b d" "e e f f"}
+.work-tile{position:relative;overflow:hidden;border-radius:20px;background:#dfe3da;text-align:left;color:#fff;isolation:isolate;transition:transform .45s var(--spring),box-shadow .45s var(--spring)}
+.work-tile:nth-child(1){grid-area:a} .work-tile:nth-child(2){grid-area:b} .work-tile:nth-child(3){grid-area:c}
+.work-tile:nth-child(4){grid-area:d} .work-tile:nth-child(5){grid-area:e} .work-tile:nth-child(6){grid-area:f}
+.work-tile :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--spring)}
+.work-tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,20,16,0) 45%,rgba(10,20,16,.72))}
+.work-tile .tag{position:absolute;left:14px;top:14px;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;border-radius:99px;color:#fff;background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.32)}
+.work-tile .cap{position:absolute;left:18px;right:18px;bottom:16px;display:grid;gap:4px}
+.work-tile .cap b{font-weight:500;font-size:max(18px,calc(24*var(--w)));letter-spacing:-.01em;line-height:1.1}
+.work-tile:nth-child(1) .cap b{font-size:max(22px,calc(36*var(--w)))}
+.work-tile .cap span{font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+@media (hover:hover){ .work-tile:hover{transform:translateY(-4px);box-shadow:0 24px 48px -24px rgba(19,55,44,.45)} .work-tile:hover :is(img,video){transform:scale(1.05)} }
+.work-tile:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sec-link{display:inline-flex;align-items:center;gap:8px;font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:3px;white-space:nowrap}
+
+/* testimonials */
+.quotes-sec{background:var(--band)}
+.quote-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--w))}
+.quote{margin:0;display:flex;flex-direction:column;gap:calc(28*var(--w));padding:calc(30*var(--w));border-radius:20px;background:var(--page);border:1px solid var(--ink-15)}
+.quote::before{content:"\201C";font:500 72px/0.6 var(--sans);color:var(--orange);height:28px}
+.quote blockquote{margin:0;font-size:max(17px,calc(21*var(--w)));line-height:1.45;letter-spacing:-.01em}
+.quote figcaption{margin-top:auto;display:flex;align-items:center;gap:12px;padding-top:calc(20*var(--w));border-top:1px solid var(--ink-15)}
+.quote figcaption i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--wall);font:500 13px var(--mono);font-style:normal}
+.quote figcaption b{display:block;font-weight:500;font-size:15px}
+.quote figcaption span{display:block;font:400 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);margin-top:3px}
+
+/* closing call to action, then the footer */
+.end-sec{position:relative;overflow:hidden;--glass-bg:rgba(255,255,255,.08);--glass-line:rgba(255,255,255,.2);--glass-hi:rgba(255,255,255,.22);--glass-shadow:0 16px 40px -14px rgba(0,0,0,.5)}
+.end-sec::before{content:"";position:absolute;right:-12%;top:-30%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(236,153,33,.28),rgba(236,153,33,0));pointer-events:none}
+.end-sec>*{position:relative}
+.end-sec .gbtn:not(.gbtn--warm){color:#F4F3EE}
+.site-foot{background:#0C211A;color:#F4F3EE;padding:calc(80*var(--w)) calc(80*var(--w)) calc(36*var(--w))}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:calc(48*var(--w));padding-bottom:calc(56*var(--w));border-bottom:1px solid rgba(244,243,238,.14)}
+.foot-brand{display:grid;gap:16px;align-content:start}
+.foot-brand .mark{display:flex;align-items:center;gap:10px;font-weight:500;font-size:20px}
+.foot-brand .mark img{width:30px;height:30px}
+.foot-brand p{margin:0;max-width:34ch;color:rgba(244,243,238,.68);line-height:1.55}
+.site-foot h3{margin:0 0 16px;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(244,243,238,.55)}
+.site-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.site-foot li :is(a,button){color:#F4F3EE;opacity:.86;font-size:15px;text-align:left;transition:opacity .2s,color .2s}
+.site-foot li :is(a,button):hover{opacity:1;color:#F3B04F}
+.foot-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-top:calc(28*var(--w));font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(244,243,238,.55)}
+.foot-bar a,.foot-bar button{color:inherit;border-bottom:1px solid currentColor;padding-bottom:2px}
+.foot-bar a:hover,.foot-bar button:hover{color:#F4F3EE}
+
+/* the project page has its own close button */
+.page-close{position:fixed;right:max(14px,calc(28*var(--u)));top:max(14px,calc(22*var(--u)));z-index:16;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--ink);
+  background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 60%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow)}
+.page-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none}
+#page:not(.show) .page-close{display:none}
 .end-sec{min-height:80vh;padding:calc(140*var(--w)) calc(80*var(--w));display:flex;flex-direction:column;justify-content:center;gap:calc(28*var(--w));background:var(--ink);color:var(--wall)}
 .end-sec h2{margin:0;font-weight:500;font-size:max(40px,calc(110*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
 .end-sec p{margin:0;font-size:max(16px,calc(19*var(--w)));max-width:40ch;color:rgba(244,243,238,.72)}
@@ -267,6 +322,15 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
   .end-sec{padding:84px 20px}
   .svc-sec h2{font-size:min(12.5vw,60px)} .end-sec h2{font-size:min(14vw,64px)}
   .svc-intro{padding:92px 16px 64px}
+  .work-sec,.quotes-sec{padding:72px 16px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:24px}
+  .sec-head h2{font-size:min(13vw,60px)}
+  .work-grid{grid-template-columns:1fr 1fr;grid-auto-rows:190px;grid-template-areas:"a a" "a a" "b c" "d d" "e e" "f f";gap:12px}
+  .quote-grid{grid-template-columns:1fr;gap:12px}
+  .quote{padding:22px}
+  .site-foot{padding:56px 20px 28px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .foot-brand{grid-column:1/-1}
   .svc-intro h2{font-size:min(15vw,72px)}
   .svc-intro header{grid-template-columns:1fr;gap:16px;margin-bottom:28px}
   .svc-grid{grid-template-columns:1fr;gap:14px}
@@ -324,6 +388,7 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 <div class="pill" id="pill">OPEN THE PROJECT</div>
 
 <section id="page" aria-label="Project">
+  <button type="button" class="page-close" data-go="gallery" aria-label="Close this project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="wrap">
     <div class="left">
       <div class="shot" id="shot" role="img"></div>
@@ -368,13 +433,64 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
     <div class="svc-grid" id="svcGrid"></div>
   </section>
   <div id="svcList"></div>
+
+  <section class="work-sec" id="featured" aria-labelledby="work-h">
+    <div class="sec-head">
+      <div><p class="count">FEATURED WORK</p><h2 id="work-h">Recent work</h2></div>
+      <a class="sec-link" href="#" data-go="list">See all projects &rarr;</a>
+    </div>
+    <div class="work-grid" id="workGrid"></div>
+  </section>
+
+  <!-- TESTIMONIALS: the quotes and names below are placeholders. Replace them with real clients'
+       words, used with their permission, before sharing the site. -->
+  <section class="quotes-sec" id="testimonials" aria-labelledby="quotes-h">
+    <div class="sec-head">
+      <div><p class="count">TESTIMONIALS</p><h2 id="quotes-h">What clients say</h2></div>
+      <p>From conferences streamed to three countries to field stories on Lake Victoria.</p>
+    </div>
+    <div class="quote-grid">
+      <figure class="quote"><blockquote>The stream ran for two days without a single drop, and the recording was with us before the week was out.</blockquote><figcaption><i>CN</i><div><b>Client name</b><span>Organisation · Livestream</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>They listened to the people in our programme first and filmed second. The film says what we could never put in a report.</blockquote><figcaption><i>CN</i><div><b>Client name</b><span>Organisation · Filmmaking</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>One brief covered the photos, the reels and the posters, and every piece looked like it belonged to the same campaign.</blockquote><figcaption><i>CN</i><div><b>Client name</b><span>Organisation · Content creation</span></div></figcaption></figure>
+    </div>
+  </section>
+
   <section class="end-sec" id="svc-end">
     <p class="count">WHAT NEXT</p>
-    <h2>Start a project</h2>
+    <h2>Let&rsquo;s make something worth watching</h2>
     <p>Tell us what you need, where and when. We reply within one working day with a plan and a quote.</p>
-    <div class="svc-actions"><a class="btn-dark" href="studio.html#start">Start a project</a><button type="button" class="btn-line" data-open-brief>Open your brief</button></div>
-    <button type="button" class="back-up" data-go="gallery">Back to the gallery &uarr;</button>
+    <div class="svc-actions">
+      <a class="gbtn gbtn--warm" href="studio.html#start">Start a project<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button type="button" class="gbtn" data-open-brief>Open your brief</button>
+    </div>
   </section>
+
+  <footer class="site-foot">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="mark"><img src="assets/logo-mark-light.svg" alt="" width="30" height="30">Geo Media Solutions</span>
+        <p>Photography, film, content, livestreams and design, made by one crew in Kampala, Uganda.</p>
+      </div>
+      <div><h3>Services</h3><ul id="footSvc"></ul></div>
+      <div><h3>Studio</h3><ul>
+        <li><button type="button" data-go="gallery">Gallery</button></li>
+        <li><button type="button" data-go="list">Projects</button></li>
+        <li><a href="studio.html#on-air">On air</a></li>
+        <li><a href="studio.html#start">Contact</a></li>
+      </ul></div>
+      <div><h3>Get in touch</h3><ul>
+        <li><a href="mailto:hello@geomedia.example">hello@geomedia.example</a></li>
+        <li><a href="studio.html#start">Start a project</a></li>
+        <li><span style="opacity:.86">Kampala, Uganda</span></li>
+      </ul></div>
+    </div>
+    <div class="foot-bar">
+      <span>&copy; 2026 Geo Media Solutions</span>
+      <a href="credits.html">Photo credits</a>
+      <button type="button" data-go="gallery">Back to the gallery &uarr;</button>
+    </div>
+  </footer>
 </div>
 
 <aside class="drawer" id="drawer" aria-label="Your project brief" aria-hidden="true">
@@ -932,7 +1048,10 @@ function hideLayer(el){ el.classList.remove('in'); setTimeout(() => { if (!el.cl
 
 function openList(){ hideLayer(page); showLayer(list); setToggle('list'); }
 function backToRoom(){
-  if (reading){ hideLayer(page); hideLayer(list); leaveContent(); return; }
+  if (reading){
+    if (page.classList.contains('show') || list.classList.contains('show')){ hideLayer(page); hideLayer(list); setToggle(null); return; }
+    leaveContent(); return;
+  }
   const wasOpen = document.body.classList.contains('covered');
   hideLayer(page); hideLayer(list); document.body.classList.remove('covered'); nav.classList.remove('solid'); setToggle('gallery');
   if (!wasOpen) return;
@@ -969,12 +1088,25 @@ SERVICES.forEach((s, n) => {
     <div class="body"><h3>${s.name}</h3><p>${SHORT[s.key] || s.lede}</p><span class="go">Explore<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>`;
   svcGrid.append(a);
 });
-svcGrid.addEventListener('click', e => {
+content.addEventListener('click', e => {
   const a = e.target.closest('[data-jump]'); if (!a) return;
   e.preventDefault();
   const el = document.getElementById('svc-' + a.dataset.jump);
   content.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
 });
+
+const FEATURED = ['v-studio', 'f182219186', 'v-photographer', 'f107307775', 'f64505987', 'v-shapes'];
+const workGrid = document.getElementById('workGrid');
+FEATURED.forEach(id => {
+  const i = ITEMS.findIndex(x => x.id === id); if (i < 0) return;
+  const it = ITEMS[i], b = document.createElement('button');
+  b.type = 'button'; b.className = 'work-tile';
+  b.innerHTML = `${it.v ? clip(it.id) : `<img src="${IMG(it.id)}" alt="" loading="lazy" decoding="async">`}<span class="tag">${it.svc}</span><span class="cap"><b>${it.title}</b><span>${it.place}</span></span>`;
+  b.setAttribute('aria-label', `${it.title}, ${it.svc}, ${it.place}`);
+  b.onclick = () => openProject(i, b.getBoundingClientRect());
+  workGrid.append(b);
+});
+document.getElementById('footSvc').innerHTML = SERVICES.map(s => `<li><a href="#svc-${s.key}" data-jump="${s.key}">${s.name}</a></li>`).join('');
 
 const svcList = document.getElementById('svcList');
 SERVICES.forEach((s, n) => {

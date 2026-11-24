@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Home 2 · Geo Media Solutions</title>
+<meta name="description" content="Photography, film, content, livestreams, websites and design from one crew in Kampala. Walk the gallery, see the proof, then brief us in two minutes.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F4F3EE">
+<script>/* the theme follows the Lights switch and is remembered across pages */try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<!-- Structure adapted from the MotionSites "curved gallery" pattern; all content, colours and pictures are Geo Media's
+     (the photographs are licensed stand-ins until the team's own work replaces them, see credits.html). -->
+<style>
+:root{
+  --wall:#F4F3EE; --ink:#13372C; --ink-60:rgba(19,55,44,.66); --ink-35:rgba(19,55,44,.35); --ink-15:rgba(19,55,44,.15); --orange:#EC9921; --ink-2:#1F4D3F;
+  --accent:#2C6A54; --chip-on:#FBE6C4; --drawer:#EAEDE6; --page:#F7F6F2; --band:#ECEEE7;
+  --u:min(calc(100vw / 1440), calc(100vh / 900)); --w:calc(100vw / 1440);
+  /* glass: a frosted, slightly milky surface with a bright top edge */
+  --glass-bg:rgba(255,255,255,.44); --glass-line:rgba(255,255,255,.72); --glass-hi:rgba(255,255,255,.9);
+  --glass-shadow:0 12px 32px -10px rgba(19,55,44,.28),0 2px 6px rgba(19,55,44,.06);
+  --glass-blur:blur(22px) saturate(170%);
+  --spring:cubic-bezier(.22,1,.36,1);
+  --sans:"Montserrat", system-ui, sans-serif; --mono:"DM Mono", ui-monospace, monospace;
+}
+@media (max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px){ :root{ --u:1px; --w:1px; } }
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--wall);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+button{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono)}
+.m{display:block;overflow:hidden}
+.m>span{display:block}
+
+/* nav */
+/* the nav is a floating glass island: full while you look around, it shrinks to the service you are
+   walking past, and opens again when you stop, hover it or tab into it */
+.glass{background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow)}
+.nav{position:fixed;top:max(10px,calc(16*var(--u)));left:50%;transform:translateX(-50%);height:max(46px,calc(54*var(--u)));max-width:calc(100vw - 20px);display:flex;align-items:center;padding:0 max(6px,calc(7*var(--u))) 0 max(14px,calc(18*var(--u)));border-radius:99px;z-index:30;white-space:nowrap;
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow);
+  transition:background .4s,border-color .4s,box-shadow .4s,color .5s}
+.nav.solid{--glass-bg:rgba(247,246,242,.82)}
+.nav .fold{overflow:hidden;max-width:var(--open,600px);opacity:1;transition:max-width .6s var(--spring),opacity .35s,margin .6s var(--spring),padding .6s var(--spring)}
+.nav .status{display:flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;font:400 max(11px,calc(10.5*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;transition:max-width .6s var(--spring),opacity .3s,margin .6s var(--spring)}
+.nav .status i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px rgba(236,153,33,.22);animation:breathe 1.6s ease-in-out infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 6px rgba(236,153,33,0)}}
+.nav.compact:not(:hover):not(:focus-within) .fold{max-width:0;opacity:0;margin-left:0;margin-right:0;padding-left:0;padding-right:0;border-color:transparent}
+.nav.compact:not(:hover):not(:focus-within) .status{max-width:280px;opacity:1;margin:0 6px 0 10px}
+.logo{font-weight:500;font-size:max(15px,calc(17*var(--u)));letter-spacing:-.01em;margin-right:calc(22*var(--u))}
+.logo .name{--open:240px}
+.links{display:flex;gap:calc(18*var(--u));--open:520px;margin-right:calc(18*var(--u))}
+.links a[aria-current="page"]{opacity:1;font-weight:600;gap:6px} .links a[aria-current="page"]::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.links a{font-size:max(12px,calc(13.5*var(--u)));opacity:.85;min-height:24px;display:flex;align-items:center}
+.links a:hover{opacity:1}
+.right{display:flex;align-items:center;gap:calc(12*var(--u));padding-left:calc(14*var(--u));border-left:1px solid var(--ink-15)}
+.cta{--open:220px;font-family:var(--mono);font-size:max(11px,calc(10.5*var(--u)));letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:0 calc(16*var(--u));height:max(32px,calc(38*var(--u)));display:flex;align-items:center;background:var(--ink);color:var(--wall);transition:max-width .6s var(--spring),opacity .35s,padding .6s var(--spring),background .25s,color .25s}
+.cta:hover{background:var(--ink-2)}
+.lights{display:flex;align-items:center;gap:calc(9*var(--u));font:400 max(11px,calc(10.5*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;height:max(28px,calc(30*var(--u)));padding:0 2px}
+.lights .track{width:32px;height:18px;border-radius:99px;border:1.5px solid currentColor;position:relative;transition:background .3s,border-color .3s}
+.lights .knob{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s}
+.lights[aria-checked="true"] .track{background:var(--orange);border-color:var(--orange)}
+.lights[aria-checked="true"] .knob{transform:translateX(14px);background:#fff}
+.logo .lm-dark{display:none}
+/* lights off: the room goes dark, so the words over it turn light (the page layers keep their own colours) */
+/* lights off = the dark theme, for the whole page: every colour comes from these tokens */
+:root.room-dark{--wall:#0E1311;--page:#0F1613;--band:#151E1A;--drawer:#17221D;--ink:#ECE8DF;--ink-2:#FFFFFF;--ink-60:rgba(236,232,223,.66);--ink-35:rgba(236,232,223,.3);--ink-15:rgba(236,232,223,.13);--accent:#8CC5AA;--chip-on:rgba(236,153,33,.22);
+  --glass-bg:rgba(16,26,22,.46);--glass-line:rgba(255,255,255,.14);--glass-hi:rgba(255,255,255,.16);--glass-shadow:0 14px 36px -12px rgba(0,0,0,.6);color-scheme:dark}
+:root.room-dark .nav.solid{--glass-bg:rgba(15,22,19,.84)}
+:root.room-dark .svc-card .num{color:#ECE8DF;background:rgba(15,22,19,.42);border-color:rgba(255,255,255,.18)}
+:root.room-dark .gbtn--warm{color:#13372C}
+#content,#page,#list,.drawer,.quote,.svc-card{transition:background-color .5s,color .5s,border-color .5s}
+.gui, .nav{transition:color .5s}
+:root.room-dark .logo .lm-light{display:none}
+:root.room-dark .cta:hover{background:#fff}
+:root.room-dark .logo .lm-dark{display:block}
+.icon-btn{position:relative;width:max(28px,calc(30*var(--u)));height:max(28px,calc(30*var(--u)));display:grid;place-items:center}
+.icon-btn svg{width:max(18px,calc(19*var(--u)));height:auto;fill:none;stroke:currentColor;stroke-width:1.6}
+.badge{position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;border-radius:99px;background:var(--orange);color:var(--ink);font:500 10px/16px var(--mono);text-align:center;padding:0 4px;display:none}
+.badge.on{display:block}
+
+/* gallery */
+#gallery{position:fixed;inset:0;touch-action:none;cursor:grab}
+#gallery.drag{cursor:grabbing} #gallery.over{cursor:pointer}
+#gallery canvas{display:block;width:100%;height:100%}
+#veil{position:absolute;inset:0;background:var(--wall);pointer-events:none}
+.gui{position:fixed;inset:0;z-index:20;pointer-events:none;transition:opacity .3s,visibility 0s .3s}
+.gui>*{pointer-events:auto}
+body.covered .gui{opacity:0;visibility:hidden}
+body:not(.covered) .gui{transition:opacity .3s}
+.arrow{width:max(42px,calc(52*var(--u)));height:max(42px,calc(52*var(--u)));border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow);transition:background .25s,color .25s,transform .2s var(--spring)}
+.arrow:active{transform:scale(.94)}
+.arrow:hover{background:var(--ink);color:var(--wall)}
+.arrow svg{width:max(16px,calc(20*var(--u)));stroke:currentColor;fill:none;stroke-width:1.6}
+.toggle{display:flex;gap:2px;padding:3px;border-radius:99px;border:1px solid var(--ink-15)}
+.toggle button{flex:1;font:400 max(10.5px,calc(9.5*var(--u))) var(--mono);letter-spacing:.12em;height:max(24px,calc(22*var(--u)));padding:0 calc(14*var(--u));border-radius:99px}
+.toggle button.on{background:var(--ink);color:var(--wall)}
+.logo{display:flex;align-items:center;gap:.5em}.logo img{width:1.35em;height:1.35em;display:block}
+.gbtn{display:inline-flex;align-items:center;gap:.65em;height:max(44px,calc(50*var(--u)));padding:0 calc(22*var(--u));border-radius:99px;font:500 max(13px,calc(14*var(--u)))/1 var(--sans);letter-spacing:.01em;white-space:nowrap;color:var(--ink);
+  background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 60%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow);
+  transition:transform .25s var(--spring),box-shadow .25s,background .25s}
+.gbtn svg{width:1.05em;height:1.05em;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .25s var(--spring)}
+.gbtn:hover{transform:translateY(-2px)} .gbtn:hover svg{transform:translateX(3px)}
+.gbtn:active{transform:translateY(0) scale(.97);transition-duration:.1s}
+.gbtn--warm{color:#13372C;border-color:rgba(255,226,180,.85);background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,0) 55%),rgba(236,153,33,.78);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 14px 34px -10px rgba(236,153,33,.65),0 2px 6px rgba(19,55,44,.08)}
+.gbtn--warm:hover{background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 55%),rgba(240,163,48,.86)}
+@media (prefers-reduced-motion:reduce){ .gbtn:hover{transform:none} }
+/* ---------- hero: the gallery seen through a Geo Media camera ---------- */
+.gui::before{content:"";position:absolute;left:0;right:0;bottom:0;height:52%;pointer-events:none;background:linear-gradient(0deg,color-mix(in oklab,var(--wall) 86%,transparent) 0%,color-mix(in oklab,var(--wall) 40%,transparent) 45%,transparent)}
+.grain{position:fixed;inset:-40%;pointer-events:none;opacity:.07;animation:grain .9s steps(5) infinite;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root.room-dark .grain{opacity:.12;mix-blend-mode:screen}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-2%,1.5%)}40%{transform:translate(1.5%,-2%)}60%{transform:translate(-1%,2.5%)}80%{transform:translate(2.5%,1%)}100%{transform:translate(0,0)}}
+.vf{position:absolute;inset:max(14px,calc(22*var(--u)));pointer-events:none}
+.vf i{position:absolute;width:max(18px,calc(30*var(--u)));height:max(18px,calc(30*var(--u)));border:0 solid var(--ink-35)}
+.vf .tl{left:0;top:0;border-left-width:1.5px;border-top-width:1.5px} .vf .tr{right:0;top:0;border-right-width:1.5px;border-top-width:1.5px}
+.vf .bl{left:0;bottom:0;border-left-width:1.5px;border-bottom-width:1.5px} .vf .br{right:0;bottom:0;border-right-width:1.5px;border-bottom-width:1.5px}
+.vf-rec,.vf-meta{position:absolute;top:calc(74*var(--u));display:flex;align-items:center;gap:10px;font:400 max(10.5px,calc(10.5*var(--u))) var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-60)}
+.vf-rec{left:calc(30*var(--u))} .vf-meta{right:calc(30*var(--u))}
+.vf-rec b{width:8px;height:8px;border-radius:50%;background:#E5484D;box-shadow:0 0 0 3px rgba(229,72,77,.18);animation:rec 1.4s steps(1) infinite}
+.vf-rec span{color:var(--ink);font-variant-numeric:tabular-nums}
+@keyframes rec{50%{opacity:.2}}
+.vf-hint{position:absolute;left:calc(52*var(--u));top:calc(150*var(--u));display:grid;gap:4px;font:400 max(10.5px,calc(10*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-60);pointer-events:none;max-width:calc(380*var(--u))}
+.vf-hint span:first-child{color:var(--ink)}
+.hero-copy{position:absolute;left:calc(60*var(--u));bottom:calc(60*var(--u));width:min(calc(680*var(--u)),calc(100vw - 32px));pointer-events:none}
+.hero-copy .ctas{pointer-events:auto}
+.eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 calc(18*var(--u));font:400 max(10.5px,calc(11*var(--u))) var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-60)}
+.eyebrow::before{content:"";width:max(18px,calc(30*var(--u)));height:1.5px;background:var(--orange)}
+.statement{margin:0;font-weight:500;font-size:max(34px,calc(74*var(--u)));line-height:1.02;letter-spacing:-.035em;isolation:isolate}
+.statement .m{padding-bottom:.1em;margin-bottom:-.1em}
+.swap{position:relative;display:inline-block;font-style:italic;font-weight:400;letter-spacing:-.02em;white-space:nowrap}
+.swap::after{content:"";position:absolute;left:-.06em;right:-.06em;bottom:.1em;height:.24em;border-radius:3px;background:var(--orange);opacity:.5;z-index:-1}
+.hero-sub{margin:calc(20*var(--u)) 0 0;max-width:46ch;font-size:max(14px,calc(15.5*var(--u)));line-height:1.55;color:var(--ink-60)}
+.hero-copy .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(26*var(--u))}
+.glass-panel{background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow)}
+.chapters{position:absolute;left:50%;top:calc(98*var(--u));transform:translateX(-50%);width:min(calc(780*var(--u)),calc(100vw - 32px))}
+.chapters ol{list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.chapters li{flex:var(--seg,1) 1 0;min-width:0}
+.chapters button{display:grid;gap:9px;width:100%;padding:6px 0;text-align:left;color:var(--ink-60);font:400 max(10px,calc(10*var(--u))) var(--mono);letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
+.chapters .ch-l{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chapters .ch-n{color:var(--ink-35);margin-right:.6em;transition:color .2s}
+.chapters .ch-bar{display:block;height:2px;border-radius:2px;background:var(--ink-15);overflow:hidden}
+.chapters .ch-bar b{display:block;height:100%;background:var(--orange);transform-origin:0 50%;transform:scaleX(0)}
+.chapters button[aria-current="true"]{color:var(--ink)}
+.chapters button[aria-current="true"] .ch-n{color:var(--orange)}
+@media (hover:hover){ .chapters button:hover{color:var(--ink)} }
+.now{position:absolute;right:calc(60*var(--u));bottom:calc(60*var(--u));width:max(300px,calc(330*var(--u)));display:grid;grid-template-columns:auto 1fr;grid-template-areas:"m t" "m n";column-gap:14px;align-items:center;padding:10px 12px 10px 10px;border-radius:20px}
+.now-media{grid-area:m;position:relative;width:max(64px,calc(76*var(--u)));aspect-ratio:567/763;border-radius:11px;overflow:hidden;background:var(--band);cursor:pointer;padding:0}
+.now-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.now-media:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.now-text{grid-area:t;display:grid;gap:4px;align-self:end;min-width:0}
+.now-k{font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-60)}
+.now-t{font-weight:600;font-size:15px;line-height:1.2;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now-m{font-size:12.5px;color:var(--ink-60);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now-nav{grid-area:n;display:flex;gap:8px;align-self:start;margin-top:10px}
+.now .arrow{width:36px;height:36px} .now .arrow svg{width:15px}
+.pill{position:fixed;left:0;top:0;z-index:25;background:var(--ink);color:var(--wall);font:400 max(11px,calc(10*var(--u))) var(--mono);letter-spacing:.14em;padding:calc(7*var(--u)) calc(13*var(--u));border-radius:99px;opacity:0;transition:opacity .12s;pointer-events:none;transform:translate(-50%,-50%);white-space:nowrap}
+.pill.on{opacity:1}
+
+/* project page */
+#page,#list{position:fixed;inset:0;background:var(--page);overflow-y:auto;display:none;opacity:0;transition:opacity .3s}
+#page{z-index:15} #list{z-index:14}
+#page.show,#list.show{display:block}
+#page.in,#list.in{opacity:1}
+.wrap{padding-top:calc(96*var(--w));display:grid;grid-template-columns:calc(712*var(--w)) calc(638*var(--w))}
+.left{position:sticky;top:calc(96*var(--w));align-self:start;padding-left:calc(184*var(--w));width:calc(544*var(--w))}
+.shot{width:calc(360*var(--w));aspect-ratio:3/4.08;box-shadow:0 0 0 calc(10*var(--w)) var(--band),0 calc(2*var(--w)) calc(10*var(--w)) calc(10*var(--w)) rgba(19,55,44,.06);background:var(--band) center/cover no-repeat;visibility:hidden}
+.shot.on{visibility:visible}
+.meta{width:calc(360*var(--w));margin-top:calc(34*var(--w));display:flex;justify-content:space-between;font:400 max(11px,calc(11*var(--w))) var(--mono);color:var(--ink-60)}
+.details,.meta,.band{opacity:0;transition:opacity .15s}
+.reveal .details,.reveal .meta,.reveal .band{opacity:1}
+.details{padding-bottom:calc(40*var(--w))}
+.svc{font:400 max(11px,calc(10.5*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 calc(10*var(--w))}
+.ptitle{margin:0;font-weight:500;font-size:max(24px,calc(36*var(--w)));line-height:1.02;letter-spacing:-.025em;text-transform:uppercase}
+.place{font-style:italic;font-size:max(15px,calc(19*var(--w)));margin-top:calc(6*var(--w))}
+.desc{font-size:max(14px,calc(15*var(--w)));line-height:1.55;color:var(--ink-60);max-width:calc(560*var(--w));margin:calc(18*var(--w)) 0 0}
+.note{font:400 max(11px,calc(10*var(--w))) var(--mono);color:var(--ink-60);margin-top:calc(24*var(--w))}
+.group{margin-top:calc(21*var(--w))}
+.glabel{font:400 max(11px,calc(10*var(--w))) var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:calc(10*var(--w))}
+.glabel span{color:var(--ink-60);text-transform:none;letter-spacing:0}
+.chips{display:flex;flex-wrap:wrap;gap:calc(13*var(--w))}
+.chip{font:400 max(11px,calc(10.5*var(--w))) var(--mono);height:max(32px,calc(32*var(--w)));padding:0 calc(14*var(--w));border:1px solid var(--ink-35);border-radius:2px}
+.chip[aria-pressed="true"]{background:var(--chip-on);border-color:var(--orange)}
+.buy{display:flex;gap:calc(26*var(--w));margin-top:calc(42*var(--w))}
+.qty{display:flex;align-items:center;justify-content:space-between;width:calc(120*var(--w));min-width:110px;height:max(44px,calc(50*var(--w)));border:1px solid var(--ink-35);padding:0 calc(10*var(--w));font:400 max(12px,calc(13*var(--w))) var(--mono)}
+.qty button{width:max(28px,calc(24*var(--w)));height:max(28px,calc(24*var(--w)))}
+.add{flex:1;background:var(--ink);color:var(--page);font-weight:500;font-size:max(14px,calc(16*var(--w)));letter-spacing:.12em;text-transform:uppercase;height:max(44px,calc(50*var(--w)));transition:background .2s}
+.add:hover{background:var(--ink-2)}
+.acc{margin-top:calc(36*var(--w));border-top:1px solid var(--ink-35)}
+.acc-row{border-bottom:1px solid var(--ink-35)}
+.acc-row>button{width:100%;display:flex;justify-content:space-between;align-items:center;min-height:max(40px,calc(40*var(--w)));font-size:max(14px,calc(15*var(--w)))}
+.acc-row>button span{font-family:var(--mono);transition:transform .3s}
+.acc-row.open>button span{transform:rotate(45deg)}
+.acc-body{height:0;overflow:hidden;transition:height .3s}
+.acc-body p{margin:0 0 calc(16*var(--w));font-size:max(14px,calc(14*var(--w)));line-height:1.55;color:var(--ink-60);max-width:calc(560*var(--w))}
+.band{margin-top:calc(70*var(--w));background:var(--band);padding:calc(36*var(--w)) 0 calc(80*var(--w)) calc(48*var(--w))}
+.band h2,#list h2{margin:0 0 calc(28*var(--w)) 0;font-weight:500;font-size:max(22px,calc(30*var(--w)));letter-spacing:-.02em;text-transform:uppercase}
+.cards{display:flex;gap:calc(87*var(--w));flex-wrap:wrap}
+.card{width:calc(168*var(--w));min-width:140px;text-align:left}
+.card .img{aspect-ratio:3/4;background:var(--band) center/cover no-repeat;box-shadow:0 0 0 calc(7*var(--w)) var(--band);transition:transform .35s cubic-bezier(.2,.7,.2,1);margin:calc(7*var(--w))}
+.card:hover .img{transform:translateY(calc(-4*var(--w)))}
+.card .t{display:block;font-weight:500;font-size:max(13px,calc(14*var(--w)));margin-top:calc(16*var(--w))}
+.card .a{display:block;font-style:italic;font-size:max(13px,calc(13.5*var(--w)));color:var(--ink-60)}
+.card .p{display:block;font:400 max(11px,calc(11*var(--w))) var(--mono);color:var(--accent);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+#list{padding:calc(110*var(--w)) calc(48*var(--w)) calc(80*var(--w))}
+#list .cards{row-gap:calc(46*var(--w))}
+
+/* drawer */
+.drawer{position:fixed;top:0;right:0;height:100%;width:calc(387*var(--w));min-width:320px;z-index:40;background:var(--drawer);padding:calc(28*var(--w)) calc(28*var(--w)) calc(28*var(--w)) calc(32*var(--w));display:flex;flex-direction:column;transform:translateX(101%);transition:transform .45s cubic-bezier(.1,.85,.2,1);box-shadow:-10px 0 40px rgba(0,0,0,.06)}
+.drawer.open{transform:none}
+.drawer header{display:flex;justify-content:space-between;align-items:center}
+.drawer h2{margin:0;font-weight:500;font-size:max(20px,calc(26*var(--w)));text-transform:uppercase;letter-spacing:-.01em}
+.items{flex:1;overflow-y:auto;margin-top:calc(24*var(--w))}
+.empty{font:400 12px var(--mono);text-align:center;margin-top:calc(120*var(--w));letter-spacing:.1em}
+.item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--ink-15);animation:rise .4s both}
+@keyframes rise{from{opacity:0;transform:translateY(calc(6*var(--w)))}}
+.item .th{width:calc(66*var(--w));min-width:56px;aspect-ratio:3/4;background:var(--band) center/cover}
+.item .tt{font-weight:500;font-size:max(13px,calc(14*var(--w)))}
+.item .ss{font:400 11px var(--mono);color:var(--ink-60);margin-top:4px;line-height:1.5}
+.item .row{display:flex;align-items:center;gap:10px;margin-top:8px;font:400 12px var(--mono)}
+.item .row button{min-width:24px;min-height:24px}
+.drawer footer{border-top:1px solid var(--ink-35);padding-top:16px}
+.drawer footer p{margin:0 0 14px;font:400 11px/1.5 var(--mono);color:var(--ink-60)}
+.send{display:flex;align-items:center;justify-content:center;width:100%;background:var(--ink);color:var(--page);font-weight:500;font-size:max(15px,calc(17*var(--w)));letter-spacing:.1em;text-transform:uppercase;height:max(48px,calc(50*var(--w)))}
+.send[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.flyer{position:fixed;left:0;top:0;z-index:50;background:center/cover no-repeat;transform-origin:0 0;pointer-events:none}
+
+/* small screens */
+@media (max-width:819px), (orientation:portrait) and (max-width:1100px), (orientation:landscape) and (max-height:500px){
+  .nav{height:48px;padding:0 6px 0 14px;top:10px} .logo{font-size:15px;margin-right:10px} .right{padding-left:8px}
+  .cta{display:none} .links{gap:10px} .links .hl{display:none}
+  .lights .lbl{display:none}
+  .vf{inset:8px} .vf-rec,.vf-meta,.vf-hint{display:none}
+  .chapters{top:66px;left:16px;right:16px;width:auto;transform:none} .chapters .ch-l{display:none} .chapters button{padding:10px 0}
+  .hero-copy{left:16px;right:16px;width:auto;bottom:108px}
+  .eyebrow{margin-bottom:12px;font-size:9.5px;letter-spacing:.08em;gap:8px} .eyebrow::before{width:14px}
+  .statement{font-size:min(9.4vw,40px)}
+  .hero-sub{font-size:14px;margin-top:12px}
+  .hero-copy .ctas{margin-top:16px;gap:10px} .gbtn{height:46px;padding:0 18px;font-size:14px}
+  .now{left:12px;right:12px;bottom:14px;width:auto;grid-template-columns:auto 1fr auto;grid-template-areas:"m t n";padding:8px 10px 8px 8px}
+  .now-media{width:46px} .now-text{align-self:center} .now-nav{margin-top:0;align-self:center}
+  .now .arrow{width:40px;height:40px}
+  .wrap{display:block;max-width:680px;margin:0 auto;padding:64px 20px 0}
+  .left{position:static;padding:0;width:auto;margin-bottom:40px}
+  .shot{width:100%;max-width:420px;box-shadow:0 0 0 8px var(--band)}
+  .meta{width:100%;max-width:420px}
+  .chips{gap:8px} .chip{height:36px;font-size:11px}
+  .band{padding:30px 0 60px max(20px,calc((100vw - 640px)/2))}
+  .band .cards{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-right:20px}
+  .band .card{flex:0 0 150px;scroll-snap-align:start}
+  #list{padding:80px 16px 60px} #list .cards{display:grid;grid-template-columns:1fr 1fr;gap:24px 16px}
+  #list .card{width:auto;min-width:0}
+  .drawer{width:min(88vw,380px);min-width:0;padding:22px 20px}
+}
+@media (orientation:landscape) and (max-height:500px){
+  .hero-sub,.eyebrow{display:none} .statement{font-size:min(6vw,11vh)} .hero-copy{bottom:84px;right:auto;width:60vw}
+  .now{left:auto;width:340px}
+}
+/* service sections: the page the walk hands over to */
+#content{position:fixed;inset:0;z-index:13;background:var(--page);overflow-y:auto;transform:translateY(100%);transition:transform .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
+#content.up{transform:none;visibility:visible}
+body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),visibility 0s .7s}
+/* services overview: the first thing after the gallery */
+.svc-intro{min-height:100vh;padding:calc(132*var(--w)) calc(80*var(--w)) calc(96*var(--w))}
+.svc-intro header{display:grid;grid-template-columns:7fr 5fr;gap:calc(64*var(--w));align-items:end;margin-bottom:calc(56*var(--w))}
+.svc-intro h2{margin:0;font-weight:500;font-size:max(34px,calc(80*var(--w)));line-height:.88;letter-spacing:-.045em;text-transform:uppercase}
+.svc-intro header p{margin:0;font-size:max(15px,calc(16.5*var(--w)));line-height:1.5;max-width:38ch;color:var(--ink-60)}
+.svc-intro header p strong{color:var(--ink);font-weight:500}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(56*var(--w)) calc(32*var(--w))}
+.svc-card{position:relative;display:flex;flex-direction:column;color:inherit;text-decoration:none}
+.svc-card .media{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:18px 18px 0 0;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,rgba(0,0,0,.4) 66%,transparent 90%);mask-image:linear-gradient(180deg,#000 0%,#000 38%,rgba(0,0,0,.4) 66%,transparent 90%)}
+.svc-card .media :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--spring)}
+.svc-card .num{position:absolute;left:14px;top:14px;font:400 11px var(--mono);letter-spacing:.14em;padding:6px 11px;border-radius:99px;color:#13372C;
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.1)),rgba(255,255,255,.45);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.7)}
+.svc-card .body{position:relative;display:grid;gap:calc(8*var(--w));margin-top:calc(-34*var(--w));padding:0 calc(6*var(--w)) calc(6*var(--w))}
+.svc-card h3{margin:0;font-weight:500;font-size:max(19px,calc(22*var(--w)));letter-spacing:-.02em;line-height:1.05}
+.svc-card p{margin:0;font-size:max(13.5px,calc(14.5*var(--w)));line-height:1.5;color:var(--ink-60);max-width:36ch}
+.svc-card .go{display:inline-flex;align-items:center;gap:8px;margin-top:calc(8*var(--w));font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.svc-card .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .35s var(--spring)}
+.svc-card .go::before{content:"";width:7px;height:7px;background:var(--orange)}
+@media (hover:hover){
+  .svc-card:hover .media :is(img,video){transform:scale(1.05)}
+  .svc-card:hover h3{color:var(--accent)}
+  .svc-card:hover .go svg{transform:translateX(4px)}
+}
+.svc-card:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:18px}
+.svc-card h3{transition:color .3s}
+.svc-card.hl .media{animation:pick 2.4s var(--spring)}
+.svc-card.hl h3{color:var(--orange)}
+@keyframes pick{0%,60%{box-shadow:inset 0 0 0 3px var(--orange)}100%{box-shadow:inset 0 0 0 0 rgba(236,153,33,0)}}
+@media (prefers-reduced-motion:reduce){ .svc-card,.svc-card .media :is(img,video){transition:none} }
+.count{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.14em;color:var(--accent);margin:0 0 calc(16*var(--w))}
+.svc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(32*var(--w))}
+.btn-dark,.btn-line{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font-weight:500;font-size:max(14px,calc(15*var(--w)));letter-spacing:.04em}
+.btn-dark{background:var(--ink);color:var(--page)} .btn-dark:hover{background:var(--ink-2)}
+.btn-line{border:1px solid var(--ink)} .btn-line:hover{background:var(--ink);color:var(--wall)}
+.shot{position:relative;overflow:hidden} .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* featured work: a bento of six projects */
+.work-sec,.quotes-sec{padding:calc(120*var(--w)) calc(80*var(--w))}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:calc(40*var(--w));margin-bottom:calc(44*var(--w))}
+.sec-head h2{margin:0;font-weight:500;font-size:max(30px,calc(66*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.sec-head p{margin:0;max-width:36ch;font-size:max(14px,calc(15.5*var(--w)));line-height:1.5;color:var(--ink-60)}
+.work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:calc(250*var(--w));gap:calc(16*var(--w));grid-template-areas:"a a b c" "a a b d" "e e f f"}
+.work-tile{position:relative;overflow:hidden;border-radius:20px;background:var(--band);text-align:left;color:#fff;isolation:isolate;transition:transform .45s var(--spring),box-shadow .45s var(--spring)}
+.work-tile:nth-child(1){grid-area:a} .work-tile:nth-child(2){grid-area:b} .work-tile:nth-child(3){grid-area:c}
+.work-tile:nth-child(4){grid-area:d} .work-tile:nth-child(5){grid-area:e} .work-tile:nth-child(6){grid-area:f}
+.work-tile :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--spring)}
+.work-tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,20,16,0) 45%,rgba(10,20,16,.72))}
+.work-tile .tag{position:absolute;left:14px;top:14px;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;border-radius:99px;color:#fff;background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.32)}
+.work-tile .cap{position:absolute;left:18px;right:18px;bottom:16px;display:grid;gap:4px}
+.work-tile .cap b{font-weight:500;font-size:max(16px,calc(19*var(--w)));letter-spacing:-.01em;line-height:1.1}
+.work-tile:nth-child(1) .cap b{font-size:max(20px,calc(28*var(--w)))}
+.work-tile .cap span{font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+@media (hover:hover){ .work-tile:hover{transform:translateY(-4px);box-shadow:0 24px 48px -24px rgba(19,55,44,.45)} .work-tile:hover :is(img,video){transform:scale(1.05)} }
+.work-tile:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sec-link{display:inline-flex;align-items:center;gap:8px;font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:3px;white-space:nowrap}
+
+/* testimonials */
+.quotes-sec{background:var(--band)}
+.quote-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--w))}
+.quote{margin:0;display:flex;flex-direction:column;gap:calc(28*var(--w));padding:calc(30*var(--w));border-radius:20px;background:var(--page);border:1px solid var(--ink-15)}
+.quote::before{content:"\201C";font:500 72px/0.6 var(--sans);color:var(--orange);height:28px}
+.quote blockquote{margin:0;font-size:max(15.5px,calc(17.5*var(--w)));line-height:1.45;letter-spacing:-.01em}
+.quote figcaption{margin-top:auto;display:flex;align-items:center;gap:12px;padding-top:calc(20*var(--w));border-top:1px solid var(--ink-15)}
+.quote figcaption i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--wall);font:500 13px var(--mono);font-style:normal}
+.quote figcaption b{display:block;font-weight:500;font-size:15px}
+.quote figcaption span{display:block;font:400 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);margin-top:3px}
+
+/* closing call to action, then the footer */
+.end-sec{position:relative;overflow:hidden;--glass-bg:rgba(255,255,255,.08);--glass-line:rgba(255,255,255,.2);--glass-hi:rgba(255,255,255,.22);--glass-shadow:0 16px 40px -14px rgba(0,0,0,.5)}
+.end-sec::before{content:"";position:absolute;right:-12%;top:-30%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(236,153,33,.28),rgba(236,153,33,0));pointer-events:none}
+.end-sec>*{position:relative}
+.end-sec .gbtn:not(.gbtn--warm){color:#F4F3EE}
+.site-foot{background:#0C211A;color:#F4F3EE;padding:calc(80*var(--w)) calc(80*var(--w)) calc(36*var(--w))}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:calc(48*var(--w));padding-bottom:calc(56*var(--w));border-bottom:1px solid rgba(244,243,238,.14)}
+.foot-brand{display:grid;gap:16px;align-content:start}
+.foot-brand .mark{display:flex;align-items:center;gap:10px;font-weight:500;font-size:20px}
+.foot-brand .mark img{width:30px;height:30px}
+.foot-brand p{margin:0;max-width:34ch;color:rgba(244,243,238,.68);line-height:1.55}
+.site-foot h3{margin:0 0 16px;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(244,243,238,.55)}
+.site-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.site-foot li :is(a,button){color:#F4F3EE;opacity:.86;font-size:15px;text-align:left;transition:opacity .2s,color .2s}
+.site-foot li :is(a,button):hover{opacity:1;color:#F3B04F}
+.foot-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-top:calc(28*var(--w));font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(244,243,238,.55)}
+.foot-bar a,.foot-bar button{color:inherit;border-bottom:1px solid currentColor;padding-bottom:2px}
+.foot-bar a:hover,.foot-bar button:hover{color:#F4F3EE}
+
+/* the project page has its own close button */
+.page-close{position:fixed;right:max(14px,calc(28*var(--u)));top:max(14px,calc(22*var(--u)));z-index:16;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--ink);
+  background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 60%),var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 var(--glass-hi),var(--glass-shadow)}
+.page-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none}
+#page:not(.show) .page-close{display:none}
+.end-sec{min-height:80vh;padding:calc(140*var(--w)) calc(80*var(--w));display:flex;flex-direction:column;justify-content:center;gap:calc(28*var(--w));background:#13372C;color:#F4F3EE}
+.end-sec h2{margin:0;font-weight:500;font-size:max(30px,calc(72*var(--w)));max-width:20ch;line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.end-sec p{margin:0;font-size:max(15px,calc(16.5*var(--w)));max-width:40ch;color:rgba(244,243,238,.72)}
+.end-sec .btn-dark{background:var(--orange);color:var(--ink)} .end-sec .btn-dark:hover{background:#F3B04F} .end-sec .btn-line{border-color:var(--wall)}
+.end-sec .btn-line:hover{background:#F4F3EE;color:#13372C}
+.back-up{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid currentColor;align-self:flex-start;min-height:24px}
+@media (max-width:819px), (orientation:portrait) and (max-width:1100px){
+  .end-sec{padding:84px 20px}
+  .end-sec h2{font-size:min(9.5vw,40px)}
+  .svc-intro{padding:92px 16px 64px}
+  .work-sec,.quotes-sec{padding:72px 16px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:24px}
+  .sec-head h2{font-size:min(9.5vw,40px)}
+  .work-grid{grid-template-columns:1fr 1fr;grid-auto-rows:190px;grid-template-areas:"a a" "a a" "b c" "d d" "e e" "f f";gap:12px}
+  .quote-grid{grid-template-columns:1fr;gap:12px}
+  .quote{padding:22px}
+  .site-foot{padding:56px 20px 28px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .foot-brand{grid-column:1/-1}
+  .svc-intro h2{font-size:min(10.5vw,44px)}
+  .svc-intro header{grid-template-columns:1fr;gap:16px;margin-bottom:28px}
+  .svc-grid{grid-template-columns:1fr;gap:36px}
+  .svc-card .media{aspect-ratio:16/10} .svc-card .body{margin-top:-24px}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#" data-go="gallery"><img class="lm-light" src="assets/logo-mark.svg" alt="" width="27" height="27"><img class="lm-dark" src="assets/logo-mark-light.svg" alt="" width="27" height="27"><span class="name fold">Geo Media Solutions</span></a>
+  <span class="status" aria-hidden="true"><i></i><span id="navNow">Photography · 1/6</span></span>
+  <nav class="links fold" aria-label="Homepage designs"><a href="index.html"><span class="hl">Home&nbsp;</span>1</a><a href="home2.html" aria-current="page"><span class="hl">Home&nbsp;</span>2</a><a href="home3.html"><span class="hl">Home&nbsp;</span>3</a><a href="home4.html"><span class="hl">Home&nbsp;</span>4</a></nav>
+  <div class="right">
+    <button class="lights" id="lightsBtn" type="button" role="switch" aria-checked="true" aria-label="Lights: light or dark theme"><span class="track"><span class="knob"></span></span><span class="lbl">Lights</span></button>
+    <a class="cta fold" href="studio.html#start">Start a project</a>
+    <button class="icon-btn" id="briefBtn" type="button" aria-label="Open your project brief">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>
+      <span class="badge" id="badge"></span>
+    </button>
+  </div>
+</header>
+
+<main id="gallery" aria-label="3D gallery of Geo Media's work. Use the arrow keys to walk, or open the project list.">
+  <div id="veil"></div>
+</main>
+
+<div class="gui">
+  <div class="grain" aria-hidden="true"></div>
+  <!-- the viewfinder: the gallery is seen through a Geo Media camera -->
+  <div class="vf" aria-hidden="true">
+    <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
+    <div class="vf-rec"><b></b>Rec <span id="tc">00:00:00:00</span></div>
+    <div class="vf-meta">4K &middot; 25P &middot; Kampala</div>
+  </div>
+  <div class="vf-hint" aria-live="polite"><span id="h1">Scroll. The work explains itself better than we do</span><span id="h2">Click any frame. Curiosity is free</span></div>
+
+  <div class="hero-copy">
+    <p class="eyebrow" data-in="380">Photography &middot; Film &middot; Livestream &middot; Design</p>
+    <h1 class="statement"><span class="m"><span>We make work</span></span><span class="m"><span>people <em class="swap" id="swap">remember</em></span></span></h1>
+    <p class="hero-sub" data-in="520">One crew in Kampala. Walk the gallery: every frame is a job someone trusted us with.</p>
+    <div class="ctas" data-in="600">
+      <a class="gbtn gbtn--warm" href="studio.html#start">Start a project<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="gbtn" href="#" data-go="list">See the proof</a>
+    </div>
+  </div>
+
+  <!-- chapters: the walk as a video timeline, one segment per service, filling as you go -->
+  <nav class="chapters" aria-label="Jump to a service" data-in="640"><ol id="svcIndex"></ol></nav>
+
+  <aside class="now glass-panel" aria-label="Now showing" data-in="700">
+    <button type="button" class="now-media" id="nowMedia" aria-label="Open this project"></button>
+    <div class="now-text"><span class="now-k" id="nowK">Now showing</span><b class="now-t" id="nowT"></b><span class="now-m" id="nowM"></span></div>
+    <div class="now-nav">
+      <button class="arrow" id="prev" type="button" aria-label="Previous frame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button class="arrow" id="next" type="button" aria-label="Next frame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </aside>
+</div>
+<div class="pill" id="pill">OPEN THE PROJECT</div>
+
+<section id="page" aria-label="Project">
+  <button type="button" class="page-close" data-go="gallery" aria-label="Close this project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="wrap">
+    <div class="left">
+      <div class="shot" id="shot" role="img"></div>
+      <div class="meta"><span id="metaNum">1/9</span><span id="metaSvc"></span></div>
+    </div>
+    <div class="details">
+      <p class="svc" id="pSvc"></p>
+      <h2 class="ptitle" id="pTitle"></h2>
+      <div class="place" id="pPlace"></div>
+      <p class="desc" id="pDesc"></p>
+      <p class="note">Quoted to your brief, not a price list, so you never pay for things you did not need. We reply within one working day.</p>
+      <div class="group"><div class="glabel">Service: <span data-l="service"></span></div><div class="chips" data-g="service"></div></div>
+      <div class="group"><div class="glabel">Length: <span data-l="length"></span></div><div class="chips" data-g="length"></div></div>
+      <div class="group"><div class="glabel">Crew: <span data-l="crew"></span></div><div class="chips" data-g="crew"></div></div>
+      <div class="group"><div class="glabel">Delivery: <span data-l="delivery"></span></div><div class="chips" data-g="delivery"></div></div>
+      <div class="buy">
+        <div class="qty" aria-label="Cameras"><button type="button" id="qMinus" aria-label="One camera fewer">&minus;</button><span id="qVal">1 cam</span><button type="button" id="qPlus" aria-label="One camera more">+</button></div>
+        <button class="add" type="button" id="addBtn">Add to brief</button>
+      </div>
+      <div class="acc">
+        <div class="acc-row"><button type="button">What's included <span>+</span></button><div class="acc-body"><p>A planning call (the cheapest hour of the project, and usually the most valuable), crew and kit, the shoot or stream itself, editing with two review rounds, and files sized for social, web and broadcast.</p></div></div>
+        <div class="acc-row"><button type="button">Turnaround <span>+</span></button><div class="acc-body"><p>Photo selects within 48 hours, while people still care. Edited films in 5 to 10 working days. Livestream recordings the same week.</p></div></div>
+        <div class="acc-row"><button type="button">Consent and rights <span>+</span></button><div class="acc-body"><p>We ask everyone we film for consent, with extra care for children and programme participants: footage people regret appearing in is bad footage, however pretty. You get full usage rights to the final edits.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="band"><h2>More work</h2><div class="cards" id="more"></div></div>
+</section>
+
+<section id="list" aria-label="All projects">
+  <h2>Every project, in one place</h2>
+  <div class="cards" id="all"></div>
+</section>
+
+<!-- the sections the walk hands over to: one per service (built from SERVICES in the script), then the close -->
+<div id="content" aria-label="Services">
+  <section class="svc-intro" id="svc-intro" aria-labelledby="svc-intro-h">
+    <header>
+      <div><p class="count">WHAT WE DO</p><h2 id="svc-intro-h">What people actually buy</h2></div>
+      <p><strong>Nobody wants a camera.</strong> They want to be believed, remembered and talked about the next morning. Six services from one crew in Kampala, all aimed at that, and none of them lost in a handover between suppliers.</p>
+    </header>
+    <div class="svc-grid" id="svcGrid"></div>
+  </section>
+
+  <section class="work-sec" id="featured" aria-labelledby="work-h">
+    <div class="sec-head">
+      <div><p class="count">FEATURED WORK</p><h2 id="work-h">Proof, not promises</h2></div>
+      <a class="sec-link" href="#" data-go="list">See every project &rarr;</a>
+    </div>
+    <div class="work-grid" id="workGrid"></div>
+  </section>
+
+  <!-- TESTIMONIALS: the quotes and names below are placeholders. Replace them with real clients'
+       words, used with their permission, before sharing the site. -->
+  <section class="quotes-sec" id="testimonials" aria-labelledby="quotes-h">
+    <div class="sec-head">
+      <div><p class="count">TESTIMONIALS</p><h2 id="quotes-h">Don&rsquo;t take our word for it</h2></div>
+      <p>We could tell you we are good. It means more coming from someone who paid us.</p>
+    </div>
+    <div class="quote-grid">
+      <figure class="quote"><blockquote>The stream ran for two days without a single drop, and the recording was with us before the week was out.</blockquote><figcaption><i>CN</i><div><b>Client name</b><span>Organisation · Livestream</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>They listened to the people in our programme first and filmed second. The film says what we could never put in a report.</blockquote><figcaption><i>CN</i><div><b>Client name</b><span>Organisation · Filmmaking</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>One brief covered the photos, the reels and the posters, and every piece looked like it belonged to the same campaign.</blockquote><figcaption><i>CN</i><div><b>Client name</b><span>Organisation · Content creation</span></div></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="end-sec" id="svc-end">
+    <p class="count">WHAT NEXT</p>
+    <h2>The best ideas turn up in the first conversation</h2>
+    <p>It costs nothing and takes twenty minutes. Tell us what you need, where and when, and we reply within one working day with a plan and a quote.</p>
+    <div class="svc-actions">
+      <a class="gbtn gbtn--warm" href="studio.html#start">Start a project<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button type="button" class="gbtn" data-open-brief>Open your brief</button>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="mark"><img src="assets/logo-mark-light.svg" alt="" width="30" height="30">Geo Media Solutions</span>
+        <p>Photography, film, content, livestreams and design from one crew in Kampala. Fewer handovers, so fewer things get lost in them.</p>
+      </div>
+      <div><h3>Services</h3><ul id="footSvc"></ul></div>
+      <div><h3>Studio</h3><ul>
+        <li><button type="button" data-go="gallery">Gallery</button></li>
+        <li><button type="button" data-go="list">Projects</button></li>
+        <li><a href="studio.html#on-air">On air</a></li>
+        <li><a href="studio.html#start">Contact</a></li>
+      </ul></div>
+      <div><h3>Get in touch</h3><ul>
+        <li><a href="mailto:hello@geomedia.example">hello@geomedia.example</a></li>
+        <li><a href="studio.html#start">Start a project</a></li>
+        <li><span style="opacity:.86">Kampala, Uganda</span></li>
+      </ul></div>
+    </div>
+    <div class="foot-bar">
+      <span>&copy; 2026 Geo Media Solutions</span>
+      <a href="credits.html">Photo credits</a>
+      <button type="button" data-go="gallery">Back to the gallery &uarr;</button>
+    </div>
+  </footer>
+</div>
+
+<aside class="drawer" id="drawer" aria-label="Your project brief" aria-hidden="true">
+  <header><h2>Your brief</h2><button type="button" id="closeDrawer" aria-label="Close the brief" style="font-size:24px;min-width:32px;min-height:32px">&times;</button></header>
+  <div class="items" id="items"></div>
+  <footer><p>No payment and no obligation. We read every brief ourselves and reply within one working day with a plan and a quote.</p><a class="send" id="send" href="#" aria-disabled="true">Send brief &rarr;</a></footer>
+</aside>
+
+<script type="module">
+import * as THREE from 'three';
+
+/* ---------- content: each frame is one kind of Geo Media work (stand-in photographs) ---------- */
+const IMG = id => `assets/img/photo-${id}-960.webp`;
+const VID = id => `assets/video/${id}.mp4`;
+/* a muted looping clip (the frames, the project page and the service sections share this) */
+const clip = (id, cls = '') => `<video class="${cls}" src="${VID(id)}" poster="${IMG(id)}" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>`;
+/* The walk runs through the services in this order, the frames grouped by service. */
+const SERVICES = [
+  { key:'photography', name:'Photography', lede:'The only part of the event that outlives the catering. We make it look like it was worth attending.', inc:['Selects within 48 hours','The full set within a week','Files sized for print and social'] },
+  { key:'film', name:'Filmmaking', lede:'A report gets skimmed; a three-minute film gets forwarded. We make the one people forward.', inc:['Script and shot list agreed before the shoot','A small crew that travels light','Two review rounds on the edit'] },
+  { key:'content', name:'Content creation', lede:'Posting once is a whisper. Posting every week is a reputation. We plan the series, not the single post.', inc:['A monthly content plan','Vertical cuts for TikTok, Reels and Shorts','Captions and thumbnails included'] },
+  { key:'livestream', name:'Livestreaming', lede:'An audience forgives a slow speaker, never a frozen screen. We bring the backup for the backup.', inc:['Up to four cameras with live switching','Streams to YouTube, Facebook, Zoom or a private link','The recording handed over the same week'] },
+  { key:'web', name:'Website design', lede:'Your website is the shop window people visit at midnight. We make it fast, and make it look like you mean it.', inc:['Design and build in one team','Pages you can edit yourself','Hosting and launch handled'] },
+  { key:'graphic', name:'Graphic design', lede:'Consistency looks expensive. One look across poster, page and film makes a small team feel like a big one.', inc:['Logo and brand basics','Posters, banners and T-shirts','Graphics sized for every channel'] },
+];
+const ITEMS = [
+  { id:'v-photographer', v:1, flash:2.0, s:'photography', svc:'Photography', title:'Portrait session', place:'Studio', desc:'People decide whether to trust you in a fraction of a second, mostly from your face. We light it accordingly.' },
+  { id:'v-lens', v:1, s:'photography', svc:'Photography', title:'Behind the lens', place:'Kampala', desc:'Selects in 48 hours, while the event is still news. A great photograph a month late is just an archive.' },
+  { id:'v-filming', v:1, s:'film', svc:'Filmmaking', title:'Interview set-up', place:'Studio', desc:'Viewers forgive a soft picture but never a muddy voice, so we spend as much on the sound as on the camera.' },
+  { id:'f182219186', s:'film', svc:'Filmmaking', title:'Cultural day on stage', place:'Kampala', desc:'Three minutes for the people who were there, and a short for everyone who wishes they had been.' },
+  { id:'f38608680',  s:'content', svc:'Content creation', title:'Books reach the classroom', place:'Field programme', desc:'A photo story and short films for a schools project, shot with consent, so the people in them are proud to share it too.' },
+  { id:'f107307775', s:'content', svc:'Content creation', title:'Stories from the islands', place:'Lake Victoria', desc:'One trip, a month of posts. Travel is the expensive part, so every hour on the boat has to earn twice.' },
+  { id:'f147886481', s:'livestream', svc:'Livestreaming', title:'Conference, live', place:'Kampala', desc:'Two days, three cameras, no drops, and a short edit for everyone who said they would watch it later.' },
+  { id:'v-studio', v:1, s:'livestream', svc:'Livestreaming', title:'Studio stream desk', place:'Studio', desc:'A stream that looks planned tells viewers the event was planned too. Mixer, cameras and graphics on one desk.' },
+  { id:'f64505987',  s:'web', svc:'Website design', title:'From sketch to site', place:'Design desk', desc:'We sketch before we build, because changing a pencil line costs nothing and changing a live website does not.' },
+  { id:'v-shapes', v:1, s:'graphic', svc:'Graphic design', title:'Shapes to layouts', place:'Design desk', desc:'A few simple shapes, used the same way every time, until people recognise you from across a car park.' },
+  { id:'v-tools', v:1, s:'graphic', svc:'Graphic design', title:'Motion graphics', place:'Design desk', desc:'Titles and lower-thirds that make a modest film feel like broadcast. Small signals, big difference in how it is valued.' },
+];
+const OPTS = {
+  service:['Photography','Filmmaking','Content creation','Livestreaming','Website design','Graphic design'],
+  length:['Half day','Full day','2 to 3 days','A week or more'],
+  crew:['Solo','Small crew (2 to 3)','Full crew (4+)'],
+  delivery:['Raw files','Edited film','Photo set','Content pack','Live stream + recording','Website','Design files'],
+};
+
+/* ---------- environment ---------- */
+const SMALL_Q = '(max-width: 819px), (orientation: portrait) and (max-width: 1100px), (orientation: landscape) and (max-height: 500px)';
+const smallMq = matchMedia(SMALL_Q);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const portraitSmall = () => smallMq.matches && innerWidth < innerHeight;
+
+const R = 18, RIN = 12.2, H = 6.2, PW = 1.36, PH = 1.36 * 763 / 567, PY = 1.95;
+const STEP = 2 * Math.PI / 36;
+const D = () => portraitSmall() ? 0.14 + 1.6 * STEP : 0.14 + 0.9 * STEP;   // how far behind a frame the walker stands
+const walkPose = th => portraitSmall() ? { th, r:15.4, yaw:-0.08, y:1.90, pitch:-0.10 } : { th, r:15.6, yaw:-0.30, y:1.92, pitch:-0.12 };
+
+/* ---------- three ---------- */
+const host = document.getElementById('gallery');
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+host.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xF4F3EE);
+scene.fog = new THREE.Fog(0xF4F3EE, 10, 46);
+const camera = new THREE.PerspectiveCamera(56, 1, 0.05, 100);
+
+function vgrad(stops){ const c = document.createElement('canvas'); c.width = 4; c.height = 256; const g = c.getContext('2d'); const gr = g.createLinearGradient(0,0,0,256); stops.forEach(([o,col]) => gr.addColorStop(o,col)); g.fillStyle = gr; g.fillRect(0,0,4,256); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+function radial(inner, stops, size = 256){ const c = document.createElement('canvas'); c.width = c.height = size; const g = c.getContext('2d'); const gr = g.createRadialGradient(size/2,size/2,inner,size/2,size/2,size/2); stops.forEach(([o,col]) => gr.addColorStop(o,col)); g.fillStyle = gr; g.fillRect(0,0,size,size); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+
+const outer = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 160, 1, true), new THREE.MeshBasicMaterial({ map: vgrad([[0,'#EEEEE8'],[.2,'#F7F6F2'],[.6,'#F7F6F2'],[.86,'#F0F0EA'],[1,'#E1E4DC']]), side: THREE.BackSide }));
+outer.position.y = H/2; scene.add(outer);
+const inner = new THREE.Mesh(new THREE.CylinderGeometry(RIN, RIN, H, 120, 1, true), new THREE.MeshBasicMaterial({ map: vgrad([[0,'#F0F0EA'],[.3,'#FBFAF7'],[.8,'#F6F5F0'],[1,'#E3E6DE']]) }));
+inner.position.y = H/2; scene.add(inner);
+const floor = new THREE.Mesh(new THREE.CircleGeometry(R, 160), new THREE.MeshBasicMaterial({ map: radial(512*RIN/R, [[0,'#D7DCD2'],[.55,'#E3E6DD'],[1,'#D9DED4']], 1024) }));
+floor.rotation.x = -Math.PI/2; scene.add(floor);
+const ceil = new THREE.Mesh(new THREE.CircleGeometry(R, 160), new THREE.MeshBasicMaterial({ color:0xF7F6F2, side:THREE.BackSide }));
+ceil.rotation.x = -Math.PI/2; ceil.position.y = H; scene.add(ceil);
+
+const haloTex = radial(0, [[0,'rgba(255,255,255,.95)'],[.35,'rgba(255,255,255,.95)'],[1,'rgba(255,255,255,0)']]);
+const shadowTex = radial(0, [[0,'rgba(19,55,44,.24)'],[.25,'rgba(19,55,44,.24)'],[1,'rgba(19,55,44,0)']]);
+const frameMat = new THREE.MeshBasicMaterial({ color:0x13372C });
+const loader = new THREE.TextureLoader();
+const maxAniso = renderer.capabilities.getMaxAnisotropy();
+const printMats = [];
+let loaded = 0;
+const ready = new Promise(res => {
+  ITEMS.forEach((it, i) => {
+    const mat = new THREE.MeshBasicMaterial({ color:0xdddddd });
+    printMats[i] = mat;
+    loader.load(IMG(it.id), tex => {
+      tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = maxAniso;
+      const ia = tex.image.width / tex.image.height, a = PW / PH;   // cover-crop to the frame
+      if (ia > a) { tex.repeat.set(a/ia, 1); tex.offset.set((1 - a/ia)/2, 0); } else { tex.repeat.set(1, ia/a); tex.offset.set(0, (1 - ia/a)/2); }
+      mat.map = tex; mat.color.set(0xffffff); mat.needsUpdate = true;
+      if (it.v) playOnFrame(it, mat);
+      if (++loaded === ITEMS.length) res();
+    }, undefined, () => { if (++loaded === ITEMS.length) res(); });
+  });
+});
+
+/* the clips are cut to the frame's shape (567:763), so the video texture needs no crop */
+function playOnFrame(it, mat){
+  const v = document.createElement('video');
+  Object.assign(v, { src: VID(it.id), muted: true, loop: true, playsInline: true, preload: 'auto' });
+  v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+  v.addEventListener('playing', () => { if (mat.userData.video) return; const vt = new THREE.VideoTexture(v); vt.colorSpace = THREE.SRGBColorSpace; mat.map = vt; if (it.id === 'v-studio') projectClip(vt); mat.userData.video = v; mat.needsUpdate = true; }, { once: true });
+  v.play().catch(() => {});
+}
+
+/* picture light: brightest just under the lamp, spreading and fading down past the frame */
+const poolTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const g = c.getContext('2d');
+  g.setTransform(1, 0, 0, 2.3, 0, 0);   // an ellipse that fades to nothing before the canvas edges
+  const gr = g.createRadialGradient(128, 18, 2, 128, 30, 122);
+  gr.addColorStop(0, 'rgba(255,206,130,.7)'); gr.addColorStop(.3, 'rgba(255,214,150,.38)'); gr.addColorStop(.7, 'rgba(255,226,180,.1)'); gr.addColorStop(1, 'rgba(255,235,200,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 512/2.3);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const lampMat = new THREE.MeshBasicMaterial({ color:0x13372C });
+const lampGlowMat = new THREE.MeshBasicMaterial({ color:0xFFE7B8 });
+
+/* lights off: each picture light becomes the only light in the room, so its glow adds to what is under it */
+const glowTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const g = c.getContext('2d');
+  g.setTransform(1, 0, 0, 2.3, 0, 0);
+  const gr = g.createRadialGradient(128, 14, 2, 128, 34, 124);
+  gr.addColorStop(0, 'rgba(255,214,150,1)'); gr.addColorStop(.22, 'rgba(255,196,120,.7)'); gr.addColorStop(.55, 'rgba(240,160,80,.22)'); gr.addColorStop(1, 'rgba(230,140,60,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 512/2.3);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const floorGlowTex = radial(0, [[0,'rgba(255,200,130,.55)'],[.4,'rgba(255,190,120,.22)'],[1,'rgba(255,180,110,0)']]);
+const ROOM = { light: [], dark: [], dim: [] };   // dim: wall labels that darken with the room   // opacities that fall (light) or rise (dark) when the lights go out
+const addGlow = (mat, to) => { ROOM.dark.push({ mat, to }); return mat; };
+const addFade = (mat, to) => { ROOM.light.push({ mat, from: mat.opacity, to }); return mat; };
+const glowMatOf = () => new THREE.MeshBasicMaterial({ map:glowTex, transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending });
+
+const prints = [];
+function addGroup(angle, rad, faceOut, idx){
+  const g = new THREE.Group();
+  g.position.set(rad*Math.cos(angle), 0, rad*Math.sin(angle));
+  if (faceOut) g.lookAt(2*g.position.x, 0, 2*g.position.z); else g.lookAt(0, 0, 0);
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(2.1*PW, 1.75*PH), new THREE.MeshBasicMaterial({ map:haloTex, transparent:true, depthWrite:false }));
+  halo.position.set(0, PY+.05, .058);   /* off the wall enough that its edges stay in front of the curve */ g.add(halo); addFade(halo.material, 0);
+  const sh = new THREE.Mesh(new THREE.PlaneGeometry(1.25*PW, 1.18*PH), new THREE.MeshBasicMaterial({ map:shadowTex, transparent:true, depthWrite:false }));
+  sh.position.set(.05, PY-.06, .07); g.add(sh); addFade(sh.material, .2);
+  const pool = new THREE.Mesh(new THREE.PlaneGeometry(2.4*PW, 1.9*PH), new THREE.MeshBasicMaterial({ map:poolTex, transparent:true, depthWrite:false }));
+  pool.position.set(0, PY + PH/2 + .32 - .95*PH, .062); g.add(pool); addFade(pool.material, 0);
+  const glow = new THREE.Mesh(new THREE.PlaneGeometry(2.5*PW, 2.2*PH), addGlow(glowMatOf(), 1));
+  glow.position.set(0, PY + PH/2 + .32 - 1.1*PH, .066); g.add(glow);
+  const fglow = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.7), addGlow(new THREE.MeshBasicMaterial({ map:floorGlowTex, transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending }), .9));
+  fglow.rotation.x = -Math.PI/2; fglow.position.set(0, .02, 1.15); g.add(fglow);
+  // the picture catches the lamp too: a soft glow over its top
+  const onPic = new THREE.Mesh(new THREE.PlaneGeometry(PW, PH), addGlow(glowMatOf(), .3));
+  onPic.position.set(0, PY + .2, .079); g.add(onPic);
+  const lamp = new THREE.Mesh(new THREE.BoxGeometry(.62*PW, .055, .1), lampMat); lamp.position.set(0, PY + PH/2 + .3, .2); g.add(lamp);
+  const lampLip = new THREE.Mesh(new THREE.PlaneGeometry(.6*PW, .012), lampGlowMat); lampLip.position.set(0, PY + PH/2 + .27, .251); lampLip.rotation.x = -Math.PI/2.2; g.add(lampLip);
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(.025, .025, .2), lampMat); arm.position.set(0, PY + PH/2 + .3, .1); g.add(arm);
+  const fr = new THREE.Mesh(new THREE.BoxGeometry(PW+.07, PH+.07, .06), frameMat); fr.position.set(0, PY, .045); g.add(fr);
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(PW, PH), printMats[idx]); p.position.set(0, PY, .077); g.add(p);
+  p.userData = { idx, angle, wall: faceOut ? 'inner' : 'outer' };
+  prints.push(p);
+  g.userData.labelSlot = { idx };
+  scene.add(g);
+  return g;
+}
+/* One frame per item on the outer (right) wall, in walking order, with a wider gap where the service changes.
+   Walking forward makes the angle go down, so frame k sits at FRAME_ANG[k] <= 0. */
+const SP = 1.3 * STEP, GAP = .7 * STEP;
+const FRAME_ANG = [];
+ITEMS.forEach((it, k) => { FRAME_ANG.push(k === 0 ? 0 : FRAME_ANG[k-1] - SP - (it.s !== ITEMS[k-1].s ? GAP : 0)); });
+const groups = ITEMS.map((_, k) => addGroup(FRAME_ANG[k], 17.98, false, k));
+const firstFrameOf = key => ITEMS.findIndex(i => i.s === key);
+
+/* ---------- the walls: lettering, skirting, the orange line and a projection ---------- */
+// three.js cylinders place theta at (sin θ, cos θ); the room places angle a at (cos a, sin a)
+const arcGeo = (rad, h, a0, a1, segs = 48) => new THREE.CylinderGeometry(rad, rad, h, segs, 1, true, Math.PI/2 - a1, a1 - a0);
+
+// 2. each service's name painted large and pale across the wall above its frames
+const paintNames = () => SERVICES.forEach(s => {
+  const ks = ITEMS.map((it, k) => it.s === s.key ? k : -1).filter(k => k >= 0); if (!ks.length) return;
+  const hi = FRAME_ANG[ks[0]] + (ks[0] > 0 ? (FRAME_ANG[ks[0]-1] - FRAME_ANG[ks[0]])/2 : GAP/2 + SP/2);
+  const lo = FRAME_ANG[ks.at(-1)] - (ks.at(-1) < ITEMS.length - 1 ? (FRAME_ANG[ks.at(-1)] - FRAME_ANG[ks.at(-1)+1])/2 : GAP/2 + SP/2);
+  const word = s.name.toUpperCase();
+  const fs = 220, pad = 70;   // room round the letters for the glow
+  const paint = (style, blur) => {
+    const c = document.createElement('canvas'), g = c.getContext('2d');
+    g.font = `500 ${fs}px "Montserrat", Arial, sans-serif`; c.width = Math.ceil(g.measureText(word).width) + 2*pad; c.height = Math.round(fs * 1.05) + 2*pad;
+    g.font = `500 ${fs}px "Montserrat", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = style;
+    if (blur){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = blur; g.fillText(word, pad, c.height/2 + fs*.04); g.shadowBlur = blur/3; }
+    g.fillText(word, pad, c.height/2 + fs*.04);
+    const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = maxAniso;
+    tx.wrapS = THREE.RepeatWrapping; tx.repeat.x = -1;               // seen from inside the ring
+    return tx;
+  };
+  const tex = paint('rgba(19,55,44,.085)', 0), lit = paint('#FFF0D2', 46);
+  const c = tex.image;
+  const R2 = R - .04, arcLen = (hi - lo) * R2 * .9;
+  const h = Math.min(.8, arcLen * c.height / c.width), span = h * c.width / c.height / R2, mid = (hi + lo)/2;
+  const m = new THREE.Mesh(arcGeo(R2, h, mid - span/2, mid + span/2), new THREE.MeshBasicMaterial({ map:tex, transparent:true, depthWrite:false, side:THREE.BackSide }));
+  m.position.y = PY + PH/2 + .5 + h/2; scene.add(m);
+  // lights off: the same name, lit like a neon sign over its frames
+  const glowName = new THREE.Mesh(arcGeo(R2 - .01, h, mid - span/2, mid + span/2), addGlow(new THREE.MeshBasicMaterial({ map:lit, transparent:true, depthWrite:false, opacity:0, side:THREE.BackSide, blending:THREE.AdditiveBlending }), .95));
+  glowName.position.y = m.position.y; scene.add(glowName);
+  darkShown = -1;
+});
+document.fonts.load('500 220px "Montserrat"').catch(() => {}).finally(paintNames);   // wait for the face, then paint
+
+// 3. a deep green skirting round the outer wall, and one orange line under the frames
+const skirt = new THREE.Mesh(new THREE.CylinderGeometry(R - .02, R - .02, .24, 160, 1, true), new THREE.MeshBasicMaterial({ color:0x13372C, side:THREE.BackSide }));
+skirt.position.y = .12; scene.add(skirt);
+const rail = new THREE.Mesh(new THREE.CylinderGeometry(R - .03, R - .03, .022, 160, 1, true), new THREE.MeshBasicMaterial({ color:0xEC9921, side:THREE.BackSide }));
+rail.position.y = PY - PH/2 - .42; scene.add(rail);
+// lights off: the orange line glows
+const railGlowTex = (() => { const c = document.createElement('canvas'); c.width = 4; c.height = 128; const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 128); gr.addColorStop(0, 'rgba(236,153,33,0)'); gr.addColorStop(.5, 'rgba(255,170,60,1)'); gr.addColorStop(1, 'rgba(236,153,33,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 4, 128); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const railGlow = new THREE.Mesh(new THREE.CylinderGeometry(R - .05, R - .05, .42, 160, 1, true), addGlow(new THREE.MeshBasicMaterial({ map:railGlowTex, transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending, side:THREE.BackSide }), .85));
+railGlow.position.y = rail.position.y; scene.add(railGlow);
+
+// 4. the studio clip thrown large and faded onto the inner wall across from the first frames, soft at the edges
+const projMask = (() => { const c = document.createElement('canvas'); c.width = 128; c.height = 256; const g = c.getContext('2d');
+  g.fillStyle = '#000'; g.fillRect(0, 0, 128, 256); g.filter = 'blur(22px)'; g.fillStyle = '#fff'; g.fillRect(30, 44, 68, 168);
+  return new THREE.CanvasTexture(c); })();
+const projMat = new THREE.MeshBasicMaterial({ color:0xCFDDD5, transparent:true, opacity:0, alphaMap:projMask, depthWrite:false });
+const PROJ_H = 4.3, PROJ_W = PROJ_H * 567/763, PROJ_A = .03;
+const proj = new THREE.Mesh(arcGeo(RIN + .03, PROJ_H, PROJ_A - PROJ_W/(2*RIN), PROJ_A + PROJ_W/(2*RIN), 24), projMat);
+proj.position.y = PROJ_H/2 + .55; scene.add(proj);
+function projectClip(vt){ projMat.map = vt; projMat.opacity = .2; projMat.needsUpdate = true; }
+
+/* Photography: when the photographer's flash fires in the clip (it.flash seconds into the loop), its light
+   bursts out of the frame, crosses the corridor and bounces off the opposite (inner) wall, then fades. */
+const flashes = [];
+const flashCore = radial(0, [[0,'rgba(255,255,255,1)'],[.12,'rgba(255,252,240,.95)'],[.4,'rgba(255,232,180,.35)'],[1,'rgba(255,225,160,0)']]);
+const flashSpot = radial(0, [[0,'rgba(255,214,140,.95)'],[.3,'rgba(255,222,160,.6)'],[.65,'rgba(255,230,185,.2)'],[1,'rgba(255,235,200,0)']]);
+const flashBeam = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 64; const g = c.getContext('2d');
+  const gx = g.createLinearGradient(0,0,256,0); gx.addColorStop(0,'rgba(255,245,220,.9)'); gx.addColorStop(1,'rgba(255,225,170,.35)'); g.fillStyle = gx; g.fillRect(0,0,256,64);
+  const gy = g.createLinearGradient(0,0,0,64); gy.addColorStop(0,'rgba(0,0,0,1)'); gy.addColorStop(.5,'rgba(0,0,0,0)'); gy.addColorStop(1,'rgba(0,0,0,1)');
+  g.globalCompositeOperation = 'destination-out'; g.fillStyle = gy; g.fillRect(0,0,256,64);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const glowMat = (map, blending = THREE.NormalBlending) => new THREE.MeshBasicMaterial({ map, transparent:true, depthWrite:false, opacity:0, blending });
+ITEMS.forEach((it, k) => {
+  if (!it.flash) return;
+  const a = FRAME_ANG[k], dir = new THREE.Vector3(Math.cos(a), 0, Math.sin(a));
+  const at = (rad, y) => new THREE.Vector3(rad*dir.x, y, rad*dir.z);
+  // the burst on the frame itself (the flash going off)
+  const core = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 2.6), glowMat(flashCore, THREE.AdditiveBlending));
+  core.position.copy(at(17.8, PY + .15)); core.lookAt(0, PY + .15, 0); scene.add(core);
+  // the light travelling across the corridor
+  const beam = new THREE.Mesh(new THREE.PlaneGeometry(17.8 - RIN, 1.1), glowMat(flashBeam));
+  beam.rotation.order = 'YXZ';
+  beam.position.copy(at((17.8 + RIN)/2, PY + .1)); beam.rotation.y = -a; beam.rotation.x = Math.PI/2.3; scene.add(beam);
+  // where it lands: a warm hot spot on the opposite wall, and the spill on the floor between
+  const spot = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 3.6), glowMat(flashSpot));
+  spot.position.copy(at(RIN + .04, PY + .1)); spot.lookAt(2*spot.position.x, spot.position.y, 2*spot.position.z); scene.add(spot);
+  const floorSpill = new THREE.Mesh(new THREE.PlaneGeometry(7, 3.4), glowMat(flashSpot));
+  floorSpill.rotation.x = -Math.PI/2; floorSpill.rotation.z = -a; floorSpill.position.copy(at((17.8 + RIN)/2, .02)); scene.add(floorSpill);
+  flashes.push({ k, at: it.flash, core, beam, spot, floorSpill, prev: 0, t0: -1 });
+});
+/* ---------- the light switch: on is the daylight gallery; off, only the picture lights and the orange line glow ---------- */
+const C = h => new THREE.Color(h);
+const SURF = [
+  { mat: outer.material, on: C(0xffffff), off: C(0x1B2320) },
+  { mat: inner.material, on: C(0xffffff), off: C(0x161D1A) },
+  { mat: floor.material, on: C(0xffffff), off: C(0x121815) },
+  { mat: ceil.material,  on: C(0xF7F6F2), off: C(0x0B0F0D) },
+  { mat: rail.material,  on: C(0xEC9921), off: C(0xFFB04A) },
+  { mat: lampGlowMat,    on: C(0xFFE7B8), off: C(0xFFF6E0) },
+];
+const BG_ON = C(0xF4F3EE), BG_OFF = C(0x0B0F0D), CAP_ON = C(0x13372C), CAP_OFF = C(0xD9D4C8);
+const startDark = document.documentElement.classList.contains('room-dark');
+let dark = startDark ? 1 : 0, darkTo = dark, darkShown = -1;
+function updateLights(dt){
+  dark = RM ? darkTo : dark + (darkTo - dark) * (1 - Math.exp(-dt/.22));
+  if (Math.abs(dark - darkTo) < .002) dark = darkTo;
+  if (dark === darkShown) return; darkShown = dark;
+  const e = dark;
+  SURF.forEach(s => s.mat.color.copy(s.on).lerp(s.off, e));
+  scene.background.copy(BG_ON).lerp(BG_OFF, e); scene.fog.color.copy(scene.background);
+  ROOM.light.forEach(r => r.mat.opacity = r.from + (r.to - r.from) * e);
+  ROOM.dark.forEach(r => r.mat.opacity = r.to * e);
+  panels.forEach(p => p.material.color.setScalar(1 - .72*e));
+  ROOM.dim.forEach(m => m.color.copy(CAP_ON).lerp(CAP_OFF, e));
+  if (projMat.map) projMat.opacity = .2 - .1*e;   // the projection steps back so the picture lights lead
+}
+const lightsBtn = document.getElementById('lightsBtn');
+lightsBtn.setAttribute('aria-checked', !startDark);
+lightsBtn.addEventListener('click', () => {
+  const on = lightsBtn.getAttribute('aria-checked') !== 'true';
+  lightsBtn.setAttribute('aria-checked', on);
+  document.documentElement.classList.toggle('room-dark', !on);
+  document.querySelector('meta[name="theme-color"]').content = on ? '#F4F3EE' : '#0E1311';
+  try { localStorage.setItem('gm-theme', on ? 'light' : 'dark'); } catch (e) {}
+  darkTo = on ? 0 : 1;
+});
+
+function updateFlashes(now){
+  for (const fl of flashes){
+    const v = printMats[fl.k].userData.video; if (!v) continue;
+    const ct = v.currentTime;
+    if ((fl.prev < fl.at && ct >= fl.at) || (ct < fl.prev && fl.at <= ct)) fl.t0 = now;   // crossed the flash (also across the loop)
+    fl.prev = ct;
+    const e = fl.t0 < 0 ? 1e9 : now - fl.t0;          // ms since the flash
+    const pulse = (rise, hold, fall) => e < rise ? e/rise : e < rise + hold ? 1 : Math.max(0, 1 - (e - rise - hold)/fall);
+    fl.core.material.opacity = pulse(30, 40, 260);
+    fl.beam.material.opacity = e < 40 ? 0 : .55 * pulse(60, 20, 220);              // leaves the frame just after the burst
+    fl.spot.material.opacity = e < 70 ? 0 : pulse(70, 90, 700);                    // lands on the far wall, then lingers
+    fl.floorSpill.material.opacity = e < 60 ? 0 : .5 * pulse(80, 60, 600);
+  }
+}
+
+/* On the inner (left) wall, one title panel per service, opposite its frames */
+const panels = [];
+function panelTex(s, n, glow = false){
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 640; const g = c.getContext('2d');
+  g.fillStyle = glow ? '#FFF0D2' : '#13372C';
+  if (glow){ g.shadowColor = 'rgba(236,153,33,.95)'; g.shadowBlur = 30; }
+  g.font = '400 34px "DM Mono"'; g.globalAlpha = .75; g.fillText(`${String(n+1).padStart(2,'0')} / ${String(SERVICES.length).padStart(2,'0')}`, 40, 70); g.globalAlpha = 1;
+  g.font = '500 112px "Montserrat"';
+  const words = s.name.toUpperCase().split(' '); let line = '', y = 200;
+  for (const w of words){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 940 && line){ g.fillText(line, 36, y); y += 112; line = w; } else line = t; }
+  g.fillText(line, 36, y);
+  g.font = '400 38px "Montserrat"'; g.globalAlpha = .8;
+  const lw = s.lede.split(' '); line = ''; y += 90;
+  for (const w of lw){ const t = line ? line + ' ' + w : w; if (g.measureText(t).width > 900 && line){ g.fillText(line, 40, y); y += 52; line = w; } else line = t; }
+  g.fillText(line, 40, y);
+  g.globalAlpha = 1; g.font = '400 30px "DM Mono"'; g.fillStyle = glow ? '#FFB04A' : '#B4700F'; g.fillText('CLICK TO READ MORE  →', 40, 600);
+  if (glow){ g.shadowBlur = 0; g.globalCompositeOperation = 'lighter'; g.drawImage(c, 0, 0); }   // twice over, so it reads from across the corridor
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
+}
+
+function labelTex(it){
+  const c = document.createElement('canvas'); c.width = 640; c.height = 260; const g = c.getContext('2d');
+  g.fillStyle = '#ffffff';   // tinted by the material: green with the lights on, pale with them off
+  g.font = '500 56px "Montserrat"'; g.fillText(it.svc, 30, 82);
+  g.font = 'italic 400 50px "Montserrat"'; g.fillText(it.title, 30, 150);
+  g.globalAlpha = .7; g.font = '400 30px "DM Mono"'; g.fillText(it.place.toUpperCase(), 30, 215);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = maxAniso; return t;
+}
+const fontsReady = document.fonts.ready.then(() => {
+  const texes = ITEMS.map(labelTex);
+  groups.forEach(g => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(.92, .92*260/640), new THREE.MeshBasicMaterial({ map:texes[g.userData.labelSlot.idx], transparent:true, color:0x13372C })); ROOM.dim.push(m.material);
+    m.position.set(-PW/2 + .46, PY - PH/2 - .42, .08); g.add(m);
+  });
+  darkShown = -1;   // tint the new captions for the room as it is now
+  SERVICES.forEach((s, n) => {
+    const ks = ITEMS.map((it, k) => it.s === s.key ? k : -1).filter(k => k >= 0);
+    const mid = (FRAME_ANG[ks[0]] + FRAME_ANG[ks[ks.length-1]]) / 2 - .9 * STEP;   // a little ahead, so it is read while walking up
+    const g = new THREE.Group();
+    g.position.set(12.22*Math.cos(mid), 0, 12.22*Math.sin(mid)); g.lookAt(2*g.position.x, 0, 2*g.position.z);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.19), new THREE.MeshBasicMaterial({ map:panelTex(s, n), transparent:true }));
+    m.position.set(0, PY + .1, .03); m.userData = { service:s.key };
+    g.add(m); scene.add(g); panels.push(m);
+    const gm = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.19), addGlow(new THREE.MeshBasicMaterial({ map:panelTex(s, n, true), transparent:true, depthWrite:false, opacity:0, blending:THREE.AdditiveBlending }), .95));
+    gm.position.set(0, PY + .1, .032); g.add(gm);
+  });
+});
+
+/* ---------- camera model ---------- */
+let mode = 'walk', target = D(), cur = walkPose(target), glide = null, focused = null, lastIdx = 0;
+const tmpT = new THREE.Vector3(), tmpN = new THREE.Vector3();
+function applyPose(p){
+  tmpT.set(Math.sin(p.th), 0, -Math.cos(p.th)); tmpN.set(Math.cos(p.th), 0, Math.sin(p.th));
+  camera.position.set(p.r*Math.cos(p.th), p.y, p.r*Math.sin(p.th));
+  const dx = Math.cos(p.yaw)*tmpT.x + Math.sin(p.yaw)*tmpN.x, dz = Math.cos(p.yaw)*tmpT.z + Math.sin(p.yaw)*tmpN.z;
+  camera.lookAt(camera.position.x + dx, p.y + p.pitch, camera.position.z + dz);
+}
+const quart = t => 1 - (1-t)**4, quad = t => 1 - (1-t)**2, cubic = t => 1 - (1-t)**3, expo = t => t >= 1 ? 1 : 1 - 2**(-10*t);
+function startGlide(to, dur, after, all){
+  if (RM) dur = 0;
+  glide = { from:{...cur}, to, t0:performance.now(), dur, after, ease: all ? { th:all, yaw:all, r:all, y:all, pitch:all } : { th:quart, yaw:quad, r:cubic, y:cubic, pitch:cubic } };
+  mode = 'gliding';
+}
+function focusPose(m){
+  const sp = portraitSmall(), out = m.userData.wall === 'outer'; let a = m.userData.angle;
+  while (a - cur.th > Math.PI) a -= 2*Math.PI; while (a - cur.th < -Math.PI) a += 2*Math.PI;
+  const dr = sp ? 5.2 : 4.26;
+  return { th:a, r: out ? R - dr : RIN + dr, yaw: out ? Math.PI/2 : -Math.PI/2, y: PY - (sp ? 1.05 : .52), pitch:0 };
+}
+const hint1 = document.getElementById('h1'), hint2 = document.getElementById('h2');
+function setHint(f){ hint1.textContent = f ? 'Scroll sideways for the next frame' : 'Scroll. The work explains itself better than we do'; hint2.textContent = f ? 'Scroll down to see why it works' : 'Click any frame. Curiosity is free'; }
+
+/* ---------- the walk is finite: past the last frame it hands over to the service sections ---------- */
+const START = () => FRAME_ANG[0] + D(), END = () => FRAME_ANG[ITEMS.length - 1] + D();
+const content = document.getElementById('content');
+let reading = false, lockUntil = 0;
+function clampWalk(){
+  if (target > START() + .06) target = START() + .06;
+  if (target < END() - .3){ target = END() - .3; enterContent(null); }
+}
+function enterContent(id){
+  if (reading || performance.now() < lockUntil) return;
+  reading = true; lockUntil = performance.now() + 900;
+  focused = null; setHint(false); pill.classList.remove('on');
+  const el = id ? document.getElementById(id) : null;
+  content.scrollTop = el ? el.offsetTop : 0;
+  if (!el && id && id.startsWith('svc-')) pickCard(id.slice(4));
+  content.classList.add('up'); document.body.classList.add('reading', 'covered'); nav.classList.add('solid'); setToggle(null);
+}
+function leaveContent(atFrame){
+  if (!reading) return;
+  reading = false; lockUntil = performance.now() + 900;
+  content.classList.remove('up'); document.body.classList.remove('reading', 'covered'); nav.classList.remove('solid'); setToggle('gallery');
+  glide = null;
+  if (atFrame != null){ target = FRAME_ANG[atFrame] + D(); cur = walkPose(target); mode = 'walk'; focusOn(prints[atFrame]); }
+  else { target = END(); cur = walkPose(target); mode = 'walk'; }
+}
+content.addEventListener('wheel', e => {
+  if (performance.now() < lockUntil){ e.preventDefault(); return; }
+  if (content.scrollTop <= 0 && e.deltaY < 0){ e.preventDefault(); leaveContent(); }
+}, { passive:false });
+let touchY = null;
+content.addEventListener('touchstart', e => { touchY = content.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive:true });
+content.addEventListener('touchmove', e => { if (touchY != null && e.touches[0].clientY - touchY > 70) { touchY = null; leaveContent(); } }, { passive:true });
+/* the hero follows the walk: the italic word, the service index and the now-showing card */
+const SWAP = { photography:'remember', film:'forward', content:'follow', livestream:'watch live', web:'come back to', graphic:'recognise' };
+const swapEl = document.getElementById('swap'), idxList = document.getElementById('svcIndex');
+const nowMedia = document.getElementById('nowMedia'), nowK = document.getElementById('nowK'), nowT = document.getElementById('nowT'), nowM = document.getElementById('nowM');
+idxList.innerHTML = SERVICES.map((s, n) => `<li><button type="button" data-walk="${s.key}" aria-current="false" aria-label="${s.name}"><span class="ch-l"><span class="ch-n">${String(n + 1).padStart(2, '0')}</span>${s.name}</span><i class="ch-bar"><b></b></i></button></li>`).join('');
+const chBars = [...idxList.querySelectorAll('.ch-bar b')];
+const walkPos = th => Math.min(1, Math.max(0, (START() - th) / (START() - END())));   // 0 at the first frame, 1 at the last
+let chStarts = [], chFill = [];
+function layoutChapters(){
+  chStarts = SERVICES.map(s => walkPos(FRAME_ANG[firstFrameOf(s.key)] + D()));
+  [...idxList.children].forEach((li, n) => li.style.setProperty('--seg', ITEMS.filter(i => i.s === SERVICES[n].key).length + .6));   // width by number of frames, so every label fits
+}
+function updateChapters(){
+  const g = walkPos(cur.th);
+  chBars.forEach((b, n) => {
+    const a = chStarts[n], z = chStarts[n + 1] ?? 1, v = Math.min(1, Math.max(0, z > a ? (g - a) / (z - a) : 1));
+    if (Math.abs((chFill[n] ?? -1) - v) > .002){ chFill[n] = v; b.style.transform = `scaleX(${v.toFixed(3)})`; }
+  });
+}
+idxList.addEventListener('click', e => { const b = e.target.closest('[data-walk]'); if (b) walkTo(firstFrameOf(b.dataset.walk)); });
+nowMedia.addEventListener('click', () => { if (curNow >= 0) openProject(curNow, nowMedia.getBoundingClientRect()); });
+let curSvc = '', curNow = -1;
+function walkTo(k){
+  islandPing();
+  if (focused){ focused = null; setHint(false); pill.classList.remove('on'); }
+  glide = null; mode = 'walk'; target = FRAME_ANG[k] + D();
+}
+/* one word slot: the old word leaves upward, quickly, then the new one rises in (a swap in place can't overlap) */
+function swapWord(w){
+  if (swapEl.textContent === w) return;
+  swapEl.getAnimations().forEach(a => a.cancel());
+  if (RM){ swapEl.textContent = w; return; }
+  const out = swapEl.animate([{ transform:'none', opacity:1 }, { transform:'translateY(-.35em)', opacity:0 }], { duration:170, easing:'cubic-bezier(.4,0,1,1)', fill:'forwards' });
+  out.onfinish = () => { swapEl.textContent = w; out.cancel(); swapEl.animate([{ transform:'translateY(.5em)', opacity:0 }, { transform:'none', opacity:1 }], { duration:440, easing:'cubic-bezier(.2,.7,.2,1)' }); };
+}
+/* the card crossfades its picture and updates its words together, on every new frame */
+function showNow(i){
+  const it = ITEMS[i]; curNow = i;
+  nowK.textContent = `Now showing · ${String(i + 1).padStart(2, '0')}/${ITEMS.length}`;
+  nowT.textContent = it.title; nowM.textContent = `${it.svc} · ${it.place}`;
+  const img = new Image(); img.src = IMG(it.id); img.alt = ''; img.decoding = 'async';
+  nowMedia.append(img);
+  while (nowMedia.children.length > 2) nowMedia.firstElementChild.remove();
+  if (!RM){
+    img.animate([{ opacity:0, transform:'scale(1.08)' }, { opacity:1, transform:'none' }], { duration:340, easing:'cubic-bezier(.2,.7,.2,1)' });
+    nowT.animate([{ opacity:0, translate:'0 4px' }, { opacity:1, translate:'0 0' }], { duration:260, easing:'cubic-bezier(.2,.7,.2,1)' });
+  }
+}
+/* the viewfinder's timecode, at 25 frames a second since the page opened */
+const tcEl = document.getElementById('tc'), tc0 = performance.now(); let tcLast = '';
+function updateTC(now){
+  const f = Math.floor((now - tc0) / 40), s = Math.floor(f / 25);
+  const str = [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60, f % 25].map(x => String(x).padStart(2, '0')).join(':');
+  if (str !== tcLast){ tcLast = str; tcEl.textContent = str; }
+}
+function nearestFrame(){ let best = 0, bd = 1e9; FRAME_ANG.forEach((a, k) => { const d = Math.abs(a + D() - cur.th); if (d < bd){ bd = d; best = k; } }); return best; }
+function updateKicker(){
+  const s = ITEMS[focused ? focused.userData.idx : nearestFrame()].s, n = SERVICES.findIndex(x => x.key === s);
+  if (s !== curSvc){
+    curSvc = s; swapWord(SWAP[s]);
+    idxList.querySelectorAll('button').forEach(b => b.setAttribute('aria-current', b.dataset.walk === s));
+    navNow.textContent = `${SERVICES[n].name} · ${n + 1}/${SERVICES.length}`;
+  }
+  const i = focused ? focused.userData.idx : nearestFrame();
+  if (i !== curNow) showNow(i);
+}
+const navEl = document.querySelector('.nav'), navNow = document.getElementById('navNow');
+let islandT = 0;
+function islandPing(){   // called on every walking input
+  if (document.body.classList.contains('covered')) return;
+  navEl.classList.add('compact'); clearTimeout(islandT);
+  islandT = setTimeout(() => navEl.classList.remove('compact'), 1700);
+}
+function focusOn(m){ focused = m; lastIdx = m.userData.idx; setHint(true); startGlide(focusPose(m), 950, 'focus'); }
+/* With a frame open, sideways input moves to the neighbouring frame and stays close; past the last frame it
+   hands over to the sections below, before the first it steps back into the walk. */
+let sideLock = 0;
+function focusStep(dir){
+  islandPing();
+  if (!focused || performance.now() < sideLock) return;
+  const k = focused.userData.idx + dir;
+  if (k < 0){ stepBack(); return; }
+  if (k >= ITEMS.length){ enterContent(null); return; }
+  sideLock = performance.now() + (RM ? 150 : 560);
+  focused = prints[k]; lastIdx = k; startGlide(focusPose(focused), RM ? 0 : 720, 'focus');
+}
+function stepBack(){
+  if (!focused) return;
+  focused = null; setHint(false); pill.classList.remove('on');
+  target = cur.th + D(); startGlide(walkPose(target), 950, 'walk');
+}
+
+function resize(){
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w/h; camera.fov = w >= h ? 56 : 70; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+addEventListener('resize', () => layoutChapters());
+
+let last = performance.now();
+function tick(now){
+  const dt = Math.min(.1, (now - last)/1000); last = now;
+  if (glide){
+    const t = glide.dur ? Math.min(1, (now - glide.t0)/glide.dur) : 1, e = glide.ease;
+    for (const k of ['th','r','yaw','y','pitch']) cur[k] = glide.from[k] + (glide.to[k] - glide.from[k]) * e[k](t);
+    if (t >= 1){ mode = glide.after; glide = null; if (mode === 'walk') target = cur.th; }
+  } else if (mode === 'walk'){
+    const k = RM ? 1 : 1 - Math.exp(-dt/.36);
+    cur = { ...walkPose(cur.th + (target - cur.th)*k) };
+  }
+  applyPose(cur);
+  if (started) updateKicker();
+  if (focused && portraitSmall() && mode === 'focus' && !document.body.classList.contains('covered')){ pill.style.left = innerWidth/2 + 'px'; pill.style.top = innerHeight*.55 + 'px'; pill.classList.add('on'); }
+  updateLights(dt);
+  updateFlashes(now);
+  updateTC(now);
+  if (started) updateChapters();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+/* ---------- input ---------- */
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pill = document.getElementById('pill');
+function hit(x, y){ ndc.set(x/innerWidth*2 - 1, -(y/innerHeight)*2 + 1); ray.setFromCamera(ndc, camera); const h = ray.intersectObjects([...prints, ...panels], false)[0]; return h ? h.object : null; }
+const svcOf = m => ITEMS[m.userData.idx].s;
+let down = null;
+host.addEventListener('pointerdown', e => { down = { x:e.clientX, y:e.clientY, t:target, drag:false }; host.setPointerCapture(e.pointerId); });
+host.addEventListener('pointermove', e => {
+  if (down){
+    const dx = e.clientX - down.x, dy = e.clientY - down.y;
+    if (!down.drag && Math.hypot(dx, dy) > 6){
+      down.drag = true; host.classList.add('drag');
+      if (focused){ const key = svcOf(focused); down = null; host.classList.remove('drag');
+        if (Math.abs(dx) > Math.abs(dy)) focusStep(dx < 0 ? 1 : -1); else if (dy < 0) enterContent('svc-' + key); else stepBack();
+        return; }
+    }
+    if (down.drag && (mode === 'walk' || mode === 'gliding' && !focused)){ const rate = smallMq.matches ? .0042 : .0022; target = down.t + (Math.abs(dx) > Math.abs(dy) ? dx : dy) * rate; if (mode === 'gliding' && glide?.after === 'walk') { glide = null; mode = 'walk'; } clampWalk(); }
+    if (down.drag) islandPing();
+    return;
+  }
+  const m = hit(e.clientX, e.clientY);
+  host.classList.toggle('over', !!m);
+  const show = !!m && m === focused && mode === 'focus';
+  pill.classList.toggle('on', show);
+  if (show){ pill.style.left = e.clientX + 'px'; pill.style.top = e.clientY + 'px'; }
+});
+host.addEventListener('pointerup', e => {
+  if (!down) return; const wasDrag = down.drag; down = null; host.classList.remove('drag');
+  if (wasDrag) return;
+  const m = hit(e.clientX, e.clientY);
+  if (m && m.userData.service){ enterContent('svc-' + m.userData.service); return; }
+  if (m){ if (m === focused && mode === 'focus') openProject(m.userData.idx, rectOf(m)); else focusOn(m); }
+  else stepBack();
+});
+host.addEventListener('pointerleave', () => pill.classList.remove('on'));
+let wheelX = 0, wheelXT = 0;
+host.addEventListener('wheel', e => {
+  e.preventDefault(); islandPing();
+  if (performance.now() < lockUntil) return;
+  const d = e.deltaMode === 1 ? e.deltaY*33 : e.deltaY;
+  if (focused){   // a clicked frame: sideways (trackpad, tilt wheel or Shift + wheel) for its neighbours, down for its service
+    let dx = e.deltaMode === 1 ? e.deltaX*33 : e.deltaX;
+    if (e.shiftKey && !dx) dx = d;
+    if (Math.abs(dx) > Math.abs(d)){ wheelX += dx; clearTimeout(wheelXT); wheelXT = setTimeout(() => wheelX = 0, 180); if (Math.abs(wheelX) > 30){ focusStep(wheelX > 0 ? 1 : -1); wheelX = 0; } return; }
+    if (d > 2 && performance.now() > sideLock) enterContent('svc-' + svcOf(focused));
+    else if (d < -2 && performance.now() > sideLock) stepBack();
+    return;
+  }
+  target += -d * .0016;
+  if (mode === 'gliding' && glide?.after === 'walk'){ glide = null; mode = 'walk'; }
+  clampWalk();
+}, { passive:false });
+function snap(dir){
+  islandPing();
+  if (focused){ focusStep(dir); return; }
+  let k = 0, bd = 1e9;   // the frame nearest where the walk is heading, then one along
+  FRAME_ANG.forEach((a, i) => { const d = Math.abs(a + D() - target); if (d < bd){ bd = d; k = i; } });
+  k += dir;
+  if (k >= ITEMS.length){ enterContent(null); return; }
+  target = FRAME_ANG[Math.max(0, k)] + D();
+}
+document.getElementById('next').onclick = () => snap(1);
+document.getElementById('prev').onclick = () => snap(-1);
+addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ if (drawer.classList.contains('open')) toggleDrawer(false); else if (focused) stepBack(); return; }
+  if (document.body.classList.contains('covered') || /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName)) return;
+  if (focused){
+    if (e.key === 'ArrowRight'){ e.preventDefault(); focusStep(1); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); focusStep(-1); }
+    if (e.key === 'ArrowDown' || e.key === 'PageDown'){ e.preventDefault(); enterContent('svc-' + svcOf(focused)); }
+    if (e.key === 'ArrowUp'){ e.preventDefault(); stepBack(); }
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); snap(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); snap(-1); }
+});
+
+function rectOf(m){
+  const pts = [[-1,-1],[1,-1],[1,1],[-1,1]].map(([sx,sy]) => m.localToWorld(new THREE.Vector3(sx*PW/2, sy*PH/2, 0)).project(camera));
+  const xs = pts.map(p => (p.x + 1)/2*innerWidth), ys = pts.map(p => (1 - p.y)/2*innerHeight);
+  return { left:Math.min(...xs), top:Math.min(...ys), width:Math.max(...xs) - Math.min(...xs), height:Math.max(...ys) - Math.min(...ys) };
+}
+
+/* ---------- views ---------- */
+const page = document.getElementById('page'), list = document.getElementById('list'), nav = document.querySelector('.nav');
+const toggleBtns = document.querySelectorAll('.toggle button');
+function setToggle(v){ toggleBtns.forEach(b => { const on = b.dataset.go === v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+function showLayer(el){ el.classList.add('show'); requestAnimationFrame(() => el.classList.add('in')); document.body.classList.add('covered'); nav.classList.add('solid'); pill.classList.remove('on'); }
+function hideLayer(el){ el.classList.remove('in'); setTimeout(() => { if (!el.classList.contains('in')) el.classList.remove('show'); }, RM ? 0 : 300); }
+
+function openList(){ hideLayer(page); showLayer(list); setToggle('list'); }
+function backToRoom(){
+  if (reading){
+    if (page.classList.contains('show') || list.classList.contains('show')){ hideLayer(page); hideLayer(list); setToggle(null); return; }
+    leaveContent(); return;
+  }
+  const wasOpen = document.body.classList.contains('covered');
+  hideLayer(page); hideLayer(list); document.body.classList.remove('covered'); nav.classList.remove('solid'); setToggle('gallery');
+  if (!wasOpen) return;
+  let best = null, bd = 1e9;   // the outer-wall copy of the last project nearest the camera
+  prints.forEach(p => { if (p.userData.wall !== 'outer' || p.userData.idx !== lastIdx) return; let d = Math.abs(((p.userData.angle - cur.th) % (2*Math.PI) + 3*Math.PI) % (2*Math.PI) - Math.PI); if (d < bd){ bd = d; best = p; } });
+  if (best) focusOn(best);
+}
+document.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  const go = a.dataset.go;
+  if (go === 'list') openList();
+  else if (go === 'services'){ hideLayer(page); hideLayer(list); enterContent(null); }
+  else backToRoom();
+}));
+
+/* ---------- service sections ---------- */
+const DELIVERY = { 'Photography':'Photo set', 'Filmmaking':'Edited film', 'Content creation':'Content pack', 'Livestreaming':'Live stream + recording', 'Website design':'Website', 'Graphic design':'Design files' };
+const deliveryFor = name => DELIVERY[name] || 'Edited film';
+/* the overview cards: one per service, each opening its full section below */
+const SHORT = {
+  photography:'The only part of the event that outlives the catering. We make it look like it was worth attending.',
+  film:'A report gets skimmed; a three-minute film gets forwarded. We make the one people forward.',
+  content:'Posting once is a whisper. Posting every week is a reputation. We plan the series, not the single post.',
+  livestream:'An audience forgives a slow speaker, never a frozen screen. We bring the backup for the backup.',
+  web:'Your website is the shop window people visit at midnight. We make it fast, and make it look like you mean it.',
+  graphic:'Consistency looks expensive. One look across poster, page and film makes a small team feel like a big one.',
+};
+const svcGrid = document.getElementById('svcGrid');
+SERVICES.forEach((s, n) => {
+  const it = ITEMS.find(i => i.s === s.key);
+  const a = document.createElement('a');
+  a.className = 'svc-card'; a.href = '#'; a.dataset.jump = s.key;
+  a.innerHTML = `<div class="media">${it ? (it.v ? clip(it.id) : `<img src="${IMG(it.id)}" alt="" loading="lazy" decoding="async">`) : ''}<span class="num">${String(n + 1).padStart(2, '0')}</span></div>
+    <div class="body"><h3>${s.name}</h3><p>${SHORT[s.key] || s.lede}</p><span class="go">See the work<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>`;
+  svcGrid.append(a);
+});
+content.addEventListener('click', e => {
+  const a = e.target.closest('[data-jump]'); if (!a) return;
+  e.preventDefault();
+  leaveContent(firstFrameOf(a.dataset.jump));   // back into the gallery, in front of that service's first frame
+});
+/* scrolling down from a clicked frame lands on the overview with that service's card picked out */
+function pickCard(key){
+  const c = svcGrid.querySelector(`[data-jump="${key}"]`); if (!c) return;
+  content.scrollTop = Math.max(0, c.offsetTop - innerHeight * .22);
+  c.classList.remove('hl'); void c.offsetWidth; c.classList.add('hl');
+  setTimeout(() => c.classList.remove('hl'), 2600);
+}
+
+const FEATURED = ['v-studio', 'f182219186', 'v-photographer', 'f107307775', 'f64505987', 'v-shapes'];
+const workGrid = document.getElementById('workGrid');
+FEATURED.forEach(id => {
+  const i = ITEMS.findIndex(x => x.id === id); if (i < 0) return;
+  const it = ITEMS[i], b = document.createElement('button');
+  b.type = 'button'; b.className = 'work-tile';
+  b.innerHTML = `${it.v ? clip(it.id) : `<img src="${IMG(it.id)}" alt="" loading="lazy" decoding="async">`}<span class="tag">${it.svc}</span><span class="cap"><b>${it.title}</b><span>${it.place}</span></span>`;
+  b.setAttribute('aria-label', `${it.title}, ${it.svc}, ${it.place}`);
+  b.onclick = () => openProject(i, b.getBoundingClientRect());
+  workGrid.append(b);
+});
+document.getElementById('footSvc').innerHTML = SERVICES.map(s => `<li><a href="#" data-jump="${s.key}">${s.name}</a></li>`).join('');
+
+document.querySelectorAll('[data-open-brief]').forEach(b => b.onclick = () => toggleDrawer(true));
+
+function card(i){
+  const it = ITEMS[i], b = document.createElement('button');
+  b.type = 'button'; b.className = 'card';
+  b.innerHTML = `<div class="img" style="background-image:url(${IMG(it.id)})"></div><span class="t">${it.title}</span><span class="a">${it.place}</span><span class="p">${it.svc}</span>`;
+  b.onclick = () => { const r = b.querySelector('.img').getBoundingClientRect(); hideLayer(list); openProject(i, r); };
+  return b;
+}
+ITEMS.forEach((_, i) => document.getElementById('all').append(card(i)));
+
+const sel = {}; let cams = 1, curIdx = 0;
+const shot = document.getElementById('shot');
+for (const [g, opts] of Object.entries(OPTS)){
+  const box = document.querySelector(`[data-g="${g}"]`);
+  opts.forEach(o => { const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.textContent = o; c.setAttribute('aria-pressed', 'false'); c.onclick = () => pick(g, o); box.append(c); });
+}
+function pick(g, o){ sel[g] = o; document.querySelectorAll(`[data-g="${g}"] .chip`).forEach(c => c.setAttribute('aria-pressed', c.textContent === o)); document.querySelector(`[data-l="${g}"]`).textContent = o; }
+document.getElementById('qMinus').onclick = () => { cams = Math.max(1, cams - 1); document.getElementById('qVal').textContent = cams + ' cam'; };
+document.getElementById('qPlus').onclick = () => { cams = Math.min(9, cams + 1); document.getElementById('qVal').textContent = cams + ' cam'; };
+document.querySelectorAll('.acc-row > button').forEach(b => b.onclick = () => {
+  const row = b.parentElement, body = row.querySelector('.acc-body'), open = !row.classList.contains('open');
+  row.classList.toggle('open', open); body.style.height = open ? body.scrollHeight + 'px' : '0px';
+});
+
+function openProject(i, from){
+  const it = ITEMS[i]; curIdx = i; lastIdx = i;
+  document.getElementById('pSvc').textContent = it.svc;
+  document.getElementById('pTitle').textContent = it.title;
+  document.getElementById('pPlace').textContent = it.place;
+  document.getElementById('pDesc').textContent = it.desc;
+  document.getElementById('metaNum').textContent = `${i + 1}/${ITEMS.length}`;
+  document.getElementById('metaSvc').textContent = `${it.svc} · ${it.place}`;
+  shot.style.backgroundImage = `url(${IMG(it.id)})`; shot.setAttribute('aria-label', it.title);
+  shot.innerHTML = it.v ? clip(it.id) : '';
+  pick('service', OPTS.service.find(s => s === it.svc) || 'Filmmaking');
+  pick('length', 'Full day'); pick('crew', 'Small crew (2 to 3)');
+  pick('delivery', deliveryFor(it.svc));
+  const more = document.getElementById('more'); more.innerHTML = '';
+  for (let k = 0; k < 4; k++) more.append(card((i + k) % ITEMS.length));
+  page.classList.remove('reveal'); shot.classList.remove('on'); page.scrollTo({ top:0, behavior: RM ? 'auto' : 'smooth' });
+  showLayer(page); setToggle(null);
+  requestAnimationFrame(() => {
+    const to = shot.getBoundingClientRect();
+    if (RM || !from){ shot.classList.add('on'); page.classList.add('reveal'); return; }
+    const f = document.createElement('div'); f.className = 'flyer'; f.style.backgroundImage = `url(${IMG(it.id)})`;
+    f.style.width = to.width + 'px'; f.style.height = to.height + 'px'; document.body.append(f);
+    const sx = from.width/to.width, sy = from.height/to.height;
+    f.animate([{ transform:`translate(${from.left}px,${from.top}px) scale(${sx},${sy})` }, { transform:`translate(${to.left}px,${to.top}px) scale(1,1)` }], { duration:300, easing:'cubic-bezier(.25,.75,.25,1)', fill:'forwards' })
+      .finished.then(() => { shot.classList.add('on'); f.remove(); });
+    setTimeout(() => page.classList.add('reveal'), 1000);
+  });
+}
+
+/* ---------- brief drawer ---------- */
+const drawer = document.getElementById('drawer'), itemsBox = document.getElementById('items'), badge = document.getElementById('badge'), send = document.getElementById('send');
+const brief = [];
+function toggleDrawer(open){ drawer.classList.toggle('open', open); drawer.setAttribute('aria-hidden', !open); if (open) document.getElementById('closeDrawer').focus(); }
+document.getElementById('briefBtn').onclick = () => toggleDrawer(true);
+document.getElementById('closeDrawer').onclick = () => toggleDrawer(false);
+function renderBrief(){
+  itemsBox.innerHTML = brief.length ? '' : '<p class="empty">NOTHING HERE YET. ADD A PROJECT YOU LIKE</p>';
+  brief.forEach((b, n) => {
+    const d = document.createElement('div'); d.className = 'item';
+    d.innerHTML = `<div class="th" style="background-image:url(${IMG(ITEMS[b.idx].id)})"></div><div><div class="tt">${b.service}</div><div class="ss">${b.length} · ${b.crew}<br>${b.delivery} · like “${ITEMS[b.idx].title}”</div><div class="row"><button type="button" aria-label="One camera fewer">&minus;</button>${b.cams} cam<button type="button" aria-label="One camera more">+</button><button type="button" aria-label="Remove from brief" style="margin-left:auto">Remove</button></div></div>`;
+    const [m, p, r] = d.querySelectorAll('.row button');
+    m.onclick = () => { b.cams = Math.max(1, b.cams - 1); renderBrief(); };
+    p.onclick = () => { b.cams = Math.min(9, b.cams + 1); renderBrief(); };
+    r.onclick = () => { brief.splice(n, 1); renderBrief(); };
+    itemsBox.append(d);
+  });
+  badge.textContent = brief.length; badge.classList.toggle('on', brief.length > 0);
+  send.setAttribute('aria-disabled', brief.length ? 'false' : 'true');
+  const body = brief.map(b => `- ${b.service}: ${b.length}, ${b.crew}, ${b.delivery}, ${b.cams} camera(s), like "${ITEMS[b.idx].title}"`).join('\n');
+  send.href = 'mailto:hello@geomedia.example?subject=' + encodeURIComponent('Project brief') + '&body=' + encodeURIComponent('Hello Geo Media,\n\nHere is our brief:\n' + body + '\n\nDates and place:\nName:\n');
+}
+function addLine(line){
+  const same = brief.find(b => b.idx === line.idx && b.service === line.service && b.length === line.length && b.crew === line.crew && b.delivery === line.delivery);
+  toggleDrawer(true);
+  setTimeout(() => { if (same) same.cams = Math.min(9, same.cams + line.cams); else brief.push(line); renderBrief(); }, RM ? 0 : 750);
+}
+document.getElementById('addBtn').onclick = () => addLine({ idx:curIdx, service:sel.service, length:sel.length, crew:sel.crew, delivery:sel.delivery, cams });
+renderBrief();
+
+/* ---------- entrance ---------- */
+let started = false;
+function intro(){
+  if (started) return; started = true; layoutChapters();
+  const veil = document.getElementById('veil');
+  veil.animate([{ opacity:1 }, { opacity:0 }], { duration: RM ? 0 : 900, easing:'ease-out', fill:'forwards' });
+  const end = walkPose(target);
+  cur = { ...end, th:end.th + .16, r:end.r - .35 };
+  startGlide(end, 1400, 'walk', expo);
+  const lines = [...document.querySelectorAll('.gui .m > span')], navKids = [...document.querySelectorAll('.nav > *, .links > *, .right > *')];
+  lines.forEach((el, i) => el.animate([{ transform:'translateY(110%)' }, { transform:'none' }], { duration: RM ? 0 : 1000, delay: RM ? 0 : 250 + i*110, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' }));
+  document.querySelectorAll('.gui .vf, .gui .vf-hint').forEach(el => el.animate([{ opacity:0 }, { opacity:1 }], { duration: RM ? 0 : 900, delay: RM ? 0 : 120, easing:'ease-out', fill:'backwards' }));
+  document.querySelectorAll('.gui [data-in]').forEach(el => el.animate([{ opacity:0, translate:'0 12px' }, { opacity:1, translate:'0 0' }], { duration: RM ? 0 : 800, delay: RM ? 0 : +el.dataset.in, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' }));
+  navKids.forEach((el, i) => el.animate([{ opacity:0 }, { opacity:1 }], { duration: RM ? 0 : 1000, delay: RM ? 0 : 250 + (lines.length + i)*60, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' }));
+}
+Promise.all([ready, fontsReady]).then(intro);
+setTimeout(intro, 4000);
+</script>
+</body>
+</html>

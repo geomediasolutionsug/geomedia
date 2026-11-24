@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home 4 · Geo Media Solutions</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Montserrat:wght@400..600&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFE9DE;--panel:#E3DAC9;--ink:#183630;--ink-70:rgba(24,54,48,.7);--orange:#EC9921;--gold:#E5C690}
+:root.room-dark{--bg:#12291F;--panel:#183630;--ink:#E3DAC9;--ink-70:rgba(227,218,201,.72)}
+*{box-sizing:border-box} body{margin:0;min-height:100svh;display:grid;place-items:center;padding:96px 16px 24px;background:var(--bg);color:var(--ink);font:400 15px/1.6 Montserrat,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;height:50px;padding:0 18px;border-radius:99px;background:color-mix(in oklab,var(--bg) 70%,transparent);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.5);box-shadow:0 14px 34px -16px rgba(24,54,48,.35);white-space:nowrap}
+.nav img{width:24px;height:24px}
+.links{display:flex;gap:16px;font-size:13.5px} .links a{opacity:.6;display:inline-flex;align-items:center;gap:6px} .links a:hover{opacity:1}
+.links a[aria-current="page"]{opacity:1;font-weight:600} .links a[aria-current="page"]::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.card{width:min(760px,100%);padding:clamp(40px,8vw,96px) clamp(24px,6vw,72px);border-radius:36px;background:var(--panel);text-align:center}
+.card p.k{margin:0 0 18px;font:400 11px DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-70)}
+h1{margin:0;font:300 clamp(56px,10vw,120px)/.95 Fraunces,Georgia,serif;letter-spacing:-.035em}
+h1 em{font-style:italic}
+.card p.s{margin:22px auto 0;max-width:34ch;color:var(--ink-70)}
+.row{display:flex;justify-content:center;gap:10px;margin-top:34px;flex-wrap:wrap}
+.row a{height:46px;padding:0 20px;border-radius:99px;display:inline-flex;align-items:center;font-weight:500;font-size:14px;border:1px solid rgba(24,54,48,.2)}
+.row a:first-child{background:var(--ink);color:var(--bg);border-color:transparent}
+@media (max-width:560px){ .links .hl{display:none} }
+</style>
+</head>
+<body>
+<header class="nav"><img src="assets/logo-mark.svg" alt="Geo Media Solutions" width="24" height="24"><nav class="links" aria-label="Homepage designs"><a href="index.html"><span class="hl">Home&nbsp;</span>1</a><a href="home2.html"><span class="hl">Home&nbsp;</span>2</a><a href="home3.html"><span class="hl">Home&nbsp;</span>3</a><a href="home4.html" aria-current="page"><span class="hl">Home&nbsp;</span>4</a></nav></header>
+<main class="card">
+  <p class="k">Homepage concept 4 of 4</p>
+  <h1>Home <em>4</em></h1>
+  <p class="s">The next format is on the drawing board. Compare the first two in the meantime.</p>
+  <div class="row"><a href="index.html">See Home 1</a><a href="home2.html">See Home 2</a></div>
+</main>
+</body>
+</html>

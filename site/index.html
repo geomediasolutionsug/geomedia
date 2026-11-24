@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Geo Media Solutions: photography, film, livestream and design in Kampala</title>
+<title>Home 1 · Geo Media Solutions</title>
 <meta name="description" content="We frame you. Photography, film, content, livestreams, websites and design from one crew in Kampala.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#EFE9DE">
@@ -46,7 +46,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .nav.away{transform:translate(-50%,-90px)}
 .logo{flex:none;display:flex;align-items:center;gap:9px;margin-right:4px;font-weight:600;font-size:15px;letter-spacing:-.01em}
 .logo img{width:26px;height:26px} .logo .lm-dark{display:none} :root.room-dark .logo .lm-light{display:none} :root.room-dark .logo .lm-dark{display:block}
-.links{display:flex;gap:20px;font-size:13.5px} .links a{opacity:.75;transition:opacity .2s} .links a:hover{opacity:1}
+.links{display:flex;gap:18px;font-size:13.5px} .links a{opacity:.6;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px} .links a:hover{opacity:1}
+.links a[aria-current="page"]{opacity:1;font-weight:600} .links a[aria-current="page"]::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
 .right{display:flex;align-items:center;gap:10px}
 .lights{display:flex;align-items:center;gap:8px;padding:0 6px;height:36px}
 .lights .track{width:30px;height:17px;border-radius:99px;border:1.5px solid currentColor;position:relative;transition:background .3s,border-color .3s}
@@ -154,7 +155,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
 
 /* ---------- smaller screens ---------- */
 @media (max-width:900px){
-  .links{display:none}
+  .links{gap:12px;font-size:13px} .links .hl{display:none}
   .hero{height:auto;min-height:0;padding-top:78px}
   .stage{grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 150px;gap:8px;padding:8px}
   .lead{grid-column:1/-1;grid-row:1;aspect-ratio:4/5}
@@ -168,7 +169,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
   .viewer .in{grid-template-columns:1fr} .viewer .m{aspect-ratio:4/3}
 }
 @media (max-width:560px){
-  .lights .lbl{display:none} .nav{gap:12px;padding-left:14px} .logo .name{display:none}
+  .lights .lbl{display:none} .nav{gap:12px;padding-left:14px} .logo .name{display:none} .right .pillbtn{padding:0 14px}
   .svc-grid{grid-template-columns:1fr}
   .pills span{padding:7px 10px;font-size:9.5px}
 }
@@ -178,7 +179,7 @@ dialog.viewer::backdrop{background:rgba(18,41,31,.55);-webkit-backdrop-filter:bl
 <body>
 <header class="nav" id="nav">
   <a class="logo" href="#top" aria-label="Geo Media Solutions, home"><img class="lm-light" src="assets/logo-mark.svg" alt="" width="26" height="26"><img class="lm-dark" src="assets/logo-mark-light.svg" alt="" width="26" height="26"><span class="name">Geo Media Solutions</span></a>
-  <nav class="links" aria-label="Main"><a href="#work">Work</a><a href="#services">Services</a><a href="studio.html#on-air">On air</a><a href="studio.html#start">Contact</a></nav>
+  <nav class="links" aria-label="Homepage designs"><a href="index.html" aria-current="page"><span class="hl">Home&nbsp;</span>1</a><a href="home2.html"><span class="hl">Home&nbsp;</span>2</a><a href="home3.html"><span class="hl">Home&nbsp;</span>3</a><a href="home4.html"><span class="hl">Home&nbsp;</span>4</a></nav>
   <div class="right">
     <button class="lights" id="lightsBtn" type="button" role="switch" aria-checked="true" aria-label="Lights: light or dark theme"><span class="track"><span class="knob"></span></span><span class="lbl mono" style="font-size:10.5px">Lights</span></button>
     <a class="pillbtn" href="studio.html#start">Book a shoot</a>

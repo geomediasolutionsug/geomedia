@@ -215,6 +215,31 @@ h1{margin:0;font-weight:500;font-size:calc(170*var(--u));line-height:.82;letter-
 #content{position:fixed;inset:0;z-index:13;background:var(--page);overflow-y:auto;transform:translateY(100%);transition:transform .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
 #content.up{transform:none;visibility:visible}
 body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),visibility 0s .7s}
+/* services overview: the first thing after the gallery */
+.svc-intro{min-height:100vh;padding:calc(132*var(--w)) calc(80*var(--w)) calc(96*var(--w))}
+.svc-intro header{display:grid;grid-template-columns:7fr 5fr;gap:calc(64*var(--w));align-items:end;margin-bottom:calc(56*var(--w))}
+.svc-intro h2{margin:0;font-weight:500;font-size:max(44px,calc(118*var(--w)));line-height:.88;letter-spacing:-.045em;text-transform:uppercase}
+.svc-intro header p{margin:0;font-size:max(16px,calc(19*var(--w)));line-height:1.5;max-width:38ch;color:var(--ink-60)}
+.svc-intro header p strong{color:var(--ink);font-weight:500}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--w))}
+.svc-card{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:var(--band);border:1px solid var(--ink-15);color:inherit;text-decoration:none;transition:transform .45s var(--spring),box-shadow .45s var(--spring),border-color .3s}
+.svc-card .media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#dfe3da}
+.svc-card .media :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--spring)}
+.svc-card .num{position:absolute;left:14px;top:14px;font:400 11px var(--mono);letter-spacing:.14em;padding:6px 11px;border-radius:99px;color:#13372C;
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.1)),rgba(255,255,255,.45);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.7)}
+.svc-card .body{display:grid;gap:calc(8*var(--w));padding:calc(22*var(--w)) calc(24*var(--w)) calc(24*var(--w))}
+.svc-card h3{margin:0;font-weight:500;font-size:max(22px,calc(28*var(--w)));letter-spacing:-.02em;line-height:1.05}
+.svc-card p{margin:0;font-size:max(14px,calc(15.5*var(--w)));line-height:1.5;color:var(--ink-60);max-width:36ch}
+.svc-card .go{display:inline-flex;align-items:center;gap:8px;margin-top:calc(8*var(--w));font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.svc-card .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .35s var(--spring)}
+.svc-card .go::before{content:"";width:7px;height:7px;background:var(--orange)}
+@media (hover:hover){
+  .svc-card:hover{transform:translateY(-4px);border-color:var(--ink-35);box-shadow:0 24px 48px -24px rgba(19,55,44,.35)}
+  .svc-card:hover .media :is(img,video){transform:scale(1.045)}
+  .svc-card:hover .go svg{transform:translateX(4px)}
+}
+.svc-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){ .svc-card,.svc-card .media :is(img,video){transition:none} .svc-card:hover{transform:none} }
 .svc-sec{min-height:100vh;padding:calc(120*var(--w)) calc(80*var(--w)) calc(80*var(--w));display:grid;grid-template-columns:5fr 7fr;gap:calc(64*var(--w));align-items:start;border-top:1px solid var(--ink-15)}
 .svc-sec:first-child{border-top:0}
 .svc-sec:nth-child(even){background:var(--band)}
@@ -240,6 +265,12 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 @media (max-width:819px), (orientation:portrait) and (max-width:1100px){
   .svc-sec{grid-template-columns:1fr;padding:84px 20px 56px;gap:28px}
   .end-sec{padding:84px 20px}
+  .svc-sec h2{font-size:min(12.5vw,60px)} .end-sec h2{font-size:min(14vw,64px)}
+  .svc-intro{padding:92px 16px 64px}
+  .svc-intro h2{font-size:min(15vw,72px)}
+  .svc-intro header{grid-template-columns:1fr;gap:16px;margin-bottom:28px}
+  .svc-grid{grid-template-columns:1fr;gap:14px}
+  .svc-card .media{aspect-ratio:16/10}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
 </style>
@@ -329,6 +360,13 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 
 <!-- the sections the walk hands over to: one per service (built from SERVICES in the script), then the close -->
 <div id="content" aria-label="Services">
+  <section class="svc-intro" id="svc-intro" aria-labelledby="svc-intro-h">
+    <header>
+      <div><p class="count">WHAT WE DO</p><h2 id="svc-intro-h">Services we provide</h2></div>
+      <p><strong>Six services, one crew.</strong> We plan, shoot, stream and design under one roof in Kampala, so a single brief covers the camera, the edit and everything people see after.</p>
+    </header>
+    <div class="svc-grid" id="svcGrid"></div>
+  </section>
   <div id="svcList"></div>
   <section class="end-sec" id="svc-end">
     <p class="count">WHAT NEXT</p>
@@ -913,6 +951,31 @@ document.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', 
 /* ---------- service sections ---------- */
 const DELIVERY = { 'Photography':'Photo set', 'Filmmaking':'Edited film', 'Content creation':'Content pack', 'Livestreaming':'Live stream + recording', 'Website design':'Website', 'Graphic design':'Design files' };
 const deliveryFor = name => DELIVERY[name] || 'Edited film';
+/* the overview cards: one per service, each opening its full section below */
+const SHORT = {
+  photography:'Events, portraits and products, edited and delivered as one graded set.',
+  film:'Documentaries, campaign and event films, from the first plan to the final cut.',
+  content:'Reels, short videos and photo stories, planned as a series for your channels.',
+  livestream:'Multi-camera streams with graphics, sound and a recording handed over.',
+  web:'Fast websites designed and built around your photographs and films.',
+  graphic:'Logos, posters and campaign graphics that share one look with your films.',
+};
+const svcGrid = document.getElementById('svcGrid');
+SERVICES.forEach((s, n) => {
+  const it = ITEMS.find(i => i.s === s.key);
+  const a = document.createElement('a');
+  a.className = 'svc-card'; a.href = '#svc-' + s.key; a.dataset.jump = s.key;
+  a.innerHTML = `<div class="media">${it ? (it.v ? clip(it.id) : `<img src="${IMG(it.id)}" alt="" loading="lazy" decoding="async">`) : ''}<span class="num">${String(n + 1).padStart(2, '0')}</span></div>
+    <div class="body"><h3>${s.name}</h3><p>${SHORT[s.key] || s.lede}</p><span class="go">Explore<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>`;
+  svcGrid.append(a);
+});
+svcGrid.addEventListener('click', e => {
+  const a = e.target.closest('[data-jump]'); if (!a) return;
+  e.preventDefault();
+  const el = document.getElementById('svc-' + a.dataset.jump);
+  content.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
+});
+
 const svcList = document.getElementById('svcList');
 SERVICES.forEach((s, n) => {
   const its = ITEMS.filter(i => i.s === s.key);

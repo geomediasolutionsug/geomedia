@@ -239,22 +239,14 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
   .svc-card:hover .go svg{transform:translateX(4px)}
 }
 .svc-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.svc-card.hl{animation:pick 2.4s var(--spring)}
+@keyframes pick{0%,60%{box-shadow:0 0 0 3px var(--orange),0 24px 48px -24px rgba(236,153,33,.55);border-color:var(--orange)}100%{box-shadow:0 0 0 0 rgba(236,153,33,0)}}
 @media (prefers-reduced-motion:reduce){ .svc-card,.svc-card .media :is(img,video){transition:none} .svc-card:hover{transform:none} }
-.svc-sec{min-height:100vh;padding:calc(120*var(--w)) calc(80*var(--w)) calc(80*var(--w));display:grid;grid-template-columns:5fr 7fr;gap:calc(64*var(--w));align-items:start;border-top:1px solid var(--ink-15)}
-.svc-sec:first-child{border-top:0}
-.svc-sec:nth-child(even){background:var(--band)}
 .count{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.14em;color:var(--accent);margin:0 0 calc(16*var(--w))}
-.svc-sec h2{margin:0;font-weight:500;font-size:max(40px,calc(96*var(--w)));line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
-.svc-sec .lede{font-size:max(16px,calc(19*var(--w)));line-height:1.5;margin:calc(24*var(--w)) 0 0;max-width:34ch}
-.svc-sec ul{list-style:none;padding:0;margin:calc(28*var(--w)) 0 0;border-top:1px solid var(--ink-35)}
-.svc-sec li{padding:calc(12*var(--w)) 0;border-bottom:1px solid var(--ink-35);font-size:max(15px,calc(16*var(--w)))}
 .svc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:calc(32*var(--w))}
 .btn-dark,.btn-line{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font-weight:500;font-size:max(14px,calc(15*var(--w)));letter-spacing:.04em}
 .btn-dark{background:var(--ink);color:#fff} .btn-dark:hover{background:var(--ink-2)}
 .btn-line{border:1px solid var(--ink)} .btn-line:hover{background:var(--ink);color:var(--wall)}
-.svc-photos{display:grid;grid-template-columns:1fr 1fr;gap:calc(16*var(--w))}
-.svc-photos :is(img,video){width:100%;aspect-ratio:4/5;object-fit:cover;display:block;border-radius:4px}
-.svc-photos :is(img,video):only-child{grid-column:1/-1;aspect-ratio:4/3}
 .shot{position:relative;overflow:hidden} .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* featured work: a bento of six projects */
 .work-sec,.quotes-sec{padding:calc(120*var(--w)) calc(80*var(--w))}
@@ -318,9 +310,8 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
 .end-sec .btn-line:hover{background:var(--wall);color:var(--ink)}
 .back-up{font:400 max(11px,calc(11*var(--w))) var(--mono);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid currentColor;align-self:flex-start;min-height:24px}
 @media (max-width:819px), (orientation:portrait) and (max-width:1100px){
-  .svc-sec{grid-template-columns:1fr;padding:84px 20px 56px;gap:28px}
   .end-sec{padding:84px 20px}
-  .svc-sec h2{font-size:min(12.5vw,60px)} .end-sec h2{font-size:min(14vw,64px)}
+  .end-sec h2{font-size:min(14vw,64px)}
   .svc-intro{padding:92px 16px 64px}
   .work-sec,.quotes-sec{padding:72px 16px}
   .sec-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:24px}
@@ -432,7 +423,6 @@ body:not(.reading) #content{transition:transform .7s cubic-bezier(.7,0,.2,1),vis
     </header>
     <div class="svc-grid" id="svcGrid"></div>
   </section>
-  <div id="svcList"></div>
 
   <section class="work-sec" id="featured" aria-labelledby="work-h">
     <div class="sec-head">
@@ -880,6 +870,7 @@ function enterContent(id){
   focused = null; setHint(false); pill.classList.remove('on');
   const el = id ? document.getElementById(id) : null;
   content.scrollTop = el ? el.offsetTop : 0;
+  if (!el && id && id.startsWith('svc-')) pickCard(id.slice(4));
   content.classList.add('up'); document.body.classList.add('reading', 'covered'); nav.classList.add('solid'); setToggle(null);
 }
 function leaveContent(atFrame){
@@ -1083,17 +1074,23 @@ const svcGrid = document.getElementById('svcGrid');
 SERVICES.forEach((s, n) => {
   const it = ITEMS.find(i => i.s === s.key);
   const a = document.createElement('a');
-  a.className = 'svc-card'; a.href = '#svc-' + s.key; a.dataset.jump = s.key;
+  a.className = 'svc-card'; a.href = '#'; a.dataset.jump = s.key;
   a.innerHTML = `<div class="media">${it ? (it.v ? clip(it.id) : `<img src="${IMG(it.id)}" alt="" loading="lazy" decoding="async">`) : ''}<span class="num">${String(n + 1).padStart(2, '0')}</span></div>
-    <div class="body"><h3>${s.name}</h3><p>${SHORT[s.key] || s.lede}</p><span class="go">Explore<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>`;
+    <div class="body"><h3>${s.name}</h3><p>${SHORT[s.key] || s.lede}</p><span class="go">See the work<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>`;
   svcGrid.append(a);
 });
 content.addEventListener('click', e => {
   const a = e.target.closest('[data-jump]'); if (!a) return;
   e.preventDefault();
-  const el = document.getElementById('svc-' + a.dataset.jump);
-  content.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
+  leaveContent(firstFrameOf(a.dataset.jump));   // back into the gallery, in front of that service's first frame
 });
+/* scrolling down from a clicked frame lands on the overview with that service's card picked out */
+function pickCard(key){
+  const c = svcGrid.querySelector(`[data-jump="${key}"]`); if (!c) return;
+  content.scrollTop = Math.max(0, c.offsetTop - innerHeight * .22);
+  c.classList.remove('hl'); void c.offsetWidth; c.classList.add('hl');
+  setTimeout(() => c.classList.remove('hl'), 2600);
+}
 
 const FEATURED = ['v-studio', 'f182219186', 'v-photographer', 'f107307775', 'f64505987', 'v-shapes'];
 const workGrid = document.getElementById('workGrid');
@@ -1106,28 +1103,8 @@ FEATURED.forEach(id => {
   b.onclick = () => openProject(i, b.getBoundingClientRect());
   workGrid.append(b);
 });
-document.getElementById('footSvc').innerHTML = SERVICES.map(s => `<li><a href="#svc-${s.key}" data-jump="${s.key}">${s.name}</a></li>`).join('');
+document.getElementById('footSvc').innerHTML = SERVICES.map(s => `<li><a href="#" data-jump="${s.key}">${s.name}</a></li>`).join('');
 
-const svcList = document.getElementById('svcList');
-SERVICES.forEach((s, n) => {
-  const its = ITEMS.filter(i => i.s === s.key);
-  const sec = document.createElement('section');
-  sec.className = 'svc-sec'; sec.id = 'svc-' + s.key; sec.setAttribute('aria-labelledby', 'svc-h-' + s.key);
-  sec.innerHTML = `<div>
-      <p class="count">${String(n + 1).padStart(2, '0')} / ${String(SERVICES.length).padStart(2, '0')}</p>
-      <h2 id="svc-h-${s.key}">${s.name}</h2>
-      <p class="lede">${s.lede}</p>
-      <ul>${s.inc.map(x => `<li>${x}</li>`).join('')}</ul>
-      <div class="svc-actions"><button type="button" class="btn-dark" data-add="${s.key}">Add to brief</button><button type="button" class="btn-line" data-see="${s.key}">See it in the gallery</button></div>
-    </div>
-    <div class="svc-photos">${its.map(i => i.v ? clip(i.id) : `<img src="${IMG(i.id)}" alt="${i.title}, ${i.place}" loading="lazy" decoding="async">`).join('')}</div>`;
-  svcList.append(sec);
-});
-svcList.addEventListener('click', e => {
-  const add = e.target.closest('[data-add]'), see = e.target.closest('[data-see]');
-  if (add){ const s = SERVICES.find(x => x.key === add.dataset.add); addLine({ idx:firstFrameOf(s.key), service:s.name, length:'Full day', crew:'Small crew (2 to 3)', delivery:deliveryFor(s.name), cams:1 }); }
-  if (see) leaveContent(firstFrameOf(see.dataset.see));
-});
 document.querySelectorAll('[data-open-brief]').forEach(b => b.onclick = () => toggleDrawer(true));
 
 function card(i){

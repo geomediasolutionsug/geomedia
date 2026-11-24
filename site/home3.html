@@ -4,39 +4,176 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home 3 · Geo Media Solutions</title>
+<meta name="description" content="Photography, film, content, livestreams and design from one crew in Kampala.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script>try{if(localStorage.getItem('gm-theme')==='dark')document.documentElement.classList.add('room-dark')}catch(e){}</script>
+<meta name="theme-color" content="#2B6650">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Montserrat:wght@400..600&family=DM+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EFE9DE;--panel:#E3DAC9;--ink:#183630;--ink-70:rgba(24,54,48,.7);--orange:#EC9921;--gold:#E5C690}
-:root.room-dark{--bg:#12291F;--panel:#183630;--ink:#E3DAC9;--ink-70:rgba(227,218,201,.72)}
-*{box-sizing:border-box} body{margin:0;min-height:100svh;display:grid;place-items:center;padding:96px 16px 24px;background:var(--bg);color:var(--ink);font:400 15px/1.6 Montserrat,system-ui,sans-serif}
+/* Home 3: the green-and-brown board. Green hero with a collage on the right, a feature panel, six tactile tiles. */
+:root{
+  --g1:#3C7D63; --g2:#2B6650; --g3:#1F4E3E; --g4:#183E31; --sage:#7FA36A;
+  --b1:#9A6646; --b2:#7A4A31; --b3:#5B3424; --tan:#D8B68F; --tan2:#E9CFAE;
+  --cream:#F3E2C6; --peach1:#F4D0A8; --peach2:#DFA67A;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--g3);color:var(--cream);font:400 15px/1.6 "Montserrat",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;height:50px;padding:0 18px;border-radius:99px;background:color-mix(in oklab,var(--bg) 70%,transparent);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.5);box-shadow:0 14px 34px -16px rgba(24,54,48,.35);white-space:nowrap}
-.nav img{width:24px;height:24px}
-.links{display:flex;gap:16px;font-size:13.5px} .links a{opacity:.6;display:inline-flex;align-items:center;gap:6px} .links a:hover{opacity:1}
-.links a[aria-current="page"]{opacity:1;font-weight:600} .links a[aria-current="page"]::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
-.card{width:min(760px,100%);padding:clamp(40px,8vw,96px) clamp(24px,6vw,72px);border-radius:36px;background:var(--panel);text-align:center}
-.card p.k{margin:0 0 18px;font:400 11px DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-70)}
-h1{margin:0;font:300 clamp(56px,10vw,120px)/.95 Fraunces,Georgia,serif;letter-spacing:-.035em}
-h1 em{font-style:italic}
-.card p.s{margin:22px auto 0;max-width:34ch;color:var(--ink-70)}
-.row{display:flex;justify-content:center;gap:10px;margin-top:34px;flex-wrap:wrap}
-.row a{height:46px;padding:0 20px;border-radius:99px;display:inline-flex;align-items:center;font-weight:500;font-size:14px;border:1px solid rgba(24,54,48,.2)}
-.row a:first-child{background:var(--ink);color:var(--bg);border-color:transparent}
-@media (max-width:560px){ .links .hl{display:none} }
+img,video{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--peach1);outline-offset:3px;border-radius:8px}
+
+/* nav: the same island as the other homes */
+.nav{position:fixed;z-index:30;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;height:52px;padding:0 7px 0 18px;border-radius:99px;white-space:nowrap;max-width:calc(100vw - 20px);
+  background:rgba(24,62,49,.55);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 34px -14px rgba(0,0,0,.5)}
+.logo{flex:none;display:flex;align-items:center;gap:9px;font-weight:600;font-size:15px}
+.logo img{width:26px;height:26px}
+.links{display:flex;gap:16px;font-size:13.5px} .links a{opacity:.62;display:inline-flex;align-items:center;gap:6px;transition:opacity .2s} .links a:hover{opacity:1}
+.links a[aria-current="page"]{opacity:1;font-weight:600} .links a[aria-current="page"]::before{content:"";width:6px;height:6px;border-radius:50%;background:#EC9921}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:99px;font-weight:600;font-size:13.5px;color:#3B2416;
+  background:linear-gradient(180deg,var(--peach1),var(--peach2));box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 10px 22px -10px rgba(91,52,36,.7);transition:transform .25s var(--ease),box-shadow .25s}
+@media (hover:hover){ .btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 14px 28px -10px rgba(91,52,36,.8)} }
+.btn:active{transform:scale(.97)}
+.btn--big{height:54px;padding:0 34px;font-size:15px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;min-height:min(100svh,860px);display:grid;grid-template-columns:1fr 1.15fr;align-items:center;gap:40px;padding:110px max(24px,6vw) 70px;
+  background:radial-gradient(120% 90% at 20% 30%,var(--g1),var(--g2) 55%,var(--g3))}
+.hero::before{content:"";position:absolute;left:-6%;bottom:-18%;width:46%;height:42%;background:linear-gradient(135deg,var(--b1),var(--b2));transform:skewY(-14deg);transform-origin:0 100%;opacity:.95}
+.hero::after{content:"";position:absolute;right:-8%;top:-10%;width:52%;height:130%;background:linear-gradient(160deg,var(--b2),var(--b3));clip-path:polygon(32% 0,100% 0,100% 100%,0 100%,18% 62%);opacity:.9}
+.copy{position:relative;z-index:2;max-width:520px}
+.copy h1{margin:0;font-weight:600;font-size:clamp(44px,5.6vw,84px);line-height:1.02;letter-spacing:-.025em;color:var(--cream);text-shadow:0 2px 24px rgba(0,0,0,.18)}
+.copy p{margin:26px 0 0;max-width:38ch;font-size:15.5px;line-height:1.7;color:rgba(243,226,198,.82)}
+.copy .btn{margin-top:36px}
+/* the collage: photographs layered and tilted like the leaves on the board */
+.collage{position:relative;z-index:2;height:min(66vh,600px);min-height:380px}
+.ph{position:absolute;overflow:hidden;border-radius:22px;box-shadow:0 30px 60px -24px rgba(0,0,0,.6),0 4px 12px rgba(0,0,0,.2);transform:rotate(var(--r));transition:transform .6s var(--ease)}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover}
+.ph:nth-child(1){left:2%;top:10%;width:34%;height:58%;--r:-9deg}
+.ph:nth-child(2){left:26%;top:0;width:40%;height:74%;--r:4deg;z-index:2}
+.ph:nth-child(3){right:0;top:8%;width:33%;height:56%;--r:11deg}
+.ph:nth-child(4){left:40%;bottom:0;width:44%;height:44%;--r:-6deg;z-index:3}
+@media (hover:hover){ .collage:hover .ph{transform:rotate(calc(var(--r) * .5)) translateY(-4px)} }
+
+/* ---------- feature band ---------- */
+.band{position:relative;padding:72px max(20px,6vw) 64px;
+  background:radial-gradient(80% 120% at 50% 0%,#5E8B57,#4D7A4A 45%,#3F6B40);
+  }
+.band::before{content:"";position:absolute;inset:0;opacity:.28;pointer-events:none;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .05' numOctaves='3' seed='7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.panel{position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);border-radius:34px;overflow:hidden;
+  background:linear-gradient(160deg,#2F6E5A,#1F5444 60%,#1A4739);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 34px 60px -30px rgba(0,0,0,.55)}
+.panel::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(60% 90% at 12% -10%,rgba(255,255,255,.12),transparent 60%),radial-gradient(50% 80% at 38% 110%,rgba(255,255,255,.06),transparent 60%),radial-gradient(55% 90% at 64% -20%,rgba(255,255,255,.09),transparent 60%),radial-gradient(50% 80% at 90% 110%,rgba(255,255,255,.06),transparent 60%)}
+.feat{position:relative;padding:44px 30px 40px;text-align:center}
+.feat + .feat::before{content:"";position:absolute;left:0;top:18%;bottom:18%;width:1px;background:linear-gradient(transparent,rgba(243,226,198,.22),transparent)}
+.feat svg{width:56px;height:56px;margin:0 auto 18px;stroke:var(--cream);stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
+.feat h3{margin:0 0 10px;font-weight:600;font-size:17px;color:var(--cream)}
+.feat p{margin:0 auto;max-width:26ch;font-size:13.5px;line-height:1.6;color:rgba(243,226,198,.72)}
+
+/* ---------- tiles ---------- */
+.tiles{position:relative;padding:72px max(20px,6vw) 40px;background:linear-gradient(180deg,#3F6B40,var(--g4) 38%)}
+.grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tile{position:relative;overflow:hidden;min-height:250px;padding:34px 28px 30px;border-radius:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 24px 40px -24px rgba(0,0,0,.6);transition:transform .35s var(--ease),box-shadow .35s}
+@media (hover:hover){ .tile:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 34px 50px -26px rgba(0,0,0,.7)} }
+.tile h3{margin:16px 0 8px;font-weight:600;font-size:17px;letter-spacing:.01em}
+.tile p{margin:0;max-width:30ch;font-size:13px;line-height:1.6;opacity:.82}
+.badge{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 18px -8px rgba(0,0,0,.5)}
+.badge svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.t-green{background:linear-gradient(160deg,#8DB079,#6F955F);color:#F4F1E4} .t-green .badge{background:#3F7A4C;color:#F4F1E4}
+.t-brown{background:linear-gradient(160deg,#8C5A3E,#6E412B);color:var(--cream)} .t-brown .badge{background:#3A3A3C;color:var(--cream)}
+.t-clay{background:linear-gradient(160deg,#B07A55,#8E5B3D);color:#FFF1DE} .t-clay .badge{background:transparent;box-shadow:none;color:#F0C57E} .t-clay .badge svg{width:46px;height:46px;stroke-width:1.4}
+.t-dark{background:linear-gradient(160deg,#6A3F2B,#4E2C1F);color:var(--cream)} .t-dark .badge{background:#4A4A4C;color:#fff}
+.t-tan{background:linear-gradient(160deg,#ECD4B4,#D7B48C);color:#4A2C1C} .t-tan .badge{background:#9A6646;color:#F7E2C3;border-radius:16px;transform:rotate(45deg)} .t-tan .badge svg{transform:rotate(-45deg)}
+.t-photo{padding:0;min-height:250px} .t-photo img,.t-photo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.t-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(24,62,49,.55))}
+.t-photo span{position:absolute;left:22px;bottom:18px;z-index:1;font-weight:600;font-size:15px;color:#fff}
+.foot{padding:38px 20px 46px;text-align:center;background:var(--g4);font-size:13px;color:rgba(243,226,198,.7)}
+.foot nav{display:flex;justify-content:center;gap:20px;margin-top:10px;flex-wrap:wrap} .foot a:hover{color:var(--cream)}
+
+/* entrance: the collage settles in, once */
+.in-up{animation:inUp .9s var(--ease) backwards;animation-delay:var(--d,0ms)}
+@keyframes inUp{from{opacity:0;transform:translateY(22px) rotate(var(--r,0deg))}to{opacity:1;transform:rotate(var(--r,0deg))}}
+
+/* ---------- smaller screens ---------- */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;padding-top:100px;min-height:0}
+  .hero::after{width:100%;height:46%;top:auto;bottom:-4%;right:-10%;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
+  .collage{height:420px}
+  .panel{grid-template-columns:1fr 1fr} .feat:nth-child(3)::before{display:none}
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  .links .hl{display:none} .logo .name{display:none} .nav{gap:12px}
+  .collage{height:340px}
+  .panel{grid-template-columns:1fr} .feat + .feat::before{left:18%;right:18%;top:0;bottom:auto;width:auto;height:1px;background:linear-gradient(90deg,transparent,rgba(243,226,198,.22),transparent)}
+  .grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
 </style>
 </head>
 <body>
-<header class="nav"><img src="assets/logo-mark.svg" alt="Geo Media Solutions" width="24" height="24"><nav class="links" aria-label="Homepage designs"><a href="index.html"><span class="hl">Home&nbsp;</span>1</a><a href="home2.html"><span class="hl">Home&nbsp;</span>2</a><a href="home3.html" aria-current="page"><span class="hl">Home&nbsp;</span>3</a><a href="home4.html"><span class="hl">Home&nbsp;</span>4</a></nav></header>
-<main class="card">
-  <p class="k">Homepage concept 3 of 4</p>
-  <h1>Home <em>3</em></h1>
-  <p class="s">The next format is on the drawing board. Compare the first two in the meantime.</p>
-  <div class="row"><a href="index.html">See Home 1</a><a href="home2.html">See Home 2</a></div>
+<header class="nav">
+  <a class="logo" href="index.html"><img src="assets/logo-mark-light.svg" alt="" width="26" height="26"><span class="name">Geo Media Solutions</span></a>
+  <nav class="links" aria-label="Homepage designs"><a href="index.html"><span class="hl">Home&nbsp;</span>1</a><a href="home2.html"><span class="hl">Home&nbsp;</span>2</a><a href="home3.html" aria-current="page"><span class="hl">Home&nbsp;</span>3</a><a href="home4.html"><span class="hl">Home&nbsp;</span>4</a></nav>
+  <a class="btn" href="studio.html#start">Book a shoot</a>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h">
+    <div class="copy">
+      <h1 id="h" class="in-up">Frame your<br>story</h1>
+      <p class="in-up" style="--d:120ms">Photographs people keep, films people forward, streams that never drop, and design that ties it all together. One crew, Kampala.</p>
+      <a class="btn btn--big in-up" style="--d:220ms" href="studio.html#start">Book a shoot</a>
+    </div>
+    <div class="collage" aria-label="Recent work">
+      <figure class="ph in-up" style="margin:0;--d:160ms"><img src="assets/img/geo-bride-700.webp" alt="A bride in a vintage car" width="700" height="933"></figure>
+      <figure class="ph in-up" style="margin:0;--d:60ms"><img src="assets/img/geo-frame.webp" alt="A woman framing the camera with her fingers" width="1024" height="1126"></figure>
+      <figure class="ph in-up" style="margin:0;--d:240ms"><img src="assets/img/geo-poster-700.webp" alt="An editorial portrait poster" width="700" height="875"></figure>
+      <figure class="ph in-up" style="margin:0;--d:320ms"><video src="assets/video/v-studio.mp4" poster="assets/img/photo-v-studio-960.webp" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video></figure>
+    </div>
+  </section>
+
+  <section class="band" aria-label="How we work">
+    <div class="panel">
+      <div class="feat">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="5"/><path d="M44 20l10-10M50 10h4v4"/></svg>
+        <h3>Planned</h3><p>A call, a shot list and a quote in one working day.</p>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="22" width="36" height="26" rx="4"/><path d="M46 30l10-6v20l-10-6"/><circle cx="22" cy="16" r="5"/><circle cx="36" cy="16" r="5"/></svg>
+        <h3>Shot</h3><p>Crew, kit and the backup kit, early. You only see the calm.</p>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 50L40 24"/><path d="M40 24l6-12 6 6-12 6z"/><path d="M14 50c-4 0-6 3-6 6 4 0 9-1 9-5"/></svg>
+        <h3>Crafted</h3><p>Edits, grades and graphics with two review rounds.</p>
+      </div>
+      <div class="feat">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="20"/><path d="M32 32V16M32 32l14 8M32 32l-14 8"/></svg>
+        <h3>Everywhere</h3><p>Sized for social, web, print and broadcast, the same week.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tiles" aria-labelledby="svc-h">
+    <h2 id="svc-h" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Services</h2>
+    <div class="grid">
+      <a class="tile t-green" href="studio.html#services"><span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4M6 6l2.8 2.8M15.2 15.2L18 18M6 18l2.8-2.8M15.2 8.8L18 6"/></svg></span><h3>Photography</h3><p>The only part of the event that outlives the catering.</p></a>
+      <a class="tile t-brown" href="studio.html#services"><span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="13" height="10" rx="2"/><path d="M16 11l5-3v8l-5-3"/></svg></span><h3>Filmmaking</h3><p>A report gets skimmed. A three-minute film gets forwarded.</p></a>
+      <a class="tile t-clay" href="studio.html#services"><span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-4-3-6-6-6-9a6 6 0 0 1 12 0c0 3-2 6-6 9z"/><path d="M12 21V9M12 13l-3-3M12 15l3-3"/></svg></span><h3>Content creation</h3><p>Posting once is a whisper. Every week is a reputation.</p></a>
+      <a class="tile t-photo" href="studio.html#work"><img src="assets/img/photo-f182219186-960.webp" alt="" loading="lazy"><span>Cultural day on stage</span></a>
+      <a class="tile t-dark" href="studio.html#services"><span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.5"/><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.6 4.6a10.5 10.5 0 0 0 0 14.8M19.4 4.6a10.5 10.5 0 0 1 0 14.8"/></svg></span><h3>Livestreaming</h3><p>An audience forgives a slow speaker, never a frozen screen.</p></a>
+      <a class="tile t-tan" href="studio.html#services"><span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M5 12h14M5 16h9"/></svg></span><h3>Web &amp; graphic design</h3><p>Consistency looks expensive. One look across page, poster and film.</p></a>
+    </div>
+  </section>
 </main>
+
+<footer class="foot">
+  <div>Geo Media Solutions &middot; Kampala</div>
+  <nav aria-label="Footer"><a href="studio.html#start">Contact</a><a href="studio.html#on-air">On air</a><a href="credits.html">Credits</a></nav>
+</footer>
 </body>
 </html>
